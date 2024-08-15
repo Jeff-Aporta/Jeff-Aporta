@@ -3,12 +3,18 @@
 />
 <h1>
 Visita mi Portafolio
-<br/><br/>
+<br/>
 <a href="https://jeff-aporta.github.io/portafolio/" target="_blank">
     https://jeff-aporta.github.io/portafolio/
 </a>
 </h1>
 Desarrollador de software con experiencia en diseño, desarrollo y mantenimiento de aplicaciones. Experto en lenguajes de programación y metodologías ágiles, enfocado en la resolución de problemas y mejora continua.
+<hr/>
+<b>Youtube:</b>
+<br/>
+Jeff Aporta 
+
+<a href="https://www.youtube.com/@JeffAporta"><b>https://www.youtube.com/@JeffAporta</b></a>
 <hr/>
 <b>Email:</b>
 <br/>
@@ -16,11 +22,11 @@ jeffrey.alexander.agudelo.espitia@gmail.com
 <hr/>
 <b>Celular:</b>
 <br/>
-3107257814 (Whatsapp)
+3107257814 (<a href="https://wa.link/1tmqmt">Whatsapp</a>)
 <hr/>
 <b>Ubicación:</b>
 <br/>
-Tuluá - Valle del Cauca
+Colombia
 <hr/>
 <h3>
 ENFASIS EN COMPUTACIÓN GRÁFICA 2D Y ESTRUCTURA DE DATOS
