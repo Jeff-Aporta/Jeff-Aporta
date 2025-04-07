@@ -1,0 +1,7 @@
+Aquí se deben colocar las imágenes de las empresas:
+- registel.png
+- iseeci.png
+- elcinco.png
+- freelancer.png
+
+Estas imágenes deben tener un tamaño aproximado de 300x200 píxeles y preferiblemente con fondo transparente (formato PNG).

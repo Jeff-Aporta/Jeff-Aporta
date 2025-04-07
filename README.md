@@ -1,38 +1,25 @@
-<img
-    src="name.svg"
-/>
-<h1>
-Visita mi Portafolio
-<br/>
-<a href="https://jeff-aporta.github.io/portafolio/" target="_blank">
-    https://jeff-aporta.github.io/portafolio/
-</a>
-</h1>
-Desarrollador de software con experiencia en diseño, desarrollo y mantenimiento de aplicaciones. Experto en lenguajes de programación y metodologías ágiles, enfocado en la resolución de problemas y mejora continua.
-<hr/>
-<b>Youtube:</b>
-<br/>
-Jeff Aporta 
+# Jeffrey Agudelo - Desarrollador de Software
 
-<a href="https://www.youtube.com/@JeffAporta"><b>https://www.youtube.com/@JeffAporta</b></a>
-<hr/>
-<b>Email:</b>
-<br/>
-jeffrey.alexander.agudelo.espitia@gmail.com
-<hr/>
-<b>Celular:</b>
-<br/>
-3107257814 (<a href="https://wa.link/1tmqmt">Whatsapp</a>)
-<hr/>
-<b>Ubicación:</b>
-<br/>
+¡Hola! Soy Jeffrey Agudelo, un apasionado desarrollador de software con un enfoque en la creación de aplicaciones eficientes y visualmente atractivas. Mi experiencia abarca desde el diseño y desarrollo hasta el mantenimiento de aplicaciones, siempre buscando la mejora continua y la resolución efectiva de problemas.
+
+## Habilidades
+- **Lenguajes de Programación**: JavaScript, HTML5, CSS3, Node.js, Java, PHP
+- **Frameworks y Librerías**: React, jQuery
+- **Bases de Datos**: MySQL, PostgreSQL
+- **Otros**: Computación Gráfica 2D, Estructura de Datos, Metodologías Ágiles
+
+## Proyectos Destacados
+- **[Juego de Trivia](https://jeff-aporta.github.io/juego-trivia-v1)**: Juego interactivo de preguntas y respuestas.
+- **[Mandelbrot Fractal](https://jeff-aporta.github.io/algoritmo-mandelbrot)**: Exploración visual del conjunto de Mandelbrot.
+- **[Snake Game](https://jeff-aporta.github.io/juego-snake)**: Versión moderna del clásico juego de la serpiente.
+
+## Enlaces de Contacto
+- **Portafolio**: [Visita mi portafolio](https://jeff-aporta.github.io/portafolio/)
+- **YouTube**: [Jeff Aporta](https://www.youtube.com/@JeffAporta)
+- **Email**: jeffrey.alexander.agudelo.espitia@gmail.com
+- **Celular**: 3107257814 ([Whatsapp](https://wa.link/1tmqmt))
+
+## Ubicación
 Colombia
-<hr/>
-<h3>
-ENFASIS EN COMPUTACIÓN GRÁFICA 2D Y ESTRUCTURA DE DATOS
-</h3>
-Lo que implica que desarrollo habilidades en la creación y manipulación de imágenes digitales
-bidimensionales, así como en el uso de estructuras de datos eficientes para organizar y procesar información.
-Aprendo técnicas para gráficos vectoriales y rasterizados, y cómo implementar algoritmos para manipular
-estructuras como listas, árboles y grafos, aplicándolos en áreas como interfaces de usuario, bases de datos o
-aplicaciones interactivas.
+
+Estoy siempre abierto a nuevas oportunidades y colaboraciones. ¡No dudes en contactarme!
