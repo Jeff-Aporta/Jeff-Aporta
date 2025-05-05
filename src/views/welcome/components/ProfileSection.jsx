@@ -9,7 +9,8 @@ import {
   Button, 
   IconButton, 
   Snackbar, 
-  Alert 
+  Alert,
+  Divider
 } from "@mui/material";
 import { PaperP } from "@containers";
 import { ImageLocal } from "@recurrent";
@@ -18,6 +19,7 @@ import WhatsAppIcon from '@mui/icons-material/WhatsApp';
 import GitHubIcon from '@mui/icons-material/GitHub';
 import YouTubeIcon from '@mui/icons-material/YouTube';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
+import LinkedInIcon from '@mui/icons-material/LinkedIn';
 
 const ProfileSection = ({ techInfo, getTechIconUrl }) => {
   const [openToast, setOpenToast] = useState(false);
@@ -72,7 +74,7 @@ const ProfileSection = ({ techInfo, getTechIconUrl }) => {
           
           <Box className="profile-image-container" sx={{ width: "200px", height: "200px", margin: "0 auto 20px auto" }}>
             <ImageLocal 
-              src="/img/profile.jpg" 
+              src="img/profile.jpg" 
               alt="Jeffrey Alexander Agudelo Espitia" 
               className="profile-image"
               fallbackSrc={`https://ui-avatars.com/api/?name=Jeffrey+Alexander&background=random&color=fff&size=200&bold=true`}
@@ -81,6 +83,42 @@ const ProfileSection = ({ techInfo, getTechIconUrl }) => {
           
           {/* Enlaces de redes sociales */}
           <Box sx={{ display: 'flex', justifyContent: 'center', gap: 1, mb: 3, mt: 3 }}>
+            {/* Redes profesionales */}
+            <Tooltip title="LinkedIn">
+              <IconButton 
+                href="https://www.linkedin.com/in/jeffrey-alexander-agudelo-espitia/" 
+                target="_blank"
+                sx={{ 
+                  bgcolor: '#0A66C2', 
+                  color: 'white',
+                  '&:hover': { bgcolor: '#084E96' },
+                  width: 40,
+                  height: 40
+                }}
+              >
+                <LinkedInIcon fontSize="small" />
+              </IconButton>
+            </Tooltip>
+            
+            <Tooltip title="GitHub">
+              <IconButton 
+                href="https://github.com/Jeff-Aporta" 
+                target="_blank"
+                sx={{ 
+                  bgcolor: '#333', 
+                  color: 'white',
+                  '&:hover': { bgcolor: '#24292e' },
+                  width: 40,
+                  height: 40
+                }}
+              >
+                <GitHubIcon fontSize="small" />
+              </IconButton>
+            </Tooltip>
+            
+            <Divider orientation="vertical" flexItem sx={{ mx: 1 }} />
+            
+            {/* Redes sociales */}
             <Tooltip title="Canal de Telegram">
               <Button 
                 href="https://t.me/canalAporta" 
@@ -130,22 +168,6 @@ const ProfileSection = ({ techInfo, getTechIconUrl }) => {
                 }}
               >
                 <WhatsAppIcon fontSize="small" />
-              </IconButton>
-            </Tooltip>
-            
-            <Tooltip title="GitHub">
-              <IconButton 
-                href="https://github.com/Jeff-Aporta" 
-                target="_blank"
-                sx={{ 
-                  bgcolor: '#333', 
-                  color: 'white',
-                  '&:hover': { bgcolor: '#24292e' },
-                  width: 40,
-                  height: 40
-                }}
-              >
-                <GitHubIcon fontSize="small" />
               </IconButton>
             </Tooltip>
             
@@ -210,7 +232,7 @@ const ProfileSection = ({ techInfo, getTechIconUrl }) => {
                 }} 
               />
               <Typography variant="body2" sx={{ fontFamily: 'Poppins, sans-serif', color: 'inherit', fontWeight: 'bold' }}>
-                Tuluá, Valle del Cauca
+                Tuluá - Valle
               </Typography>
             </Box>
           </Tooltip>
@@ -229,7 +251,7 @@ const ProfileSection = ({ techInfo, getTechIconUrl }) => {
                   mb: "60px"
                 }}>
                   <Typography className="stat-number" sx={{ fontSize: "48px", fontWeight: "800" }}>
-                    +4
+                    +7.2
                   </Typography>
                   <Typography variant="body2" sx={{ fontFamily: 'Poppins, sans-serif', color: 'inherit' }}>
                     Años de experiencia

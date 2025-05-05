@@ -13,7 +13,7 @@ const ProjectsSection = () => {
     {
       id: 1,
       title: 'Juego de Trivia',
-      image: '/img/Proyectos/Juego-trivia-prev.jpg',
+      image: 'img/Proyectos/Juego-trivia-prev.jpg',
       description: 'Juego de preguntas y respuestas con múltiples categorías',
       link: '/projects/trivia',
       youtube: 'https://www.youtube.com/embed/HHDCktzuUCk',
@@ -23,7 +23,7 @@ const ProjectsSection = () => {
     {
       id: 2,
       title: 'Mandelbrot Fractal',
-      image: '/img/Proyectos/mandelbrot-prev.jpg',
+      image: 'img/Proyectos/mandelbrot-prev.jpg',
       description: 'Visualización interactiva del conjunto de Mandelbrot',
       link: '/projects/mandelbrot',
       youtube: 'https://www.youtube.com/embed/SW0dq_DzeWk',
@@ -33,7 +33,7 @@ const ProjectsSection = () => {
     {
       id: 3,
       title: 'Snake Game',
-      image: '/img/Proyectos/Snake-game-prev.jpg',
+      image: 'img/Proyectos/Snake-game-prev.jpg',
       description: 'Clásico juego de la serpiente con características modernas',
       link: '/projects/snake',
       youtube: 'https://www.youtube.com/embed/wgSjVMmkLC0',
@@ -43,7 +43,7 @@ const ProjectsSection = () => {
     {
       id: 4,
       title: 'Juego de Conway',
-      image: '/img/Proyectos/Juego-conway-prev.jpg',
+      image: 'img/Proyectos/Juego-conway-prev.jpg',
       description: 'Implementación del Juego de la Vida de Conway',
       link: '/projects/conway',
       youtube: 'https://www.youtube.com/embed/JA3dvpNbUJs',
@@ -53,7 +53,7 @@ const ProjectsSection = () => {
     {
       id: 5,
       title: 'Tetris',
-      image: '/img/Proyectos/tetris-prev.jpg',
+      image: 'img/Proyectos/tetris-prev.jpg',
       description: 'Versión del clásico juego Tetris',
       link: '/projects/tetris',
       youtube: 'https://www.youtube.com/embed/y_rnUOHUoQ4',
@@ -63,7 +63,7 @@ const ProjectsSection = () => {
     {
       id: 6,
       title: 'Pong',
-      image: '/img/Proyectos/Pong-prev.jpg',
+      image: 'img/Proyectos/Pong-prev.jpg',
       description: 'Recreación del primer videojuego de la historia',
       link: '/projects/pong',
       youtube: 'https://www.youtube.com/embed/MCEl05ZbZ80',

@@ -15,7 +15,6 @@ import {
 import { ImageLocal } from "@recurrent";
 import fluidCSS from "@jeff-aporta/fluidcss";
 import { LuminanceThemeSwitch } from "@components/templates/menu/switch";
-import LoginIcon from "@mui/icons-material/Login";
 
 import {
   isDark,
@@ -67,22 +66,6 @@ function HeadMain({ updateTheme = () => 0 }) {
     >
       <BotonInicio />
       <div className="d-center gap-10px">
-        {!isLoginPage && (
-          <Button
-            variant="contained"
-            color="primary"
-            size="small"
-            startIcon={<LoginIcon />}
-            href={href("/users/login")}
-            sx={{
-              borderRadius: "20px",
-              textTransform: "none",
-              fontWeight: "bold",
-            }}
-          >
-            Inicia sesión
-          </Button>
-        )}
         <Tooltip title={"Cambiar a tema " + (isDark() ? "claro" : "oscuro")}>
           <LuminanceThemeSwitch
             checked={isDark()}
@@ -103,7 +86,7 @@ function BotonInicio() {
       className="d-center bright-hover-1-5 gap-10px c-pointer"
     >
       <ImageLocal
-        src="/img/logo.jpg"
+        src="img/icon.png"
         width="40"
         className={fluidCSS()
           .lerpX([450, 1000], { width: [30, 40] })

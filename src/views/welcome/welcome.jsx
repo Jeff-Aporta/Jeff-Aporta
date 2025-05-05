@@ -11,7 +11,8 @@ import {
   ProfessionalDetailsSection, 
   YouTubeSection,
   ExperienceSection,
-  ProjectsSection
+  ProjectsSection,
+  MocksSection
 } from './components';
 
 // Insert custom styles for the welcome page
@@ -266,6 +267,9 @@ export default function Welcome() {
         
         {/* Sección de Proyectos */}
         <ProjectsSection />
+        
+        {/* Sección de Mocks */}
+        <MocksSection />
       </DivM>
     </ThemeSwitcher>
   );

@@ -4,7 +4,7 @@ import ProjectCard from './ProjectCard';
 
 const projectsData = [
   {
-    image: "/img/projects/memorama-prev.png",
+    image: "img/projects/memorama-prev.png",
     title: { icon: "fa-solid fa-brain", title: "Memorama" },
     description: "Juego de memoria donde tienes que encontrar las parejas de cartas iguales.",
     youtube: "https://www.youtube.com/embed/n8ujo9spBR4",
@@ -14,7 +14,7 @@ const projectsData = [
     languageColor: "yellow",
   },
   {
-    image: "/img/projects/juego-trivia-prev.jpg",
+    image: "img/projects/juego-trivia-prev.jpg",
     title: { icon: "fa-regular fa-circle-question", title: "Juego de preguntas" },
     description: "Juego de preguntas y respuestas con diferentes categorías.",
     youtube: "https://www.youtube.com/embed/HHDCktzuUCk",
@@ -24,7 +24,7 @@ const projectsData = [
     languageColor: "yellow",
   },
   {
-    image: "/img/projects/juego-trivia-v2-prev.jpg",
+    image: "img/projects/juego-trivia-v2-prev.jpg",
     title: { icon: "fa-regular fa-circle-question", title: "Juego de preguntas v2" },
     description: "Juego de preguntas y respuestas con diferentes categorías. Segunda versión.",
     youtube: "https://www.youtube.com/embed/HHDCktzuUCk",
@@ -34,7 +34,7 @@ const projectsData = [
     languageColor: "yellow",
   },
   {
-    image: "/img/projects/buscaminas-prev.jpg",
+    image: "img/projects/buscaminas-prev.jpg",
     title: { icon: "fa-solid fa-puzzle-piece", title: "Buscaminas" },
     description: "Implementación del juego de buscaminas.",
     youtube: "https://www.youtube.com/embed/xwapo6FFhnQ",
@@ -44,7 +44,7 @@ const projectsData = [
     languageColor: "yellow",
   },
   {
-    image: "/img/projects/pong-prev.jpg",
+    image: "img/projects/pong-prev.jpg",
     title: { icon: "fa-solid fa-table-tennis-paddle-ball", title: "Pong solitario" },
     description: "Juego de pong para un solo jugador.",
     youtube: "https://www.youtube.com/embed/MCEl05ZbZ80",
@@ -54,7 +54,7 @@ const projectsData = [
     languageColor: "yellow",
   },
   {
-    image: "/img/projects/juego-conway-prev.jpg",
+    image: "img/projects/juego-conway-prev.jpg",
     title: { icon: "fa-solid fa-infinity", title: "Juego de la vida" },
     description: "Implementación del juego de la vida de Conway.",
     youtube: "https://www.youtube.com/embed/JA3dvpNbUJs",
@@ -64,7 +64,7 @@ const projectsData = [
     languageColor: "yellow",
   },
   {
-    image: "/img/projects/starfield-prev.jpg",
+    image: "img/projects/starfield-prev.jpg",
     title: { icon: "fa-solid fa-film", title: "Starfield" },
     description: "Efecto de campo de estrellas en movimiento, icónico del screensaver de Windows 95.",
     youtube: "https://www.youtube.com/embed/SDnhXcOZiXM",
@@ -74,7 +74,7 @@ const projectsData = [
     languageColor: "yellow",
   },
   {
-    image: "/img/projects/caida-de-nieve-prev.jpg",
+    image: "img/projects/caida-de-nieve-prev.jpg",
     title: { icon: "fa-solid fa-film", title: "Caida de nieve" },
     description: "Efecto de caida de nieve en movimiento.",
     youtube: "https://www.youtube.com/embed/TOPe7fdwUAo",
@@ -84,7 +84,7 @@ const projectsData = [
     languageColor: "yellow",
   },
   {
-    image: "/img/projects/snake-game-prev.jpg",
+    image: "img/projects/snake-game-prev.jpg",
     title: { icon: "fa-solid fa-gamepad", title: "Snake game" },
     description: "Implementación básica del juego de la serpiente.",
     youtube: "https://www.youtube.com/embed/wgSjVMmkLC0",
@@ -94,7 +94,7 @@ const projectsData = [
     languageColor: "yellow",
   },
   {
-    image: "/img/projects/mandelbrot-prev.jpg",
+    image: "img/projects/mandelbrot-prev.jpg",
     title: { icon: "fa-solid fa-infinity", title: "Mandelbrot" },
     description: "Implementación del conjunto de Mandelbrot.",
     youtube: "https://www.youtube.com/embed/SW0dq_DzeWk",
@@ -104,7 +104,7 @@ const projectsData = [
     languageColor: "yellow",
   },
   {
-    image: "/img/projects/epicicloides-prev.jpg",
+    image: "img/projects/epicicloides-prev.jpg",
     title: { icon: "fa-solid fa-infinity", title: "Epicicloides" },
     description: "Implementación de epicicloides con tablas de multiplicar, una curisidad matemática llevada a la programación.",
     youtube: "https://www.youtube.com/embed/TtQaSRsS2bM",
@@ -114,7 +114,7 @@ const projectsData = [
     languageColor: "yellow",
   },
   {
-    image: "/img/projects/arboles-fractal-prev.jpg",
+    image: "img/projects/arboles-fractal-prev.jpg",
     title: { icon: "fa-solid fa-infinity", title: "Arboles fractal" },
     description: "Implementación de arboles fractales con recursividad.",
     youtube: "https://www.youtube.com/embed/noe_P35Md5M",
@@ -124,7 +124,7 @@ const projectsData = [
     languageColor: "yellow",
   },
   {
-    image: "/img/projects/tetris-prev.jpg",
+    image: "img/projects/tetris-prev.jpg",
     title: { icon: "fa-solid fa-gamepad", title: "Tetris" },
     description: "Implementación básica del juego de tetris.",
     youtube: "https://www.youtube.com/embed/y_rnUOHoQ4",
@@ -134,7 +134,7 @@ const projectsData = [
     languageColor: "yellow",
   },
   {
-    image: "/img/projects/peces-prev.jpg",
+    image: "img/projects/peces-prev.jpg",
     title: { icon: "fa-solid fa-film", title: "Peces" },
     description: "Efecto de peces animados en un estanque, con vista cenital.",
     youtube: "https://www.youtube.com/embed/0cvC6XRYz24",
@@ -144,7 +144,7 @@ const projectsData = [
     languageColor: "yellow",
   },
   {
-    image: "/img/projects/tierra-prev.png",
+    image: "img/projects/tierra-prev.png",
     title: { icon: "fa-solid fa-film", title: "Tierra y luna" },
     description: "Animación de la tierra y la luna en movimiento, con tecnología WebGL para renderizado 3D.",
     youtube: "https://www.youtube.com/embed/ijqsaG5qp3Y",
@@ -154,7 +154,7 @@ const projectsData = [
     languageColor: "yellow",
   },
   {
-    image: "/img/projects/carros-prev.png",
+    image: "img/projects/carros-prev.png",
     title: { icon: "fa-solid fa-car-side", title: "Carros 3D (Three.js)" },
     description: "Juego 3D programado con Three.js, donde hay que acelerar y frenar para no chocar con los carros de la autopista.",
     youtube: "https://www.youtube.com/embed/GKFJajmz_dg",

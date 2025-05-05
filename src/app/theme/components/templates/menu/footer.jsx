@@ -18,6 +18,8 @@ import FacebookIcon from "@mui/icons-material/Facebook";
 import TwitterIcon from "@mui/icons-material/Twitter";
 import InstagramIcon from "@mui/icons-material/Instagram";
 import YouTubeIcon from "@mui/icons-material/YouTube";
+import WhatsAppIcon from "@mui/icons-material/WhatsApp";
+import TelegramIcon from "@mui/icons-material/Telegram";
 
 export default Footer;
 
@@ -25,9 +27,9 @@ function Footer({ updateThemeName, getThemeName }) {
   return (
     <>
       <FooterNavSection />
-      <PaperP elevation={0} className="content-container footer">
+      {/* <PaperP elevation={0} className="content-container footer">
         <SelectThemeName {...{ getThemeName, updateThemeName }} />
-      </PaperP>
+      </PaperP> */}
     </>
   );
 }
@@ -92,13 +94,14 @@ function FooterNavSection() {
           <Grid item xs={12} md={6}>
             <Box sx={{ textAlign: "right" }}>
               <ImageLocal
-                src="/img/logo.jpg"
+                src="img/logo.jpg"
                 alt="Jeffrey Agudelo Logo"
-                style={{
-                  width: "50px",
-                  height: "50px",
+                sx={{
+                  width: "100px",
+                  height: "100px",
                   borderRadius: '50%',
-                  objectFit: "cover"
+                  objectFit: "cover",
+                  overflow: "hidden",
                 }}
               />
               <Typography variant="body2" sx={{ mb: 1 }}>
@@ -108,7 +111,7 @@ function FooterNavSection() {
                 Desarrollador Full Stack
               </Typography>
               <Typography variant="body2" sx={{ mb: 1 }}>
-                Medellín, Antioquia, Colombia
+                Tuluá, Valle, Colombia
               </Typography>
               <Typography variant="body2" sx={{ mb: 2 }}>
                 jeffreyagudeloespitia@gmail.com
@@ -128,7 +131,7 @@ function FooterNavSection() {
                     style={{ height: "30px", borderRadius: "4px" }}
                   />
                 </a>
-                <a href="https://www.linkedin.com/in/jeffrey-agudelo/" target="_blank" rel="noopener noreferrer">
+                <a href="https://www.linkedin.com/in/jeffrey-alexander-agudelo-espitia/" target="_blank" rel="noopener noreferrer">
                   <img
                     src="https://content.linkedin.com/content/dam/me/business/en-us/amp/brand-site/v2/bg/LI-Bug.svg.original.svg"
                     alt="LinkedIn"
@@ -152,49 +155,34 @@ function FooterNavSection() {
                     <YouTubeIcon fontSize="small" />
                   </Box>
                 </Link>
-                <Link href="https://twitter.com/JeffAporta" target="_blank" color="inherit">
+                <Link href="https://wa.me/573107257814" target="_blank" color="inherit">
                   <Box
                     sx={{
                       width: "30px",
                       height: "30px",
                       borderRadius: "50%",
-                      bgcolor: "action.hover",
+                      bgcolor: "#25D366",
                       display: "flex",
                       alignItems: "center",
                       justifyContent: "center",
                     }}
                   >
-                    <TwitterIcon fontSize="small" />
+                    <WhatsAppIcon fontSize="small" sx={{ color: "white" }} />
                   </Box>
                 </Link>
-                <Link href="https://www.instagram.com/jeffaporta/" target="_blank" color="inherit">
+                <Link href="https://t.me/canalAporta" target="_blank" color="inherit">
                   <Box
                     sx={{
                       width: "30px",
                       height: "30px",
                       borderRadius: "50%",
-                      bgcolor: "action.hover",
+                      bgcolor: "#0088cc",
                       display: "flex",
                       alignItems: "center",
                       justifyContent: "center",
                     }}
                   >
-                    <InstagramIcon fontSize="small" />
-                  </Box>
-                </Link>
-                <Link href="https://www.facebook.com/JeffAporta" target="_blank" color="inherit">
-                  <Box
-                    sx={{
-                      width: "30px",
-                      height: "30px",
-                      borderRadius: "50%",
-                      bgcolor: "action.hover",
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                    }}
-                  >
-                    <FacebookIcon fontSize="small" />
+                    <TelegramIcon fontSize="small" sx={{ color: "white" }} />
                   </Box>
                 </Link>
               </Box>

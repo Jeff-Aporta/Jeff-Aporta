@@ -15,7 +15,7 @@ const ExperienceSection = () => {
       location: 'Cali - Valle del Cauca',
       modality: 'Presencial, tiempo completo',
       description: 'Información real para soluciones efectivas',
-      image: '/img/experience/registel.png',
+      image: '"mg/experience/registel.png',
       links: {
         website: 'https://registel.co/',
         youtube: 'https://www.youtube.com/@registel',
@@ -40,7 +40,7 @@ const ExperienceSection = () => {
       location: 'Medellín - Antioquia',
       modality: 'Remoto, tiempo completo',
       description: 'Productos y servicios potenciados con IA',
-      image: '/img/experience/iseeci.png',
+      image: 'img/experience/iseeci.png',
       links: {
         website: 'https://iseeci.com/es/',
         facebook: 'https://www.facebook.com/iSeeCI',
@@ -64,7 +64,7 @@ const ExperienceSection = () => {
       location: 'Pereira - Risaralda',
       modality: 'Híbrido, tiempo completo',
       description: 'Productos y servicios a la medida',
-      image: '/img/experience/elcinco.png',
+      image: 'img/experience/elcinco.png',
       links: {
         website: 'https://www.elcinco.io/',
         youtube: 'http://www.youtube.com/@elcinco.io_',
@@ -88,7 +88,7 @@ const ExperienceSection = () => {
       location: 'Remoto',
       modality: 'Tiempo parcial',
       description: 'Desarrollo de soluciones personalizadas para diversos clientes',
-      image: '/img/experience/freelancer.png',
+      image: 'img/experience/freelancer.png',
       links: {},
       responsibilities: [
         'Desarrollo de aplicaciones web y móviles para diversos clientes.',

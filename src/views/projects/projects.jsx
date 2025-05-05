@@ -103,7 +103,7 @@ const projectsList = [
   {
     id: 1,
     title: "Memorama",
-    image: "/img/Proyectos/Memorama-prev.png",
+    image: "img/Proyectos/Memorama-prev.png",
     description: "Juego de memoria donde tienes que encontrar las parejas de cartas iguales.",
     icon: "fa-solid fa-brain",
     github: "memorama",
@@ -114,7 +114,7 @@ const projectsList = [
   {
     id: 2,
     title: "Juego de Trivia",
-    image: "/img/Proyectos/Juego-trivia-prev.jpg",
+    image: "img/Proyectos/Juego-trivia-prev.jpg",
     description: "Juego interactivo de preguntas y respuestas con múltiples categorías.",
     icon: "fa-regular fa-circle-question",
     github: "juego-trivia-v1",
@@ -125,7 +125,7 @@ const projectsList = [
   {
     id: 3,
     title: "Juego de Trivia V2",
-    image: "/img/Proyectos/Juego-Trivia-v2-prev.jpg",
+    image: "img/Proyectos/Juego-Trivia-v2-prev.jpg",
     description: "Juego de preguntas y respuestas con diferentes categorías. Segunda versión.",
     icon: "fa-regular fa-circle-question",
     github: "juego-trivia-v2",
@@ -136,7 +136,7 @@ const projectsList = [
   {
     id: 4,
     title: "Buscaminas",
-    image: "/img/Proyectos/Buscaminas-prev.jpg",
+    image: "img/Proyectos/Buscaminas-prev.jpg",
     description: "Implementación del clásico juego de buscaminas con diferentes niveles de dificultad.",
     icon: "fa-solid fa-puzzle-piece",
     github: "juego-buscaminas",
@@ -147,7 +147,7 @@ const projectsList = [
   {
     id: 5,
     title: "Pong",
-    image: "/img/Proyectos/Pong-prev.jpg",
+    image: "img/Proyectos/Pong-prev.jpg",
     description: "Recreación del primer videojuego arcade de la historia con modos para uno y dos jugadores.",
     icon: "fa-solid fa-table-tennis-paddle-ball",
     github: "juego-pong-solitario",
@@ -158,7 +158,7 @@ const projectsList = [
   {
     id: 6,
     title: "Juego de Conway",
-    image: "/img/Proyectos/Juego-conway-prev.jpg",
+    image: "img/Proyectos/Juego-conway-prev.jpg",
     description: "Simulación del autómata celular Game of Life con controles de velocidad y patrones.",
     icon: "fa-solid fa-infinity",
     github: "juego-de-la-vida",
@@ -169,7 +169,7 @@ const projectsList = [
   {
     id: 7,
     title: "Starfield",
-    image: "/img/Proyectos/Starfield-prev.jpg",
+    image: "img/Proyectos/Starfield-prev.jpg",
     description: "Efecto de campo de estrellas en movimiento, icónico del screensaver de Windows 95.",
     icon: "fa-solid fa-film",
     github: "animacion-starfield",
@@ -180,7 +180,7 @@ const projectsList = [
   {
     id: 8,
     title: "Caída de Nieve",
-    image: "/img/Proyectos/caida-de-nieve-prev.jpg",
+    image: "img/Proyectos/caida-de-nieve-prev.jpg",
     description: "Efecto de caída de nieve en movimiento con partículas animadas.",
     icon: "fa-solid fa-film",
     github: "animacion-caida-de-nieve",
@@ -191,7 +191,7 @@ const projectsList = [
   {
     id: 9,
     title: "Snake Game",
-    image: "/img/Proyectos/Snake-game-prev.jpg",
+    image: "img/Proyectos/Snake-game-prev.jpg",
     description: "Versión moderna del clásico juego de la serpiente con diferentes niveles de dificultad.",
     icon: "fa-solid fa-gamepad",
     github: "juego-snake",
@@ -202,7 +202,7 @@ const projectsList = [
   {
     id: 10,
     title: "Tetris",
-    image: "/img/Proyectos/tetris-prev.jpg",
+    image: "img/Proyectos/tetris-prev.jpg",
     description: "Implementación del clásico puzzle Tetris con efectos visuales modernos.",
     icon: "fa-solid fa-gamepad",
     github: "juego-tetris",
@@ -213,7 +213,7 @@ const projectsList = [
   {
     id: 11,
     title: "Mandelbrot Fractal",
-    image: "/img/Proyectos/mandelbrot-prev.jpg",
+    image: "img/Proyectos/mandelbrot-prev.jpg",
     description: "Exploración interactiva del conjunto de Mandelbrot con zoom y navegación.",
     icon: "fa-solid fa-infinity",
     github: "algoritmo-mandelbrot",
@@ -224,7 +224,7 @@ const projectsList = [
   {
     id: 12,
     title: "Epicicloides",
-    image: "/img/Proyectos/Epicicloides-prev.jpg",
+    image: "img/Proyectos/Epicicloides-prev.jpg",
     description: "Implementación de epicicloides con tablas de multiplicar, una curiosidad matemática.",
     icon: "fa-solid fa-infinity",
     github: "algoritmo-epicicloides-con-tablas-de-multiplicar",
@@ -235,7 +235,7 @@ const projectsList = [
   {
     id: 13,
     title: "Árboles Fractal",
-    image: "/img/Proyectos/arboles-fractal-prev.jpg",
+    image: "img/Proyectos/arboles-fractal-prev.jpg",
     description: "Implementación de árboles fractales con recursividad y controles interactivos.",
     icon: "fa-solid fa-infinity",
     github: "algoritmo-arboles-fractal",

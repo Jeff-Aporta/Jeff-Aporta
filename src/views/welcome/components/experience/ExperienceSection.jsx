@@ -17,7 +17,7 @@ const ExperienceSection = () => {
       location: 'Remoto',
       modality: 'Tiempo completo',
       description: 'Futuros financieros tokenizados',
-      image: '/img/experience/logo-fyxtoken-main-color.svg',
+      image: 'img/experience/logo-fyxtoken-main-color.svg',
       imageBgColor: '#2D1B4D', // Fondo morado oscuro basado en la imagen
       links: {
         website: 'https://fyxtoken.com/'
@@ -27,6 +27,10 @@ const ExperienceSection = () => {
         'Implementación de APIs para la gestión de activos digitales y transacciones.',
         'Integración de APIs externas para ampliar la funcionalidad de la plataforma.',
         'Optimización del rendimiento y experiencia de usuario en la aplicación web.'
+      ],
+      technologies: [
+        'Desarrollo web', 'JavaScript', 'HTML', 'CSS', 'Python', 'Node.js', 'NestJS', 
+        'Java', 'React Native', 'SQL', 'MongoDB', 'React', 'TypeScript', 'Blockchain', 'Git'
       ]
     },
     {
@@ -40,7 +44,7 @@ const ExperienceSection = () => {
       location: 'Cali - Valle del Cauca',
       modality: 'Presencial, tiempo completo',
       description: 'Información real para soluciones efectivas',
-      image: '/img/experience/Registel-logo.png',
+      image: 'img/experience/Registel-logo.png',
       imageBgColor: '#FFFFFF',
       links: {
         website: 'https://registel.co/',
@@ -53,6 +57,10 @@ const ExperienceSection = () => {
         'Definir requerimientos y elaborar cronogramas de trabajo.',
         'Asignar recursos y dar seguimiento al progreso de cada fase del proyecto.',
         'Coordinar reuniones de seguimiento con el equipo y stakeholders.'
+      ],
+      technologies: [
+        'Desarrollo web', 'JavaScript', 'HTML', 'CSS', 'Java', 'Kotlin', 'JSX', 
+        'SQL', 'Linux server', 'D3.js', 'P5.js', 'React', 'Git', 'MySQL'
       ]
     },
     {
@@ -66,7 +74,7 @@ const ExperienceSection = () => {
       location: 'Medellín - Antioquia',
       modality: 'Remoto, tiempo completo',
       description: 'Productos y servicios potenciados con IA',
-      image: '/img/experience/ISeeCI-logo.svg',
+      image: 'img/experience/ISeeCI-logo.svg',
       imageBgColor: '#1a237e', // Azul royal
       links: {
         website: 'https://www.iseeci.com/',
@@ -78,6 +86,10 @@ const ExperienceSection = () => {
         'Implementar y mantener aplicaciones o sistemas, asegurando la calidad del código.',
         'Realizar pruebas unitarias e integrales para garantizar el correcto funcionamiento de las aplicaciones.',
         'Optimizar y actualizar software existente para mejorar su rendimiento y escalabilidad.'
+      ],
+      technologies: [
+        'Desarrollo web', 'JavaScript', 'HTML', 'CSS', 'Firebase', 'Python', 'Node.js', 
+        'D3.js', 'P5.js', 'jQuery', 'Bootstrap', 'React', 'Git', 'REST APIs', 'MySQL'
       ]
     },
     {
@@ -91,7 +103,7 @@ const ExperienceSection = () => {
       location: 'Pereira - Risaralda',
       modality: 'Híbrido, tiempo completo',
       description: 'Productos y servicios a la medida',
-      image: '/img/experience/ELCINCO-logo.png',
+      image: 'img/experience/ELCINCO-logo.png',
       imageBgColor: '#FFFFFF',
       links: {
         website: 'https://www.elcinco.io/',
@@ -103,6 +115,10 @@ const ExperienceSection = () => {
         'Documentar procesos, desarrollos y cambios en el software para facilitar el mantenimiento.',
         'Colaborar de manera efectiva con otros departamentos y equipos técnicos.',
         'Facilitar la comunicación entre clientes y equipo de desarrollo para ajustar requerimientos y resolver incidencias.'
+      ],
+      technologies: [
+        'Desarrollo web', 'JavaScript', 'HTML', 'CSS', 'PHP', 'Node.js', 
+        'SQL', 'MongoDB', 'jQuery', 'Bootstrap', 'Git', 'MySQL'
       ]
     }
   ];
@@ -111,16 +127,16 @@ const ExperienceSection = () => {
   const freelanceExperiences = [
     {
       company: 'SingleClick Solutions',
-      position: 'Desarrollador de software freelancer',
+      position: 'Desarrollador de software',
       period: {
-        from: 'Marzo del 2019',
-        to: 'Diciembre del 2019',
-        duration: '(10 meses)'
+        from: 'Marzo del 2025',
+        to: 'Abril del 2025',
+        duration: '(1 mes)'
       },
       location: 'Remoto',
       modality: 'Tiempo parcial',
       description: 'Soluciones digitales para empresas',
-      image: '/img/experience/singleclick-logo.png',
+      image: 'img/experience/singleclick-logo.png',
       imageBgColor: '#FFFFFF',
       links: {
         website: 'https://singleclick.com.co/'
@@ -130,11 +146,15 @@ const ExperienceSection = () => {
         'Implementación de interfaces de usuario intuitivas y modernas.',
         'Integración con APIs de terceros para ampliar la funcionalidad de las aplicaciones.',
         'Optimización del rendimiento de aplicaciones existentes.'
+      ],
+      technologies: [
+        'Desarrollo web', 'JavaScript', 'HTML', 'CSS', 'PHP', 'Laravel', 
+        'SQL', 'React', 'Node.js', 'Git', 'REST APIs', 'MySQL'
       ]
     },
     {
-      company: 'Registel (Freelance)',
-      position: 'Desarrollador frontend freelancer',
+      company: 'Registel',
+      position: 'Desarrollador frontend',
       period: {
         from: 'Enero del 2024',
         to: 'Mayo del 2024',
@@ -143,7 +163,7 @@ const ExperienceSection = () => {
       location: 'Remoto',
       modality: 'Proyecto',
       description: 'Desarrollo de interfaces para sistemas de gestión',
-      image: '/img/experience/registel-freelancer.png',
+      image: 'img/experience/registel-freelancer.png',
       imageBgColor: '#FFFFFF',
       links: {
         website: 'https://registel.co/'
@@ -153,11 +173,42 @@ const ExperienceSection = () => {
         'Desarrollo de componentes reutilizables para agilizar el proceso de desarrollo.',
         'Colaboración con el equipo de backend para integrar servicios y APIs.',
         'Implementación de pruebas unitarias para garantizar la calidad del código.'
+      ],
+      technologies: [
+        'Desarrollo web', 'JavaScript', 'HTML', 'CSS', 'React', 'Material-UI',
+        'TypeScript', 'Git', 'Jest', 'REST APIs', 'MySQL'
+      ]
+    },
+    {
+      company: 'Pentagrama',
+      position: 'Desarrollador Frontend y Backend',
+      period: {
+        from: 'Junio del 2025',
+        to: 'Abril del 2025',
+        duration: '(10 meses)'
+      },
+      location: 'Pereira - Risaralda',
+      modality: 'Proyecto',
+      description: 'Fabricación de persianas',
+      image: 'img/experience/pentagrama-logo.png',
+      imageBgColor: '#FFFFFF',
+      links: {
+        website: 'https://www.persianaspentagrama.com/'
+      },
+      responsibilities: [
+        'Desarrollo de interfaces de usuario para el sistema de gestión de inventario y ventas.',
+        'Implementación de backend para procesamiento de pedidos y control de inventario.',
+        'Integración de sistema de facturación electrónica.',
+        'Optimización de procesos de producción mediante software especializado.'
+      ],
+      technologies: [
+        'Desarrollo web', 'JavaScript', 'HTML', 'CSS', 'React', 'Node.js',
+        'Express', 'MongoDB', 'Material-UI', 'Git', 'REST APIs', 'MySQL'
       ]
     },
     {
       company: 'Glorias Designer Clothes',
-      position: 'Desarrollador web freelancer',
+      position: 'Desarrollador web',
       period: {
         from: 'Enero del 2018',
         to: 'Mayo del 2018',
@@ -166,7 +217,7 @@ const ExperienceSection = () => {
       location: 'Remoto',
       modality: 'Proyecto',
       description: 'Tienda online de ropa de diseñador',
-      image: '/img/experience/glorias-logo.png',
+      image: 'img/experience/glorias-logo.png',
       imageBgColor: '#FFFFFF',
       links: {
         website: 'https://www.etsy.com/shop/SarafinaDreams'
@@ -176,6 +227,10 @@ const ExperienceSection = () => {
         'Implementación de catálogo de productos con filtros y búsqueda avanzada.',
         'Diseño responsivo para optimizar la experiencia en dispositivos móviles.',
         'Integración con redes sociales para aumentar la visibilidad de la marca.'
+      ],
+      technologies: [
+        'Desarrollo web', 'JavaScript', 'HTML', 'CSS', 'Node.js', 'SQL',
+        'Express', 'jQuery', 'Bootstrap', 'Git', 'PayPal API', 'MySQL'
       ]
     },
     {
@@ -189,7 +244,7 @@ const ExperienceSection = () => {
       location: 'Remoto',
       modality: 'Proyecto',
       description: 'Servicio de alquiler de lavadoras a domicilio',
-      image: '/img/experience/alquiler-logo.png',
+      image: 'img/experience/alquiler-logo.png',
       imageBgColor: '#FFFFFF',
       links: {},
       responsibilities: [
@@ -197,6 +252,10 @@ const ExperienceSection = () => {
         'Implementación de sistema de reservas y seguimiento de pedidos.',
         'Diseño de interfaces intuitivas para facilitar el uso por parte de los clientes.',
         'Integración con sistema de pagos y notificaciones en tiempo real.'
+      ],
+      technologies: [
+        'Desarrollo web', 'JavaScript', 'HTML', 'CSS', 'Node.js', 'Express',
+        'MongoDB', 'React Native', 'Firebase', 'Git', 'Google Maps API'
       ]
     }
   ];
@@ -254,7 +313,7 @@ const ExperienceSection = () => {
           color: 'inherit'
         }}
       >
-        Proyectos Freelance
+        Proyectos
       </Typography>
       <Box>
         {freelanceExperiences.map((experience, index) => (

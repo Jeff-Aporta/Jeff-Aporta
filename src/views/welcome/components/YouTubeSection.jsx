@@ -40,8 +40,8 @@ const YouTubeSection = () => {
             margin: "0 auto"
           }}>
             <Box sx={{ 
-              width: '60px', 
-              height: '60px', 
+              width: '80px', 
+              height: '80px', 
               borderRadius: '50%', 
               overflow: 'hidden',
               border: '3px solid white',
@@ -50,7 +50,7 @@ const YouTubeSection = () => {
               mb: { xs: 2, sm: 0 }
             }}>
               <ImageLocal 
-                src="/img/logo.jpg" 
+                src="img/logo.jpg" 
                 alt="Jeffrey Agudelo Logo" 
                 sx={{ objectFit: 'cover', borderRadius: '50%' }}  
                 imgProps={{ style: { width: '100%', height: '100%' } }}
@@ -65,7 +65,20 @@ const YouTubeSection = () => {
               </Typography>
               
               <Typography variant="h6" color="secondary" sx={{ fontFamily: 'Poppins, sans-serif', fontSize: '0.9rem', mb: 1 }}>
-                www.youtube.com/@JeffAporta
+                <Link 
+                  href="https://www.youtube.com/@JeffAporta" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  sx={{ 
+                    color: 'secondary.main',
+                    textDecoration: 'none',
+                    '&:hover': {
+                      textDecoration: 'underline'
+                    }
+                  }}
+                >
+                  www.youtube.com/@JeffAporta
+                </Link>
               </Typography>
             </Box>
           </Box>
@@ -105,7 +118,7 @@ const YouTubeSection = () => {
               gap: 2
             }}>
               <Typography variant="body2" color="secondary" sx={{ fontFamily: 'Poppins, sans-serif' }}>
-               Me uní el 4 ago 2019
+               Desde el 4 ago 2019
               </Typography>
 
               <Button 
