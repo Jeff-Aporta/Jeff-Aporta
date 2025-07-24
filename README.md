@@ -1,105 +1,72 @@
-# Jeffrey Agudelo - Desarrollador de Software
+# Jeffrey Agudelo – Desarrollador FullStack
 
-¡Hola! Soy Jeffrey Agudelo, un apasionado desarrollador de software con un enfoque en la creación de aplicaciones eficientes y visualmente atractivas. Mi experiencia abarca desde el diseño y desarrollo hasta el mantenimiento de aplicaciones, siempre buscando la mejora continua y la resolución efectiva de problemas.
+**Tuluá, Colombia**  
+📞 +57 310 725 7814 • ✉️ jeffrey.alexander.agudelo.espitia@gmail.com  
+🌐 [Portafolio](https://jeff-aporta.github.io/Jeff-Aporta/) • 🎥 [YouTube](https://www.youtube.com/@JeffAporta) • 💬 [WhatsApp](https://wa.link/1tmqmt)
 
-## Habilidades
-- **Lenguajes de Programación**: JavaScript, TypeScript, HTML5, CSS3, Node.js, Java, PHP
-- **Frameworks y Librerías**: React, React Native, Express.js, NestJS, jQuery
-- **Bases de Datos**: MySQL, PostgreSQL, MongoDB, Redis
-- **Testing**: Jest, Cypress
-- **Otros**: Computación Gráfica 2D, Estructura de Datos, Metodologías Ágiles (Scrum, Kanban)
+---
 
-## Enlaces de Contacto
-- **Portafolio**: [Visita mi portafolio](https://jeff-aporta.github.io/Jeff-Aporta/)
-- **YouTube**: [Jeff Aporta](https://www.youtube.com/@JeffAporta)
-- **Email**: jeffrey.alexander.agudelo.espitia@gmail.com
-- **Celular**: 3107257814 ([Whatsapp](https://wa.link/1tmqmt))
+## 👨‍💻 Sobre mí
 
-## Experiencia Profesional
+Soy un desarrollador de software FullStack con más de **7 años de experiencia**, especializado en **JavaScript**, **Java** y **Python**, apasionado por crear soluciones robustas, escalables y visualmente atractivas. He liderado y ejecutado proyectos para múltiples sectores, integrando tecnologías modernas como **React.js**, **Node.js**, **FastAPI**, **Docker**, **WebSockets**, y soluciones basadas en **blockchain** y **machine learning**.
 
-### FyxToken
-- Sitio web: https://fyxtoken.com/
-- **Desarrollador blockchain** (Marzo 2025 - Marzo 2026) • Remoto, tiempo completo
-- Funciones:
-  - Desarrollo de interfaces de usuario frontend para la plataforma de tokenización.
-  - Implementación de APIs para la gestión de activos digitales y transacciones.
-  - Integración de APIs externas para ampliar la funcionalidad de la plataforma.
-  - Optimización del rendimiento y experiencia de usuario en la aplicación web.
+---
 
-### REGISTEL SAS
-- Sitio web: https://registel.co/ • LinkedIn: https://www.linkedin.com/in/registel/
-- **Gestor de proyectos y desarrollador de software** (Diciembre 2022 - Mayo 2024) • Presencial, tiempo completo
-- Funciones:
-  - Planificar y coordinar proyectos de desarrollo de software.
-  - Definir requerimientos y elaborar cronogramas de trabajo.
-  - Asignar recursos y dar seguimiento al progreso de cada fase del proyecto.
-  - Coordinar reuniones de seguimiento con el equipo y stakeholders.
+## 🚀 Tecnologías y Herramientas
 
-### ISeeCI
-- Sitio web: https://www.iseeci.com/ • LinkedIn: https://www.linkedin.com/company/iseeci/
-- **Líder de desarrollo de software** (Abril 2021 - Julio 2022) • Remoto, tiempo completo
-- Funciones:
-  - Analizar y diseñar soluciones técnicas basadas en los requerimientos del proyecto.
-  - Implementar y mantener aplicaciones o sistemas, asegurando la calidad del código.
-  - Realizar pruebas unitarias e integrales para garantizar el correcto funcionamiento de las aplicaciones.
-  - Optimizar y actualizar software existente para mejorar su rendimiento y escalabilidad.
+- **Lenguajes:** JavaScript, TypeScript, Python, Java, PHP  
+- **Frontend:** React.js, Next.js, React Native, jQuery  
+- **Backend:** Node.js (NestJS, Express), FastAPI, Java JEE  
+- **Bases de Datos:** PostgreSQL, MySQL, MongoDB, Firebase, Redis  
+- **DevOps:** Docker, Kubernetes, GitHub Actions, GitLab CI, Terraform  
+- **Otros:** WebSockets, GraphQL, Solidity, Web3.js, CI/CD, Scrum, Kanban  
 
-### ELCINCO
-- Sitio web: https://www.elcinco.io/ • LinkedIn: https://www.linkedin.com/company/cinco-innovation-center/
-- **Capacitador, área de soporte y mantenimiento** (Enero 2019 - Marzo 2020) • Híbrido, tiempo completo
-- Funciones:
-  - Documentar procesos, desarrollos y cambios para facilitar el mantenimiento.
-  - Colaborar de manera efectiva con otros departamentos y equipos técnicos.
-  - Facilitar la comunicación entre clientes y equipo de desarrollo para ajustar requerimientos y resolver incidencias.
+---
 
-## Experiencias como Freelancer
+## 💼 Experiencia Profesional (Resumen)
 
-### SingleClick Solutions
-- Sitio web: https://singleclick.com.co/
-- **Desarrollador de software** (Marzo 2025 - Abril 2025) • Remoto, tiempo parcial
-- Funciones:
-  - Desarrollo de aplicaciones web responsivas utilizando React y Node.js.
-  - Implementación de interfaces de usuario intuitivas y modernas.
-  - Integración con APIs de terceros para ampliar la funcionalidad de las aplicaciones.
-  - Optimización del rendimiento de aplicaciones existentes.
+### Fyxtoken (Remoto) • 2025  
+**Desarrollador FullStack**  
+- Construcción de interfaces con React/Next.js y desarrollo de APIs REST/GraphQL.  
+- Integración de servicios blockchain (Ethereum, Solana) y despliegue con Docker + Kubernetes.
 
-### Registel
-- Sitio web: https://registel.co/
-- **Desarrollador frontend** (Enero 2024 - Mayo 2024) • Remoto, proyecto
-- Funciones:
-  - Diseño e implementación de interfaces de usuario para sistemas de gestión empresarial.
-  - Desarrollo de componentes reutilizables para agilizar el proceso de desarrollo.
-  - Colaboración con el equipo de backend para integrar servicios y APIs.
-  - Implementación de pruebas unitarias para garantizar la calidad del código.
+### Registel SAS (Presencial) • 2022–2024  
+**Gestor de Proyectos y Desarrollador**  
+- Dirección de proyectos en Java JEE. Infraestructura en AWS con Terraform.  
+- Diseño de interfaces para sistemas empresariales y desarrollo frontend con React.
 
-### Pentagrama
-- Sitio web: https://www.persianaspentagrama.com/
-- **Desarrollador Frontend y Backend** (Junio 2025 - Abril 2025) • Pereira, Proyecto
-- Funciones:
-  - Desarrollo de interfaces de usuario para el sistema de gestión de inventario y ventas.
-  - Implementación de backend para procesamiento de pedidos y control de inventario.
-  - Integración de sistema de facturación electrónica.
-  - Optimización de procesos de producción mediante software especializado.
+### ISeeCI (Remoto) • 2021–2022  
+**Líder de Desarrollo**  
+- Coordinación de equipo para plataforma de IA.  
+- Integración de módulos de Machine Learning y configuración de CI/CD.
 
-### Glorias Designer Clothes
-- Sitio web: https://www.etsy.com/shop/SarafinaDreams
-- **Desarrollador web** (Enero 2018 - Mayo 2018) • Remoto, proyecto
-- Funciones:
-  - Desarrollo de tienda online con carrito de compras y pasarela de pagos.
-  - Implementación de catálogo de productos con filtros y búsqueda avanzada.
-  - Diseño responsivo para optimizar la experiencia en dispositivos móviles.
-  - Integración con redes sociales para aumentar la visibilidad de la marca.
+### ElCinco (Híbrido) • 2020–2021  
+**Capacitador y Soporte Técnico**  
+- Talleres de tecnologías web y documentación técnica.  
+- Mejora de soporte al cliente y comunicación técnica.
 
-### Lava en Casa
-- Sitio web: N/A
-- **Desarrollador de aplicación móvil** (Octubre 2017 - Diciembre 2017) • Remoto, proyecto
-- Funciones:
-  - Desarrollo de aplicación móvil para gestión de alquiler de lavadoras.
-  - Implementación de sistema de reservas y seguimiento de pedidos.
-  - Diseño de interfaces intuitivas para facilitar el uso por parte de los clientes.
-  - Integración con sistema de pagos y notificaciones en tiempo real.
+### Freelancer (Diversos clientes) • 2017–2025  
+**Desarrollador Web y Móvil**  
+- Desarrollo de apps móviles, tiendas online y sistemas de gestión.  
+- Clientes incluyen: Pentagrama, SingleClick Solutions, Glorias Designer Clothes, Lava en Casa.
 
-## Ubicación
-Colombia
+---
 
-Estoy siempre abierto a nuevas oportunidades y colaboraciones. ¡No dudes en contactarme!
+## 🎓 Educación
+
+- **Ingeniería Informática**, Universidad Tecnológica de Pereira (2020)  
+- **Técnico en Aplicativos Móviles**, CIAF Educación Superior (2018)  
+- **Técnico en Sistemas**, SENA (2012)
+
+---
+
+## 🧠 Extras
+
+- +30 proyectos completos y 10 librerías originales.  
+- Creador de un framework propio en ReactJS.  
+- Dominio en desarrollo en tiempo real con WebSockets y DevOps con Docker + CI/CD.  
+- Explorador constante de nuevas tecnologías: Blockchain, ML, productividad con herramientas como Windsurf, Cursor y ChatGPT Pro.
+
+---
+
+> 💼 **Abierto a nuevas oportunidades** de desarrollo, liderazgo técnico o colaboración en proyectos innovadores.
