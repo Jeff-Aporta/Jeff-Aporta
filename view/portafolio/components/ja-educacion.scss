@@ -1,0 +1,11 @@
+@use "tokens" as t;
+@use "mixins" as m;
+
+/* ja-educacion — rejilla de estudios. */
+:host {
+  @include m.host-bloque;
+}
+
+.lista {
+  @include m.rejilla(18rem, t.esp(5), auto-fit);
+}

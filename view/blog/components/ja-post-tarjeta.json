@@ -1,0 +1,42 @@
+{
+  "$schema": "iswc-preview/v1",
+  "tag": "ja-post-tarjeta",
+  "category": "blog",
+  "navTitle": "Tarjeta de publicación",
+  "title": "&lt;ja-post-tarjeta&gt;",
+  "titleHtml": false,
+  "storageKey": "docs-ja-post-tarjeta",
+  "styles": ".stage{max-width:56rem;padding:1rem}",
+  "sections": [
+    {
+      "id": "intro",
+      "title": "&lt;ja-post-tarjeta&gt;",
+      "lede": "Tarjeta de una publicación por slug: portada, fecha, número de pasos, título, resumen y etiquetas; toda la tarjeta enlaza a la publicación.",
+      "blocks": [
+        {
+          "kind": "demo",
+          "html": "<div class=\"stage\"><ja-post-tarjeta id=\"demo\"></ja-post-tarjeta></div>",
+          "target": "#demo",
+          "props": {
+            "slug": "luz-y-sombra-2d"
+          },
+          "controls": [
+            {
+              "control": "select",
+              "prop": "props:slug",
+              "label": "slug",
+              "default": "luz-y-sombra-2d",
+              "options": [
+                "luz-y-sombra-2d"
+              ]
+            }
+          ]
+        },
+        {
+          "kind": "html",
+          "html": "<iswc-callout tone=\"info\"><strong slot=\"title\">Cuándo usarlo</strong>Dentro de <ja-blog>.</iswc-callout>"
+        }
+      ]
+    }
+  ]
+}

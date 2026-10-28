@@ -1,0 +1,1 @@
+import{z as e}from"../../base/zod.js?v=i38toz";const o=e.object({x:e.number(),y:e.number()}),n=e.object({a:o,b:o}),m=e.object({x:e.number(),y:e.number(),t:e.number(),angulo:e.number()});export{m as ChoqueSchema,o as PuntoSchema,n as SegmentoSchema};

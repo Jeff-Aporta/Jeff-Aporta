@@ -1,0 +1,53 @@
+{
+  "$schema": "iswc-preview/v1",
+  "tag": "ja-barra-uso",
+  "category": "portafolio",
+  "navTitle": "Barra de uso",
+  "title": "&lt;ja-barra-uso&gt;",
+  "titleHtml": false,
+  "storageKey": "docs-ja-barra-uso",
+  "styles": ".stage{max-width:40rem;padding:1.5rem}",
+  "sections": [
+    {
+      "id": "intro",
+      "title": "&lt;ja-barra-uso&gt;",
+      "lede": "Fila de uso acumulado de una tecnología: nombre, iswc-progress-bar y duración acumulada.",
+      "blocks": [
+        {
+          "kind": "demo",
+          "html": "<div class=\"stage\"><ja-barra-uso id=\"demo\"></ja-barra-uso></div>",
+          "target": "#demo",
+          "props": {
+            "nombre": "Node.js",
+            "meses": 94,
+            "maximo": 94
+          },
+          "controls": [
+            {
+              "control": "text",
+              "prop": "props:nombre",
+              "label": "nombre",
+              "default": "Node.js"
+            },
+            {
+              "control": "number",
+              "prop": "props:meses",
+              "label": "meses",
+              "default": 94
+            },
+            {
+              "control": "number",
+              "prop": "props:maximo",
+              "label": "maximo",
+              "default": 94
+            }
+          ]
+        },
+        {
+          "kind": "html",
+          "html": "<iswc-callout tone=\"info\"><strong slot=\"title\">Cuándo usarlo</strong>Dentro de <ja-habilidades>.</iswc-callout>"
+        }
+      ]
+    }
+  ]
+}

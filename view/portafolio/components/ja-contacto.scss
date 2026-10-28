@@ -1,0 +1,54 @@
+@use "tokens" as t;
+@use "mixins" as m;
+
+/* ja-contacto — canales a la izquierda y tarjeta de llamado a la acción a la derecha. */
+:host {
+  @include m.host-bloque;
+}
+
+.rejilla {
+  display: grid;
+  gap: t.esp(8);
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  align-items: stretch;
+
+  @include m.tableta { grid-template-columns: 1fr; }
+}
+
+.canales {
+  display: grid;
+  gap: t.esp(3);
+  align-content: start;
+}
+
+.cta {
+  display: block;
+  background: var(--iswc-bg-elev);
+  border-radius: calc(var(--iswc-radius) * 2);
+
+  .figura {
+    display: block;
+    width: min(100%, 17rem);
+    margin: 0 auto t.esp(4);
+  }
+
+  h3 { @include m.titulo(1.75rem); }
+
+  p {
+    margin: t.esp(3) 0 t.esp(5);
+    color: var(--iswc-text-soft);
+    line-height: 1.65;
+  }
+}
+
+.acciones {
+  display: grid;
+  gap: t.esp(2);
+  grid-template-columns: 1fr 1fr;
+
+  iswc-button { width: 100%; }
+}
+
+@media print {
+  .cta { display: none; }
+}

@@ -1,0 +1,95 @@
+{
+  "$schema": "iswc-preview/v1",
+  "tag": "ja-forma",
+  "category": "transversal",
+  "navTitle": "Forma memphis",
+  "title": "&lt;ja-forma&gt;",
+  "titleHtml": false,
+  "storageKey": "docs-ja-forma",
+  "styles": ".stage{padding:3rem;display:grid;place-items:center}",
+  "sections": [
+    {
+      "id": "intro",
+      "title": "&lt;ja-forma&gt;",
+      "lede": "Figura memphis decorativa con animación suave en loop (girar, flotar, latir, derivar); respeta prefers-reduced-motion.",
+      "blocks": [
+        {
+          "kind": "demo",
+          "html": "<div class=\"stage\"><ja-forma id=\"demo\"></ja-forma></div>",
+          "target": "#demo",
+          "props": {
+            "tipo": "triangulo",
+            "tono": "peligro",
+            "tam": 4,
+            "animacion": "girar"
+          },
+          "controls": [
+            {
+              "control": "select",
+              "prop": "props:tipo",
+              "label": "tipo",
+              "default": "triangulo",
+              "options": [
+                "circulo",
+                "anillo",
+                "semicirculo",
+                "triangulo",
+                "cruz",
+                "onda",
+                "zigzag",
+                "puntos"
+              ]
+            },
+            {
+              "control": "select",
+              "prop": "props:tono",
+              "label": "tono",
+              "default": "peligro",
+              "options": [
+                "marca",
+                "acento",
+                "exito",
+                "peligro",
+                "lila"
+              ]
+            },
+            {
+              "control": "number",
+              "prop": "props:tam",
+              "label": "tam",
+              "default": 4
+            },
+            {
+              "control": "select",
+              "prop": "props:animacion",
+              "label": "animacion",
+              "default": "girar",
+              "options": [
+                "girar",
+                "flotar",
+                "latir",
+                "derivar",
+                "ninguna"
+              ]
+            },
+            {
+              "control": "number",
+              "prop": "props:retraso",
+              "label": "retraso",
+              "default": 0
+            }
+          ]
+        },
+        {
+          "kind": "html",
+          "html": "<iswc-callout tone=\"info\"><strong slot=\"title\">Cuándo usarlo</strong>Para decorar fondos y encabezados con formas memphis.</iswc-callout><iswc-callout tone=\"warning\"><strong slot=\"title\">Cuándo no</strong>No la uses para transmitir información (es aria-hidden).</iswc-callout>"
+        }
+      ]
+    }
+  ],
+  "reuso": {
+    "candidato": "iswc-root",
+    "motivo": "Figuras decorativas animadas en loop con tokens del kit, sin dominio, útiles en cualquier landing.",
+    "propuesta": "iswc-shape"
+  }
+}

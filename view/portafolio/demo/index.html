@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="es" data-theme="light" data-palette="jeff">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Portafolio · piezas aisladas</title>
+<meta name="robots" content="noindex">
+<script src="../../../dist/cdn/boot.js?v=i5w9k0"></script>
+<link rel="stylesheet" href="../../../dist/cdn/styles/app.css?v=rukr0f">
+<script type="module" src="https://cdn.jsdelivr.net/gh/Jeff-Aporta/is-webcomponents@a1df39adb9e421de874dd624901b72daa9e25e5c/dist/cdn/core/loader.min.js"></script>
+<script type="module" src="../../../dist/cdn/jaLoader.min.js?v=1rrceb"></script>
+<script type="module">
+  const L = globalThis.iswcLoader;
+  const listo = () => document.documentElement.setAttribute('data-app-ready', '');
+  const watchdog = setTimeout(listo, 6000);
+  try {
+    await L.loadPageStyles(['iswc-palettes-default']);
+    const { KIT_TAGS, APP_TAGS, tagsVista } = await import('../../../dist/cdn/js/kit-tags.js?v=v9gkz3');
+    await L.load(...KIT_TAGS, ...APP_TAGS.filter((t) => t !== 'ja-app'), ...tagsVista('portafolio'));
+    document.querySelector('ja-empleo').props = { id: 'coremsa', abierto: true };
+    document.querySelector('ja-proyecto').props = { id: 'fyxtoken' };
+    document.querySelector('ja-hito').props = { evento: { clave: 'insoft-0-inicio', tipo: 'inicio', fecha: '2025-09-01', carril: 1, pasantes: [2], empleoId: 'insoft', periodo: 0, ultimo: false }, carriles: 3 };
+  } finally {
+    clearTimeout(watchdog);
+    listo();
+  }
+</script>
+<style>body { display: grid; gap: 2rem; max-width: 60rem; margin: 0 auto; padding: 2rem; }</style>
+</head>
+<body>
+  <ja-hito></ja-hito>
+  <ja-empleo></ja-empleo>
+  <ja-proyecto style="max-width: 24rem"></ja-proyecto>
+</body>
+</html>

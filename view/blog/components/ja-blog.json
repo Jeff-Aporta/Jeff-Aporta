@@ -1,0 +1,28 @@
+{
+  "$schema": "iswc-preview/v1",
+  "tag": "ja-blog",
+  "category": "blog",
+  "navTitle": "Blog",
+  "title": "&lt;ja-blog&gt;",
+  "titleHtml": false,
+  "storageKey": "docs-ja-blog",
+  "styles": ".stage{padding:0}",
+  "sections": [
+    {
+      "id": "intro",
+      "title": "&lt;ja-blog&gt;",
+      "lede": "Vista del blog: banner animado, encabezado de sección y una tarjeta por publicación, de la más reciente a la más antigua.",
+      "blocks": [
+        {
+          "kind": "demo",
+          "html": "<div class=\"stage\"><ja-blog id=\"demo\"></ja-blog></div>",
+          "target": "#demo"
+        },
+        {
+          "kind": "html",
+          "html": "<iswc-callout tone=\"info\"><strong slot=\"title\">Cuándo usarlo</strong>Como vista blog de la SPA (?s= con { v: 'blog' }).</iswc-callout>"
+        }
+      ]
+    }
+  ]
+}

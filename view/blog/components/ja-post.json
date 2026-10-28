@@ -1,0 +1,43 @@
+{
+  "$schema": "iswc-preview/v1",
+  "tag": "ja-post",
+  "category": "blog",
+  "navTitle": "Guía narrada",
+  "title": "&lt;ja-post&gt;",
+  "titleHtml": false,
+  "storageKey": "docs-ja-post",
+  "styles": ".stage{padding:0}",
+  "sections": [
+    {
+      "id": "intro",
+      "title": "&lt;ja-post&gt;",
+      "lede": "Publicación como guía narrada a todo el ancho: índice de pasos con progreso, tarjeta del paso (<ja-paso>), demo fija y controles solo con ícono (anterior, escuchar, siguiente, modo guiado); flechas del teclado.",
+      "blocks": [
+        {
+          "kind": "demo",
+          "html": "<div class=\"stage\"><ja-post id=\"demo\"></ja-post></div>",
+          "target": "#demo",
+          "props": {
+            "slug": "luz-y-sombra-2d"
+          },
+          "controls": [
+            {
+              "control": "select",
+              "prop": "props:slug",
+              "label": "slug",
+              "default": "luz-y-sombra-2d",
+              "options": [
+                "luz-y-sombra-2d",
+                "no-existe"
+              ]
+            }
+          ]
+        },
+        {
+          "kind": "html",
+          "html": "<iswc-callout tone=\"info\"><strong slot=\"title\">Cuándo usarlo</strong>Como vista de una publicación (?s= con { v: 'post', p: slug }).</iswc-callout>"
+        }
+      ]
+    }
+  ]
+}

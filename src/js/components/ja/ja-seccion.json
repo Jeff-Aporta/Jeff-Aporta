@@ -1,0 +1,84 @@
+{
+  "$schema": "iswc-preview/v1",
+  "tag": "ja-seccion",
+  "category": "transversal",
+  "navTitle": "Sección",
+  "title": "&lt;ja-seccion&gt;",
+  "titleHtml": false,
+  "storageKey": "docs-ja-seccion",
+  "styles": ".stage{padding:0}",
+  "sections": [
+    {
+      "id": "intro",
+      "title": "&lt;ja-seccion&gt;",
+      "lede": "Bloque de página con cejilla, título, entrada, ilustración opcional y fondo alterno; el contenido va en el slot.",
+      "blocks": [
+        {
+          "kind": "demo",
+          "html": "<div class=\"stage\"><ja-seccion id=\"demo\"></ja-seccion></div>",
+          "target": "#demo",
+          "props": {
+            "cejilla": "Sección",
+            "titulo": "Título de ejemplo",
+            "entrada": "Texto de entrada.",
+            "fondo": "suave",
+            "ilustracion": "proyectos"
+          },
+          "controls": [
+            {
+              "control": "text",
+              "prop": "props:cejilla",
+              "label": "cejilla",
+              "default": "Sección"
+            },
+            {
+              "control": "text",
+              "prop": "props:titulo",
+              "label": "titulo",
+              "default": "Título de ejemplo"
+            },
+            {
+              "control": "text",
+              "prop": "props:entrada",
+              "label": "entrada",
+              "default": "Texto de entrada."
+            },
+            {
+              "control": "select",
+              "prop": "props:fondo",
+              "label": "fondo",
+              "default": "base",
+              "options": [
+                "base",
+                "suave",
+                "marca"
+              ]
+            },
+            {
+              "control": "select",
+              "prop": "props:ilustracion",
+              "label": "ilustracion",
+              "default": "proyectos",
+              "options": [
+                "hero",
+                "trayectoria",
+                "proyectos",
+                "habilidades",
+                "contacto"
+              ]
+            }
+          ]
+        },
+        {
+          "kind": "html",
+          "html": "<iswc-callout tone=\"info\"><strong slot=\"title\">Cuándo usarlo</strong>Para cada bloque de la página con encabezado común.</iswc-callout><iswc-callout tone=\"warning\"><strong slot=\"title\">Cuándo no</strong>No la anides dentro de otra sección.</iswc-callout>"
+        }
+      ]
+    }
+  ],
+  "reuso": {
+    "candidato": "iswc-root",
+    "motivo": "Encabezado de sección de landing (cejilla, título, entrada, ilustración y fondo) sin dominio, útil en cualquier sitio.",
+    "propuesta": "iswc-section"
+  }
+}

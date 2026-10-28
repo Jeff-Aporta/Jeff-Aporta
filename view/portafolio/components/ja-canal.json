@@ -1,0 +1,67 @@
+{
+  "$schema": "iswc-preview/v1",
+  "tag": "ja-canal",
+  "category": "portafolio",
+  "navTitle": "Canal",
+  "title": "&lt;ja-canal&gt;",
+  "titleHtml": false,
+  "storageKey": "docs-ja-canal",
+  "styles": ".stage{max-width:28rem;padding:1rem}",
+  "sections": [
+    {
+      "id": "intro",
+      "title": "&lt;ja-canal&gt;",
+      "lede": "Canal de contacto: ícono, título y valor como enlace (toda la fila clicable) y, opcional, iswc-copy-button.",
+      "blocks": [
+        {
+          "kind": "demo",
+          "html": "<div class=\"stage\"><ja-canal id=\"demo\"></ja-canal></div>",
+          "target": "#demo",
+          "props": {
+            "icono": "mdi:email-outline",
+            "titulo": "Correo",
+            "valor": "correo@ejemplo.com",
+            "url": "mailto:correo@ejemplo.com",
+            "copiar": "correo@ejemplo.com"
+          },
+          "controls": [
+            {
+              "control": "text",
+              "prop": "props:icono",
+              "label": "icono",
+              "default": "mdi:email-outline"
+            },
+            {
+              "control": "text",
+              "prop": "props:titulo",
+              "label": "titulo",
+              "default": "Correo"
+            },
+            {
+              "control": "text",
+              "prop": "props:valor",
+              "label": "valor",
+              "default": "correo@ejemplo.com"
+            },
+            {
+              "control": "text",
+              "prop": "props:url",
+              "label": "url",
+              "default": "mailto:correo@ejemplo.com"
+            },
+            {
+              "control": "text",
+              "prop": "props:copiar",
+              "label": "copiar",
+              "default": "correo@ejemplo.com"
+            }
+          ]
+        },
+        {
+          "kind": "html",
+          "html": "<iswc-callout tone=\"info\"><strong slot=\"title\">Cuándo usarlo</strong>Dentro de <ja-contacto>.</iswc-callout>"
+        }
+      ]
+    }
+  ]
+}

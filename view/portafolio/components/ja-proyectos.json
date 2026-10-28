@@ -1,0 +1,43 @@
+{
+  "$schema": "iswc-preview/v1",
+  "tag": "ja-proyectos",
+  "category": "portafolio",
+  "navTitle": "Proyectos",
+  "title": "&lt;ja-proyectos&gt;",
+  "titleHtml": false,
+  "storageKey": "docs-ja-proyectos",
+  "styles": ".stage{padding:0}",
+  "sections": [
+    {
+      "id": "intro",
+      "title": "&lt;ja-proyectos&gt;",
+      "lede": "Catálogo de proyectos en pestañas del kit: productos y laboratorio creativo.",
+      "blocks": [
+        {
+          "kind": "demo",
+          "html": "<div class=\"stage\"><ja-proyectos id=\"demo\"></ja-proyectos></div>",
+          "target": "#demo",
+          "props": {
+            "tipo": "Producto"
+          },
+          "controls": [
+            {
+              "control": "select",
+              "prop": "props:tipo",
+              "label": "tipo",
+              "default": "Producto",
+              "options": [
+                "Producto",
+                "Laboratorio"
+              ]
+            }
+          ]
+        },
+        {
+          "kind": "html",
+          "html": "<iswc-callout tone=\"info\"><strong slot=\"title\">Cuándo usarlo</strong>En la sección Proyectos.</iswc-callout>"
+        }
+      ]
+    }
+  ]
+}

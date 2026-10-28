@@ -1,0 +1,28 @@
+{
+  "$schema": "iswc-preview/v1",
+  "tag": "ja-banner-blog",
+  "category": "blog",
+  "navTitle": "Banner del blog",
+  "title": "&lt;ja-banner-blog&gt;",
+  "titleHtml": false,
+  "storageKey": "docs-ja-banner-blog",
+  "styles": ".stage{padding:0}",
+  "sections": [
+    {
+      "id": "intro",
+      "title": "&lt;ja-banner-blog&gt;",
+      "lede": "Portada animada en SVG: caricatura de Jeffrey tecleando, código que se escribe en la hoja, aviones de papel, taza humeante, título en papel recortado y muro de texto; respeta prefers-reduced-motion.",
+      "blocks": [
+        {
+          "kind": "demo",
+          "html": "<div class=\"stage\"><ja-banner-blog id=\"demo\"></ja-banner-blog></div>",
+          "target": "#demo"
+        },
+        {
+          "kind": "html",
+          "html": "<iswc-callout tone=\"info\"><strong slot=\"title\">Cuándo usarlo</strong>Arriba de <ja-blog>.</iswc-callout>"
+        }
+      ]
+    }
+  ]
+}

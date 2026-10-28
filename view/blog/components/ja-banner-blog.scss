@@ -1,0 +1,110 @@
+@use "tokens" as t;
+@use "mixins" as m;
+
+/* ja-banner-blog — banda a todo el ancho: muro de texto al fondo y la escena SVG centrada. */
+:host {
+  @include m.host-bloque;
+  position: relative;
+  overflow: hidden;
+  background: color-mix(in srgb, var(--iswc-color-brand) 4%, var(--iswc-bg-soft));
+  border-bottom: 1px solid var(--iswc-border-soft);
+}
+
+.muro {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  color: color-mix(in srgb, var(--iswc-text-dim) 30%, transparent);
+  font-family: var(--iswc-font-sans);
+  font-size: 0.875rem;
+  font-weight: 500;
+  line-height: 2;
+  text-align: justify;
+  user-select: none;
+  mask: radial-gradient(70% 90% at 50% 55%, #0006, #000 75%);
+}
+
+/* Dos copias iguales del texto: subir media altura y volver a empezar no se nota. */
+.rio {
+  animation: subir 120s linear infinite;
+
+  p { margin: 0; padding: 0 t.esp(4); }
+}
+
+@keyframes subir { to { transform: translateY(-50%); } }
+
+/* Respira: el busto sube y baja muy poco. */
+.avatar { animation: respirar 4.5s ease-in-out infinite alternate; }
+
+@keyframes respirar { to { transform: translateY(-2.5px); } }
+
+.escena {
+  position: relative;
+  max-width: t.$ancho;
+  margin: 0 auto;
+  padding: t.esp(2) t.esp(4) 0;
+
+  svg { display: block; width: 100%; height: auto; }
+}
+
+.sombra { fill: color-mix(in srgb, var(--iswc-text) 12%, transparent); }
+
+.titulo text {
+  font-family: t.$titulos;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  text-anchor: middle;
+}
+
+.capa.amarilla { fill: #ffcf4a; }
+.capa.marca { fill: var(--iswc-color-brand); }
+.capa.tinta { fill: var(--iswc-text); }
+
+.lema {
+  fill: var(--iswc-text-soft);
+  font-family: var(--iswc-font-sans);
+  font-size: 19px;
+  font-weight: 600;
+  text-anchor: middle;
+}
+
+.vapor path {
+  animation: vapor 2.6s ease-in-out infinite;
+
+  &:nth-child(2) { animation-delay: -1.3s; }
+}
+
+@keyframes vapor {
+  0% { opacity: 0; transform: translateY(6px); }
+  40% { opacity: 0.7; }
+  100% { opacity: 0; transform: translateY(-10px); }
+}
+
+.m { transform-box: fill-box; transform-origin: center; @include m.paralaje(1.2); }
+.m.girar { animation: girar 18s linear infinite; }
+.m.flotar { animation: flotar 6s ease-in-out infinite alternate; }
+.m.derivar { animation: derivar 9s ease-in-out infinite alternate; }
+
+@keyframes girar { to { transform: rotate(360deg); } }
+@keyframes flotar { to { transform: translateY(-10px); } }
+@keyframes derivar { to { transform: translate(8px, -6px) rotate(6deg); } }
+
+@media (prefers-reduced-motion: reduce) {
+  .vapor path, .m, .rio, .avatar { animation: none; }
+  .avion { display: none; }
+}
+
+/* Móvil: la escena se recorta a lo que importa (títulos, caricatura y escritorio, x 110–1050 del
+   viewBox) para que no quede diminuta; los márgenes vacíos de los lados se salen de la vista. */
+@include m.movil {
+  .escena {
+    overflow: hidden;
+    padding: t.esp(3) 0 0;
+
+    svg {
+      width: calc(100% * 1200 / 940);
+      max-width: none;
+      margin-left: calc(-100% * 110 / 940);
+    }
+  }
+}

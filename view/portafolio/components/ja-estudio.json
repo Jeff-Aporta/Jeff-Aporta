@@ -1,0 +1,43 @@
+{
+  "$schema": "iswc-preview/v1",
+  "tag": "ja-estudio",
+  "category": "portafolio",
+  "navTitle": "Estudio",
+  "title": "&lt;ja-estudio&gt;",
+  "titleHtml": false,
+  "storageKey": "docs-ja-estudio",
+  "styles": ".stage{max-width:22rem;padding:1rem}",
+  "sections": [
+    {
+      "id": "intro",
+      "title": "&lt;ja-estudio&gt;",
+      "lede": "Tarjeta de un estudio por id: sello, nivel y año, título, institución, lugar, nota y certificado.",
+      "blocks": [
+        {
+          "kind": "demo",
+          "html": "<div class=\"stage\"><ja-estudio id=\"demo\"></ja-estudio></div>",
+          "target": "#demo",
+          "props": {
+            "id": "sena"
+          },
+          "controls": [
+            {
+              "control": "select",
+              "prop": "props:id",
+              "label": "id",
+              "default": "sena",
+              "options": [
+                "uniremington",
+                "sena"
+              ]
+            }
+          ]
+        },
+        {
+          "kind": "html",
+          "html": "<iswc-callout tone=\"info\"><strong slot=\"title\">Cuándo usarlo</strong>Dentro de <ja-educacion>.</iswc-callout>"
+        }
+      ]
+    }
+  ]
+}

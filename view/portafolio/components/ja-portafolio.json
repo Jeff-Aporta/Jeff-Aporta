@@ -1,0 +1,28 @@
+{
+  "$schema": "iswc-preview/v1",
+  "tag": "ja-portafolio",
+  "category": "portafolio",
+  "navTitle": "Portafolio",
+  "title": "&lt;ja-portafolio&gt;",
+  "titleHtml": false,
+  "storageKey": "docs-ja-portafolio",
+  "styles": ".stage{padding:0}",
+  "sections": [
+    {
+      "id": "intro",
+      "title": "&lt;ja-portafolio&gt;",
+      "lede": "Shell de la vista: portada y todas las secciones en orden; expone irA(id) y emite ja-seccion-visible.",
+      "blocks": [
+        {
+          "kind": "demo",
+          "html": "<div class=\"stage\"><ja-portafolio id=\"demo\"></ja-portafolio></div>",
+          "target": "#demo"
+        },
+        {
+          "kind": "html",
+          "html": "<iswc-callout tone=\"info\"><strong slot=\"title\">Cuándo usarlo</strong>Como contenido de <ja-app>.</iswc-callout><iswc-callout tone=\"warning\"><strong slot=\"title\">Cuándo no</strong>No lo dupliques en la misma página.</iswc-callout>"
+        }
+      ]
+    }
+  ]
+}

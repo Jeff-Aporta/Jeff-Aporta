@@ -1,0 +1,49 @@
+{
+  "$schema": "iswc-preview/v1",
+  "tag": "ja-paso",
+  "category": "blog",
+  "navTitle": "Paso de guía",
+  "title": "&lt;ja-paso&gt;",
+  "titleHtml": false,
+  "storageKey": "docs-ja-paso",
+  "styles": ".stage{max-width:46rem;padding:1.5rem}",
+  "sections": [
+    {
+      "id": "intro",
+      "title": "&lt;ja-paso&gt;",
+      "lede": "Tarjeta de papel de un paso de una guía: sello con el número, ícono de plastilina, título, transcripción de la narración y bloques; en el último paso, los créditos.",
+      "blocks": [
+        {
+          "kind": "demo",
+          "html": "<div class=\"stage\"><ja-paso id=\"demo\"></ja-paso></div>",
+          "target": "#demo",
+          "props": {
+            "slug": "luz-y-sombra-2d",
+            "indice": 2
+          },
+          "controls": [
+            {
+              "control": "select",
+              "prop": "props:slug",
+              "label": "slug",
+              "default": "luz-y-sombra-2d",
+              "options": [
+                "luz-y-sombra-2d"
+              ]
+            },
+            {
+              "control": "number",
+              "prop": "props:indice",
+              "label": "indice",
+              "default": 2
+            }
+          ]
+        },
+        {
+          "kind": "html",
+          "html": "<iswc-callout tone=\"info\"><strong slot=\"title\">Cuándo usarlo</strong>Dentro de <ja-post>.</iswc-callout>"
+        }
+      ]
+    }
+  ]
+}

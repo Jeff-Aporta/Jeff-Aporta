@@ -1,0 +1,52 @@
+{
+  "$schema": "iswc-preview/v1",
+  "tag": "ja-ilustracion",
+  "category": "transversal",
+  "navTitle": "Ilustración",
+  "title": "&lt;ja-ilustracion&gt;",
+  "titleHtml": false,
+  "storageKey": "docs-ja-ilustracion",
+  "styles": ".stage{max-width:22rem;padding:1rem}",
+  "sections": [
+    {
+      "id": "intro",
+      "title": "&lt;ja-ilustracion&gt;",
+      "lede": "Ilustración corporate memphis por nombre, servida desde assets/ilustraciones/.",
+      "blocks": [
+        {
+          "kind": "demo",
+          "html": "<div class=\"stage\"><ja-ilustracion id=\"demo\"></ja-ilustracion></div>",
+          "target": "#demo",
+          "props": {
+            "nombre": "hero"
+          },
+          "controls": [
+            {
+              "control": "select",
+              "prop": "props:nombre",
+              "label": "nombre",
+              "default": "hero",
+              "options": [
+                "hero",
+                "trayectoria",
+                "proyectos",
+                "habilidades",
+                "contacto"
+              ]
+            },
+            {
+              "control": "text",
+              "prop": "props:alt",
+              "label": "alt",
+              "default": ""
+            }
+          ]
+        },
+        {
+          "kind": "html",
+          "html": "<iswc-callout tone=\"info\"><strong slot=\"title\">Cuándo usarlo</strong>Para acompañar encabezados y llamados a la acción.</iswc-callout><iswc-callout tone=\"warning\"><strong slot=\"title\">Cuándo no</strong>No la uses como contenido informativo sin alt.</iswc-callout>"
+        }
+      ]
+    }
+  ]
+}

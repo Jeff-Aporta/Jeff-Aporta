@@ -1,0 +1,41 @@
+@use "tokens" as t;
+@use "mixins" as m;
+
+/* ja-insignia — pastilla elevada con ícono y dos líneas de texto. */
+:host {
+  @include m.paralaje(1.1);
+  @include m.superficie;
+  display: inline-flex;
+  gap: t.esp(2);
+  align-items: center;
+  padding: t.esp(2) t.esp(3);
+  border-radius: t.radio(md);
+  font-family: var(--iswc-font-sans);
+}
+
+:host([data-flotar]) { animation: flotar 6s ease-in-out infinite; }
+
+iswc-icon {
+  color: var(--iswc-color-brand);
+  font-size: 1.5rem;
+}
+
+.textos {
+  display: grid;
+  line-height: 1.2;
+
+  strong { font-size: 0.875rem; }
+
+  small {
+    color: var(--iswc-text-dim);
+    font-size: 0.75rem;
+  }
+}
+
+@keyframes flotar {
+  50% { transform: translateY(-8px); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :host { animation: none !important; }
+}

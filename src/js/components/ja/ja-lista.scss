@@ -1,0 +1,49 @@
+@use "tokens" as t;
+@use "mixins" as m;
+
+/* ja-lista — ítems con ícono, en columna o en línea. */
+:host {
+  @include m.host-bloque;
+  --color: var(--iswc-color-success);
+}
+
+:host([data-tono="marca"]) { --color: var(--iswc-color-brand); }
+:host([data-tono="acento"]) { --color: var(--iswc-color-warning); }
+:host([data-tono="peligro"]) { --color: var(--iswc-color-danger); }
+
+ul {
+  display: grid;
+  gap: t.esp(2);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+:host([data-variante="linea"]) ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: t.esp(2) t.esp(5);
+}
+
+li {
+  display: flex;
+  gap: t.esp(2);
+  align-items: flex-start;
+  color: var(--iswc-text-soft);
+  font-size: 0.9375rem;
+  line-height: 1.6;
+}
+
+:host([data-variante="linea"]) li {
+  align-items: center;
+  color: var(--iswc-text);
+  font-weight: 600;
+}
+
+iswc-icon {
+  flex: none;
+  margin-top: 0.2em;
+  color: var(--color);
+}
+
+:host([data-variante="linea"]) iswc-icon { margin-top: 0; }

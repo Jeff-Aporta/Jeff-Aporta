@@ -1,0 +1,68 @@
+@use "tokens" as t;
+@use "mixins" as m;
+
+/* ja-rasgo — tarjeta con baldosa de ícono, título, texto y extras. */
+:host {
+  @include m.host-bloque;
+  height: 100%;
+}
+
+.tarjeta {
+  @include m.superficie;
+  @include m.elevable;
+  display: grid;
+  gap: t.esp(3);
+  align-content: start;
+  height: 100%;
+  box-sizing: border-box;
+  padding: t.esp(6);
+}
+
+header {
+  display: flex;
+  gap: t.esp(3);
+  align-items: center;
+}
+
+.icono {
+  display: grid;
+  flex: none;
+  place-items: center;
+  width: 2.9rem;
+  height: 2.9rem;
+  border-radius: 0.95rem;
+  background: var(--iswc-brand-soft);
+  color: var(--iswc-brand-text);
+  font-size: 1.45rem;
+  transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.tarjeta:hover .icono { transform: rotate(-10deg) scale(1.08); }
+
+:host([data-tono="acento"]) .icono { background: var(--iswc-warning-soft); color: var(--iswc-warning-text); }
+:host([data-tono="exito"]) .icono { background: var(--iswc-success-soft); color: var(--iswc-success-text); }
+:host([data-tono="peligro"]) .icono { background: var(--iswc-danger-soft); color: var(--iswc-danger-text); }
+:host([data-tono="lila"]) .icono { background: color-mix(in srgb, var(--iswc-color-brand) 14%, var(--iswc-danger-soft)); color: color-mix(in srgb, var(--iswc-color-brand) 60%, var(--iswc-danger-text)); }
+
+h3 { @include m.titulo(1.125rem); }
+
+p {
+  margin: 0;
+  color: var(--iswc-text-soft);
+  font-size: 0.9375rem;
+  line-height: 1.6;
+}
+
+::slotted(*) { margin-top: t.esp(1); }
+
+@include m.movil {
+  .tarjeta { padding: t.esp(5); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .icono { transition: none; }
+}
+
+@media print {
+  .tarjeta { box-shadow: none; break-inside: avoid; }
+}

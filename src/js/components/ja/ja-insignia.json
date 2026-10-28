@@ -1,0 +1,64 @@
+{
+  "$schema": "iswc-preview/v1",
+  "tag": "ja-insignia",
+  "category": "transversal",
+  "navTitle": "Insignia",
+  "title": "&lt;ja-insignia&gt;",
+  "titleHtml": false,
+  "storageKey": "docs-ja-insignia",
+  "styles": ".stage{padding:2rem}",
+  "sections": [
+    {
+      "id": "intro",
+      "title": "&lt;ja-insignia&gt;",
+      "lede": "Pastilla elevada con ícono, título y subtítulo que flota suavemente en loop.",
+      "blocks": [
+        {
+          "kind": "demo",
+          "html": "<div class=\"stage\"><ja-insignia id=\"demo\"></ja-insignia></div>",
+          "target": "#demo",
+          "props": {
+            "icono": "mdi:language-typescript",
+            "titulo": "TypeScript",
+            "subtitulo": "Web Components"
+          },
+          "controls": [
+            {
+              "control": "text",
+              "prop": "props:icono",
+              "label": "icono",
+              "default": "mdi:language-typescript"
+            },
+            {
+              "control": "text",
+              "prop": "props:titulo",
+              "label": "titulo",
+              "default": "TypeScript"
+            },
+            {
+              "control": "text",
+              "prop": "props:subtitulo",
+              "label": "subtitulo",
+              "default": "Web Components"
+            },
+            {
+              "control": "boolean",
+              "prop": "props:flotar",
+              "label": "flotar",
+              "default": true
+            }
+          ]
+        },
+        {
+          "kind": "html",
+          "html": "<iswc-callout tone=\"info\"><strong slot=\"title\">Cuándo usarlo</strong>Para destacar una capacidad junto a una imagen.</iswc-callout>"
+        }
+      ]
+    }
+  ],
+  "reuso": {
+    "candidato": "iswc-root",
+    "motivo": "Pastilla flotante con ícono y dos líneas, genérica para landings y portadas.",
+    "propuesta": "iswc-badge-card"
+  }
+}

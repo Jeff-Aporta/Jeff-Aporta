@@ -1,0 +1,51 @@
+// _tokens.scss — escala de espaciado, radios y medidas de la app.
+//
+// Los COLORES no viven aquí: salen siempre de los tokens del kit (`--iswc-*`), así cambian con el
+// tema y la paleta. Lo que el kit no publica como token (espaciado, radios grandes, anchos y la
+// fuente de títulos) se fija una sola vez en esta hoja.
+//
+// USO:
+//   @use "tokens" as t;
+//   .tarjeta { padding: t.esp(2) t.esp(4); border-radius: t.radio(lg); }
+@use "sass:map";
+
+$espacios: (
+  1: 0.25rem,
+  2: 0.5rem,
+  3: 0.75rem,
+  4: 1rem,
+  5: 1.25rem,
+  6: 1.5rem,
+  8: 2rem,
+  10: 3rem,
+  12: 4rem,
+  16: 6rem,
+);
+
+/// Ancho máximo del contenido: amplio, para aprovechar las pantallas anchas (los márgenes los pone el
+/// relleno lateral de cada bloque, no este tope).
+$ancho: 110rem;
+
+/// Fuente de títulos (la cuerpo es `--iswc-font-sans`).
+$titulos: "Plus Jakarta Sans", var(--iswc-font-sans);
+
+/// Punto de quiebre de tableta y de móvil.
+$tableta: 60rem;
+$movil: 40rem;
+
+/// Espaciado de la escala (1 = 0.25rem … 16 = 6rem).
+@function esp($n) {
+  @if not map.has-key($espacios, $n) {
+    @error "esp(#{$n}) no está en la escala: #{map.keys($espacios)}";
+  }
+  @return map.get($espacios, $n);
+}
+
+/// Radio: `sm` y `md` son los del kit; `lg` y `xl` lo escalan.
+@function radio($tam) {
+  @if $tam == sm { @return var(--iswc-radius-sm); }
+  @if $tam == md { @return var(--iswc-radius); }
+  @if $tam == lg { @return calc(var(--iswc-radius) * 2); }
+  @if $tam == xl { @return calc(var(--iswc-radius) * 3.5); }
+  @error "radio(#{$tam}): usa sm, md, lg o xl";
+}

@@ -1,0 +1,58 @@
+{
+  "$schema": "iswc-preview/v1",
+  "tag": "ja-empleo",
+  "category": "portafolio",
+  "navTitle": "Empleo",
+  "title": "&lt;ja-empleo&gt;",
+  "titleHtml": false,
+  "storageKey": "docs-ja-empleo",
+  "styles": ".stage{padding:1rem}",
+  "sections": [
+    {
+      "id": "intro",
+      "title": "&lt;ja-empleo&gt;",
+      "lede": "Tarjeta plegable de un empleo: cargo, empresa, fechas, duración, modalidad, logros, periodos con contrato, galería, tecnologías y certificado.",
+      "blocks": [
+        {
+          "kind": "demo",
+          "html": "<div class=\"stage\"><ja-empleo id=\"demo\"></ja-empleo></div>",
+          "target": "#demo",
+          "props": {
+            "id": "coremsa",
+            "abierto": true
+          },
+          "controls": [
+            {
+              "control": "select",
+              "prop": "props:id",
+              "label": "id",
+              "default": "coremsa",
+              "options": [
+                "insoft",
+                "coremsa",
+                "pentagrama",
+                "singleclick",
+                "registel",
+                "glorias",
+                "iseeci",
+                "elcinco",
+                "ferremateriales",
+                "lava-en-casa"
+              ]
+            },
+            {
+              "control": "boolean",
+              "prop": "props:abierto",
+              "label": "abierto",
+              "default": true
+            }
+          ]
+        },
+        {
+          "kind": "html",
+          "html": "<iswc-callout tone=\"info\"><strong slot=\"title\">Cuándo usarlo</strong>Dentro del modal «Ver detalle» de <ja-trayectoria>.</iswc-callout>"
+        }
+      ]
+    }
+  ]
+}

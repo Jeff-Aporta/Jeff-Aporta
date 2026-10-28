@@ -1,0 +1,72 @@
+{
+  "$schema": "iswc-preview/v1",
+  "tag": "ja-rasgo",
+  "category": "transversal",
+  "navTitle": "Rasgo",
+  "title": "&lt;ja-rasgo&gt;",
+  "titleHtml": false,
+  "storageKey": "docs-ja-rasgo",
+  "styles": ".stage{max-width:22rem;padding:1rem}",
+  "sections": [
+    {
+      "id": "intro",
+      "title": "&lt;ja-rasgo&gt;",
+      "lede": "Tarjeta de rasgo: baldosa de ícono con tono, título, texto y un slot para extras (etiquetas).",
+      "blocks": [
+        {
+          "kind": "demo",
+          "html": "<div class=\"stage\"><ja-rasgo id=\"demo\"></ja-rasgo></div>",
+          "target": "#demo",
+          "props": {
+            "icono": "mdi:puzzle-outline",
+            "titulo": "Sistemas de diseño",
+            "texto": "Componentes reutilizables y documentados.",
+            "tono": "marca"
+          },
+          "controls": [
+            {
+              "control": "text",
+              "prop": "props:icono",
+              "label": "icono",
+              "default": "mdi:puzzle-outline"
+            },
+            {
+              "control": "text",
+              "prop": "props:titulo",
+              "label": "titulo",
+              "default": "Sistemas de diseño"
+            },
+            {
+              "control": "text",
+              "prop": "props:texto",
+              "label": "texto",
+              "default": "Componentes reutilizables y documentados."
+            },
+            {
+              "control": "select",
+              "prop": "props:tono",
+              "label": "tono",
+              "default": "marca",
+              "options": [
+                "marca",
+                "acento",
+                "exito",
+                "peligro",
+                "lila"
+              ]
+            }
+          ]
+        },
+        {
+          "kind": "html",
+          "html": "<iswc-callout tone=\"info\"><strong slot=\"title\">Cuándo usarlo</strong>Para pilares, áreas o beneficios en rejilla.</iswc-callout>"
+        }
+      ]
+    }
+  ],
+  "reuso": {
+    "candidato": "iswc-root",
+    "motivo": "Tarjeta de característica (ícono, título, texto, extras) sin dominio, típica de landings.",
+    "propuesta": "iswc-feature"
+  }
+}

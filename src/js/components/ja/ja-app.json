@@ -1,0 +1,46 @@
+{
+  "$schema": "iswc-preview/v1",
+  "tag": "ja-app",
+  "category": "shell",
+  "navTitle": "App",
+  "title": "&lt;ja-app&gt;",
+  "titleHtml": false,
+  "storageKey": "docs-ja-app",
+  "styles": ".stage{min-height:24rem}",
+  "sections": [
+    {
+      "id": "intro",
+      "title": "&lt;ja-app&gt;",
+      "lede": "Shell del portafolio: barra fija con marca, navegación por secciones y tema; la vista y el pie.",
+      "blocks": [
+        {
+          "kind": "demo",
+          "html": "<div class=\"stage\"><ja-app id=\"demo\"></ja-app></div>",
+          "target": "#demo",
+          "controls": [
+            {
+              "control": "select",
+              "prop": "props:seccion",
+              "label": "seccion",
+              "default": "inicio",
+              "options": [
+                "inicio",
+                "perfil",
+                "trayectoria",
+                "experiencia",
+                "proyectos",
+                "habilidades",
+                "educacion",
+                "contacto"
+              ]
+            }
+          ]
+        },
+        {
+          "kind": "html",
+          "html": "<iswc-callout tone=\"info\"><strong slot=\"title\">Cuándo usarlo</strong>Una sola vez, en index.html.</iswc-callout><iswc-callout tone=\"warning\"><strong slot=\"title\">Cuándo no</strong>No lo montes dentro de otra vista.</iswc-callout>"
+        }
+      ]
+    }
+  ]
+}

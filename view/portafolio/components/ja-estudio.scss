@@ -1,0 +1,97 @@
+@use "tokens" as t;
+@use "mixins" as m;
+
+/* ja-estudio — tarjeta de estudio con sello de la institución. */
+:host {
+  @include m.host-bloque;
+  height: 100%;
+}
+
+.tarjeta {
+  box-sizing: border-box;
+  height: 100%;
+  @include m.superficie;
+  @include m.elevable;
+  display: grid;
+  gap: t.esp(4);
+  grid-template-rows: auto 1fr auto;
+  padding: t.esp(6);
+}
+
+.sello {
+  display: flex;
+  gap: t.esp(3);
+  align-items: center;
+
+  iswc-icon {
+    padding: t.esp(3);
+    border-radius: 1rem;
+    background: var(--iswc-warning-soft);
+    color: var(--iswc-warning-text);
+    font-size: 1.6rem;
+  }
+
+  span {
+    font-family: t.$titulos;
+    font-size: 1.25rem;
+    font-weight: 800;
+    letter-spacing: 0.04em;
+  }
+}
+
+.texto {
+  display: grid;
+  gap: t.esp(2);
+  align-content: start;
+
+  p { margin: 0; }
+}
+
+.nivel {
+  @include m.rotulo(1);
+  color: var(--iswc-brand-text);
+  font-size: 0.6875rem;
+}
+
+h3 { @include m.titulo(1.1875rem); }
+
+.institucion {
+  color: var(--iswc-text-soft);
+  font-weight: 600;
+}
+
+.lugar,
+.nota {
+  display: flex;
+  gap: t.esp(2);
+  align-items: center;
+  color: var(--iswc-text-dim);
+  font-size: 0.875rem;
+}
+
+.nota {
+  padding: t.esp(2) t.esp(3);
+  border-radius: t.radio(md);
+  background: var(--iswc-warning-soft);
+  color: var(--iswc-warning-text);
+  font-weight: 600;
+}
+
+.certificado { justify-self: start; }
+
+.sello iswc-icon { animation: balanceo 6s ease-in-out infinite; }
+
+@keyframes balanceo {
+  0%, 100% { transform: rotate(0deg); }
+  50% { transform: rotate(-8deg); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sello iswc-icon { animation: none; }
+}
+
+@media print {
+  .tarjeta { box-shadow: none; }
+
+  .certificado { display: none; }
+}

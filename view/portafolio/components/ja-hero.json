@@ -1,0 +1,28 @@
+{
+  "$schema": "iswc-preview/v1",
+  "tag": "ja-hero",
+  "category": "portafolio",
+  "navTitle": "Portada",
+  "title": "&lt;ja-hero&gt;",
+  "titleHtml": false,
+  "storageKey": "docs-ja-hero",
+  "styles": ".stage{padding:0}",
+  "sections": [
+    {
+      "id": "intro",
+      "title": "&lt;ja-hero&gt;",
+      "lede": "Portada: ubicación, nombre, titular, propuesta, roles, llamados a la acción, retrato sobre ilustración, formas animadas, insignias y cifras (iswc-stat).",
+      "blocks": [
+        {
+          "kind": "demo",
+          "html": "<div class=\"stage\"><ja-hero id=\"demo\"></ja-hero></div>",
+          "target": "#demo"
+        },
+        {
+          "kind": "html",
+          "html": "<iswc-callout tone=\"info\"><strong slot=\"title\">Cuándo usarlo</strong>Una vez, al inicio del portafolio.</iswc-callout><iswc-callout tone=\"warning\"><strong slot=\"title\">Cuándo no</strong>No la repitas en otras vistas.</iswc-callout>"
+        }
+      ]
+    }
+  ]
+}

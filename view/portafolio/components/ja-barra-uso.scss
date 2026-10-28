@@ -1,0 +1,32 @@
+@use "tokens" as t;
+@use "mixins" as m;
+
+/* ja-barra-uso — nombre | barra | valor; en móvil el valor pasa abajo. */
+:host {
+  @include m.host-bloque;
+  display: grid;
+  gap: t.esp(2) t.esp(4);
+  grid-template-columns: 8rem minmax(0, 1fr) 9rem;
+  align-items: center;
+}
+
+.nombre {
+  font-size: 0.9375rem;
+  font-weight: 700;
+}
+
+.valor {
+  display: grid;
+  color: var(--iswc-text);
+  font-size: 0.875rem;
+  font-weight: 600;
+  text-align: right;
+}
+
+@include m.movil {
+  :host { grid-template-columns: 1fr auto; }
+
+  iswc-progress-bar { grid-column: 1 / -1; grid-row: 2; }
+
+  .valor { display: flex; gap: t.esp(2); align-items: baseline; }
+}

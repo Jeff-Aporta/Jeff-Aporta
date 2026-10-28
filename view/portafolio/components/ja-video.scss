@@ -1,0 +1,90 @@
+@use "tokens" as t;
+@use "mixins" as m;
+
+/* ja-video — 16:9 con fachada (miniatura + botón) o el reproductor ya cargado. */
+:host {
+  @include m.host-bloque;
+}
+
+.marco {
+  position: relative;
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  border-radius: t.radio(lg);
+  background: #000;
+  box-shadow: 0 30px 60px -30px color-mix(in srgb, var(--iswc-color-brand) 55%, transparent);
+}
+
+iframe {
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+.fachada {
+  padding: 0;
+  border: 0;
+  cursor: pointer;
+  font: inherit;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s ease;
+  }
+
+  .velo {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, transparent 45%, rgb(0 0 0 / 65%));
+  }
+
+  .play {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    display: grid;
+    place-items: center;
+    width: 4.5rem;
+    height: 4.5rem;
+    border-radius: 50%;
+    background: var(--iswc-color-brand);
+    box-shadow: 0 0 0 10px color-mix(in srgb, var(--iswc-color-brand) 30%, transparent);
+    color: var(--iswc-on-brand);
+    font-size: 2.2rem;
+    transform: translate(-50%, -50%);
+    transition: transform 0.25s ease;
+  }
+
+  .leyenda {
+    position: absolute;
+    right: t.esp(5);
+    bottom: t.esp(4);
+    left: t.esp(5);
+    display: flex;
+    gap: t.esp(2);
+    align-items: center;
+    color: #fff;
+    font-size: 0.9375rem;
+    font-weight: 600;
+    text-align: left;
+
+    iswc-icon { color: #ff3d3d; font-size: 1.4rem; }
+  }
+
+  &:hover img { transform: scale(1.04); }
+  &:hover .play { transform: translate(-50%, -50%) scale(1.08); }
+
+  &:focus-visible {
+    outline: 3px solid var(--iswc-color-brand);
+    outline-offset: 4px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fachada img,
+  .fachada .play { transition: none; }
+}

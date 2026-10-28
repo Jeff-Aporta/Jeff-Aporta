@@ -1,0 +1,116 @@
+@use "tokens" as t;
+@use "mixins" as m;
+
+/* ja-perfil — video + resumen a dos columnas y pilares en rejilla. */
+:host {
+  @include m.host-bloque;
+  display: grid;
+  gap: t.esp(12);
+}
+
+.principal {
+  display: grid;
+  gap: t.esp(10);
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+  align-items: center;
+
+  @include m.tableta { grid-template-columns: 1fr; gap: t.esp(8); }
+}
+
+.video {
+  position: relative;
+
+  .deco { position: absolute; z-index: 0; }
+
+  .puntos { top: -1.75rem; left: -1.75rem; }
+
+  .anillo { right: -1.25rem; bottom: 2.5rem; }
+
+  ja-video { position: relative; z-index: 1; }
+}
+
+.resumen {
+  display: grid;
+  gap: t.esp(4);
+  justify-items: start;
+
+  p {
+    margin: 0;
+    color: var(--iswc-text-soft);
+    font-size: 1rem;
+    line-height: 1.75;
+  }
+
+  .lead {
+    color: var(--iswc-text);
+    font-size: 1.1875rem;
+    font-weight: 500;
+    line-height: 1.6;
+  }
+}
+
+.cv {
+  @include m.superficie;
+  @include m.elevable;
+  display: grid;
+  gap: t.esp(4);
+  grid-template-columns: 7.5rem minmax(0, 1fr);
+  align-items: center;
+  width: 100%;
+  margin-top: t.esp(2);
+  padding: t.esp(4) t.esp(5) t.esp(4) t.esp(3);
+  background:
+    radial-gradient(14rem 9rem at 0% 50%, color-mix(in srgb, var(--iswc-color-brand) 12%, transparent), transparent 70%),
+    var(--iswc-bg-elev);
+
+  .portada {
+    display: block;
+    border-radius: 1rem;
+    transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+
+    &:focus-visible { outline: 3px solid var(--iswc-color-brand); outline-offset: 3px; }
+  }
+
+  &:hover .portada { transform: rotate(-3deg) scale(1.05); }
+
+  img { display: block; width: 100%; height: auto; }
+
+  h3 { @include m.titulo(1.25rem); margin: 0; }
+
+  p {
+    margin: t.esp(1) 0 t.esp(3);
+    color: var(--iswc-text-dim);
+    font-size: 0.8125rem;
+    line-height: 1.4;
+  }
+}
+
+.cv-acciones {
+  display: flex;
+  flex-wrap: wrap;
+  gap: t.esp(2);
+
+  iswc-button { font-size: 0.875rem; }
+}
+
+.pilares {
+  @include m.rejilla(15rem, t.esp(5), auto-fit);
+}
+
+@include m.movil {
+  .video .deco { display: none; }
+
+  .resumen .lead { font-size: 1.0625rem; }
+
+  .cv { grid-template-columns: 5.5rem minmax(0, 1fr); padding: t.esp(3) t.esp(4) t.esp(3) t.esp(2); }
+
+  .cv-acciones iswc-button { flex: 1 1 auto; }
+}
+
+@media print {
+  .video,
+  .resumen iswc-button,
+  .cv { display: none; }
+
+  .principal { grid-template-columns: 1fr; }
+}

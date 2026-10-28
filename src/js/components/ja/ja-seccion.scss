@@ -1,0 +1,160 @@
+@use "tokens" as t;
+@use "mixins" as m;
+
+/* ja-seccion — bloque de página: encabezado + slot, fondo alterno, formas memphis y entrada al aparecer. */
+:host {
+  @include m.host-bloque;
+  position: relative;
+  overflow: hidden;
+  padding: t.esp(16) t.esp(6);
+  background: var(--iswc-bg);
+}
+
+:host([data-fondo="suave"]) {
+  background: var(--iswc-bg-soft);
+}
+
+:host([data-fondo="marca"]) {
+  background:
+    radial-gradient(60rem 30rem at 85% -10%, color-mix(in srgb, var(--iswc-color-brand) 16%, transparent), transparent 70%),
+    var(--iswc-bg-soft);
+}
+
+/* Sin z-index propio: así un modal de la sección (iswc-dialog, fijo) queda sobre la barra. Las formas,
+   anteriores en el DOM, siguen pintándose detrás. */
+.contenedor {
+  position: relative;
+  max-width: t.$ancho;
+  margin: 0 auto;
+}
+
+.encabezado {
+  display: grid;
+  gap: t.esp(8);
+  align-items: center;
+  margin-bottom: t.esp(10);
+
+  &[con-ilustracion] {
+    grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+
+    @include m.tableta { grid-template-columns: 1fr; }
+  }
+}
+
+.textos {
+  display: grid;
+  gap: t.esp(4);
+  max-width: 46rem;
+}
+
+.cejilla {
+  @include m.rotulo(1);
+  display: inline-flex;
+  gap: t.esp(3);
+  align-items: center;
+  margin: 0;
+  color: var(--iswc-brand-text);
+
+  .raya {
+    width: 2rem;
+    height: 3px;
+    border-radius: 3px;
+    background: linear-gradient(90deg, var(--iswc-color-brand), var(--iswc-color-warning), var(--iswc-color-brand));
+    background-size: 200% 100%;
+    animation: raya 4s linear infinite;
+  }
+}
+
+.titulo {
+  @include m.titulo(clamp(1.75rem, 1.15rem + 2.3vw, 2.9rem));
+  color: var(--iswc-text);
+}
+
+.entrada {
+  margin: 0;
+  color: var(--iswc-text-soft);
+  font-size: clamp(1rem, 0.95rem + 0.3vw, 1.125rem);
+  line-height: 1.65;
+}
+
+.ilustracion {
+  justify-self: end;
+  width: min(100%, 22rem);
+  animation: flotar 8s ease-in-out infinite;
+
+  @include m.tableta { display: none; }
+}
+
+/* Formas memphis (decorativas, animadas por <ja-forma>). */
+.forma {
+  position: absolute;
+  z-index: 0;
+  opacity: 0.35;
+}
+
+/* Solo en los márgenes del encabezado: nunca detrás de tarjetas ni texto. */
+.anillo { top: t.esp(10); right: -3rem; }
+.puntos { right: t.esp(5); bottom: t.esp(3); opacity: 0.45; }
+.cruz { top: t.esp(12); left: 46%; opacity: 0.6; }
+
+/* Entrada al aparecer en la ventana (una vez). */
+.encabezado,
+.cuerpo {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.8s cubic-bezier(0.2, 0.8, 0.2, 1), transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.cuerpo { transition-delay: 0.12s; }
+
+:host([data-visible]) .encabezado,
+:host([data-visible]) .cuerpo {
+  opacity: 1;
+  transform: none;
+}
+
+@keyframes flotar {
+  50% { transform: translateY(-12px); }
+}
+
+@keyframes raya {
+  to { background-position: -200% 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .encabezado,
+  .cuerpo { opacity: 1; transform: none; transition: none; }
+
+  .ilustracion,
+  .cejilla .raya { animation: none; }
+}
+
+@include m.tableta {
+  :host { padding: t.esp(12) t.esp(5); }
+
+  .puntos,
+  .cruz { display: none; }
+
+  /* El anillo sube a la esquina: en una sola columna el texto ocupa todo el ancho. */
+  .anillo { top: -5rem; right: -4rem; }
+
+  .encabezado { margin-bottom: t.esp(8); }
+}
+
+@include m.movil {
+  :host { padding: t.esp(10) t.esp(4); }
+
+  .forma { display: none; }
+}
+
+@media print {
+  :host { padding: t.esp(4) 0; background: none !important; }
+
+  .forma,
+  .ilustracion { display: none; }
+
+  .encabezado,
+  .cuerpo { opacity: 1; transform: none; }
+
+  .encabezado { margin-bottom: t.esp(4); }
+}

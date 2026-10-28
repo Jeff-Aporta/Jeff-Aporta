@@ -1,0 +1,1 @@
+@charset "UTF-8";:host{display:block;min-width:0;font-family:var(--iswc-font-sans)}.lista{display:grid;gap:1.25rem;grid-template-columns:repeat(auto-fit,minmax(min(18rem,100%),1fr))}

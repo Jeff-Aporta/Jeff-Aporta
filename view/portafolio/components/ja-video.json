@@ -1,0 +1,57 @@
+{
+  "$schema": "iswc-preview/v1",
+  "tag": "ja-video",
+  "category": "portafolio",
+  "navTitle": "Video",
+  "title": "&lt;ja-video&gt;",
+  "titleHtml": false,
+  "storageKey": "docs-ja-video",
+  "styles": ".stage{max-width:40rem;padding:1rem}",
+  "sections": [
+    {
+      "id": "intro",
+      "title": "&lt;ja-video&gt;",
+      "lede": "Video de YouTube con fachada: miniatura y botón; el reproductor (youtube-nocookie) se carga solo al pulsar.",
+      "blocks": [
+        {
+          "kind": "demo",
+          "html": "<div class=\"stage\"><ja-video id=\"demo\"></ja-video></div>",
+          "target": "#demo",
+          "props": {
+            "youtubeId": "32WdPbuVcdg",
+            "titulo": "Presentación profesional"
+          },
+          "controls": [
+            {
+              "control": "text",
+              "prop": "props:youtubeId",
+              "label": "youtubeId",
+              "default": "32WdPbuVcdg"
+            },
+            {
+              "control": "text",
+              "prop": "props:titulo",
+              "label": "titulo",
+              "default": "Presentación profesional"
+            },
+            {
+              "control": "boolean",
+              "prop": "props:activo",
+              "label": "activo",
+              "default": false
+            }
+          ]
+        },
+        {
+          "kind": "html",
+          "html": "<iswc-callout tone=\"info\"><strong slot=\"title\">Cuándo usarlo</strong>Para videos de YouTube sin pagar su peso al cargar.</iswc-callout><iswc-callout tone=\"warning\"><strong slot=\"title\">Cuándo no</strong>No para video propio (usa iswc-video).</iswc-callout>"
+        }
+      ]
+    }
+  ],
+  "reuso": {
+    "candidato": "iswc-root",
+    "motivo": "Fachada ligera de YouTube (miniatura + carga diferida del iframe) sin dominio; complementa a iswc-video para videos alojados en YouTube.",
+    "propuesta": "iswc-youtube"
+  }
+}

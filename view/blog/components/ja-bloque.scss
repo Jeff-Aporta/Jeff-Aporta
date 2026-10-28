@@ -1,0 +1,40 @@
+@use "tokens" as t;
+@use "mixins" as m;
+
+/* ja-bloque — tipografía de lectura para markdown y código con pestaña de título. */
+:host {
+  @include m.host-bloque;
+}
+
+.texto {
+  display: block;
+  color: var(--iswc-text);
+  font-size: 1.0625rem;
+  line-height: 1.8;
+}
+
+figure {
+  margin: 0;
+}
+
+.codigo figcaption {
+  display: flex;
+  gap: t.esp(2);
+  align-items: center;
+  padding: t.esp(2) t.esp(4);
+  border: 1px solid var(--iswc-border-soft);
+  border-bottom: 0;
+  border-radius: t.radio(md) t.radio(md) 0 0;
+  background: color-mix(in srgb, #ffcf4a 22%, var(--iswc-bg-soft));
+  width: fit-content;
+  max-width: 100%;
+  color: var(--iswc-text-soft);
+  font-family: ui-monospace, "Cascadia Code", Consolas, monospace;
+  font-size: 0.8125rem;
+}
+
+.codigo iswc-code { display: block; }
+
+@include m.movil {
+  .texto { font-size: 1rem; line-height: 1.7; }
+}

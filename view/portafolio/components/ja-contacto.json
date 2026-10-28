@@ -1,0 +1,28 @@
+{
+  "$schema": "iswc-preview/v1",
+  "tag": "ja-contacto",
+  "category": "portafolio",
+  "navTitle": "Contacto",
+  "title": "&lt;ja-contacto&gt;",
+  "titleHtml": false,
+  "storageKey": "docs-ja-contacto",
+  "styles": ".stage{padding:0}",
+  "sections": [
+    {
+      "id": "intro",
+      "title": "&lt;ja-contacto&gt;",
+      "lede": "Canales de contacto (correo y teléfono con copia) y tarjeta de llamado a la acción.",
+      "blocks": [
+        {
+          "kind": "demo",
+          "html": "<div class=\"stage\"><ja-contacto id=\"demo\"></ja-contacto></div>",
+          "target": "#demo"
+        },
+        {
+          "kind": "html",
+          "html": "<iswc-callout tone=\"info\"><strong slot=\"title\">Cuándo usarlo</strong>En la sección Contacto.</iswc-callout>"
+        }
+      ]
+    }
+  ]
+}

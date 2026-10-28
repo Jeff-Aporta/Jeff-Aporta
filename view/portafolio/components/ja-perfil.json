@@ -1,0 +1,28 @@
+{
+  "$schema": "iswc-preview/v1",
+  "tag": "ja-perfil",
+  "category": "portafolio",
+  "navTitle": "Perfil",
+  "title": "&lt;ja-perfil&gt;",
+  "titleHtml": false,
+  "storageKey": "docs-ja-perfil",
+  "styles": ".stage{padding:0}",
+  "sections": [
+    {
+      "id": "intro",
+      "title": "&lt;ja-perfil&gt;",
+      "lede": "Perfil profesional: video de presentación, resumen y los cuatro pilares.",
+      "blocks": [
+        {
+          "kind": "demo",
+          "html": "<div class=\"stage\"><ja-perfil id=\"demo\"></ja-perfil></div>",
+          "target": "#demo"
+        },
+        {
+          "kind": "html",
+          "html": "<iswc-callout tone=\"info\"><strong slot=\"title\">Cuándo usarlo</strong>En la sección Perfil.</iswc-callout>"
+        }
+      ]
+    }
+  ]
+}

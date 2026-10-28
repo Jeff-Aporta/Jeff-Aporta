@@ -1,0 +1,37 @@
+{
+  "$schema": "iswc-preview/v1",
+  "tag": "ja-bloque",
+  "category": "blog",
+  "navTitle": "Bloque",
+  "title": "&lt;ja-bloque&gt;",
+  "titleHtml": false,
+  "storageKey": "docs-ja-bloque",
+  "styles": ".stage{max-width:46rem;padding:1rem}",
+  "sections": [
+    {
+      "id": "intro",
+      "title": "&lt;ja-bloque&gt;",
+      "lede": "Bloque dentro de un paso de una guía: markdown (iswc-md-render), código (iswc-code) o nota (iswc-callout).",
+      "blocks": [
+        {
+          "kind": "demo",
+          "html": "<div class=\"stage\"><ja-bloque id=\"demo\"></ja-bloque></div>",
+          "target": "#demo",
+          "props": {
+            "bloque": {
+              "tipo": "nota",
+              "tono": "info",
+              "titulo": "Nota",
+              "md": "Un bloque de **ejemplo**."
+            }
+          },
+          "controls": []
+        },
+        {
+          "kind": "html",
+          "html": "<iswc-callout tone=\"info\"><strong slot=\"title\">Cuándo usarlo</strong>Dentro de <ja-paso>.</iswc-callout>"
+        }
+      ]
+    }
+  ]
+}

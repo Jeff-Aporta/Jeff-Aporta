@@ -1,0 +1,38 @@
+@use "mixins" as m;
+
+/* ja-ilustracion — SVG plano o composición por piezas; ambos siguen al cursor (parallax sutil). */
+:host {
+  display: block;
+  min-width: 0;
+}
+
+img {
+  display: block;
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+/* SVG plano: se mueve entero, poco. */
+.plana {
+  width: 100%;
+  height: auto;
+  @include m.paralaje(0.35);
+}
+
+/* Composición: cada pieza en % del lienzo, desplazada según su profundidad. */
+.lienzo {
+  position: relative;
+  width: 100%;
+}
+
+.pieza {
+  position: absolute;
+  height: auto;
+  rotate: var(--giro, 0deg);
+  @include m.paralaje(var(--prof));
+}
+
+.sombra {
+  border-radius: 50%;
+  background: radial-gradient(closest-side, color-mix(in srgb, var(--iswc-text) 12%, transparent), transparent);
+}

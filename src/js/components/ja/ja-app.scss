@@ -1,0 +1,202 @@
+@use "tokens" as t;
+@use "mixins" as m;
+
+/* ja-app — shell: barra fija con desenfoque, la vista y el pie. */
+:host {
+  @include m.host-bloque;
+  min-height: 100dvh;
+  background: var(--iswc-bg);
+  color: var(--iswc-text);
+}
+
+.interior {
+  display: flex;
+  gap: t.esp(6);
+  align-items: center;
+  max-width: t.$ancho;
+  margin: 0 auto;
+}
+
+.saltar {
+  position: absolute;
+  top: -4rem;
+  left: t.esp(4);
+  z-index: 30;
+  padding: t.esp(2) t.esp(4);
+  border-radius: t.radio(md);
+  background: var(--iswc-color-brand);
+  color: var(--iswc-on-brand);
+
+  &:focus { top: t.esp(2); }
+}
+
+.barra {
+  --margen: #{t.esp(6)};
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  padding: t.esp(3) var(--margen) 0;
+  border-bottom: 1px solid color-mix(in srgb, var(--iswc-border-soft) 80%, transparent);
+  background: color-mix(in srgb, var(--iswc-bg) 82%, transparent);
+  backdrop-filter: saturate(1.6) blur(14px);
+
+  > .interior { padding-bottom: t.esp(3); }
+}
+
+.marca {
+  display: flex;
+  flex: none;
+  min-width: 0;
+  border-radius: 999px;
+  color: inherit;
+  text-decoration: none;
+
+  &:focus-visible { outline: 3px solid var(--iswc-color-brand); outline-offset: 4px; }
+}
+
+/* Pestañas comunes a las dos barras: pastillas; la activa es papel en relieve. */
+.pestanas,
+.secciones {
+  min-width: 0;
+  --iswc-app-nav-active: var(--iswc-color-brand);
+  --iswc-app-nav-tab-color: var(--iswc-text-soft);
+  --iswc-app-nav-tab-hover: var(--iswc-text);
+
+  &::part(row) {
+    gap: t.esp(1);
+    padding: 0.2rem;
+    scroll-snap-type: x proximity;
+    overscroll-behavior-x: contain;
+  }
+
+  &::part(tab) {
+    gap: 0.4rem;
+    padding: 0.3rem 0.85rem;
+    border: 0;
+    border-radius: 999px;
+    scroll-snap-align: center;
+    -webkit-tap-highlight-color: transparent;
+    transition: color 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  &::part(icon) { font-size: 1.05rem; }
+
+  &::part(tab-active),
+  &::part(tab-active):hover {
+    background: var(--iswc-bg-elev);
+    box-shadow:
+      inset 0 0 0 1px color-mix(in srgb, var(--iswc-color-brand) 18%, transparent),
+      0 0.15rem 0 color-mix(in srgb, var(--iswc-color-brand) 16%, transparent),
+      0 0.4rem 0.8rem -0.5rem color-mix(in srgb, var(--iswc-color-brand) 55%, transparent);
+  }
+}
+
+@media (hover: hover) {
+  .pestanas::part(tab):hover,
+  .secciones::part(tab):hover { background: color-mix(in srgb, var(--iswc-color-brand) 8%, transparent); }
+}
+
+/* Pantallas táctiles: pestañas con área de toque cómoda (≈ 40 px de alto). */
+@media (pointer: coarse) {
+  .pestanas::part(tab) { min-height: 2.5rem; }
+
+  .secciones::part(tab) { min-height: 1.9rem; }
+}
+
+/* Barra principal (Yo / Blog): riel hundido. */
+.pestanas {
+  flex: 1;
+
+  &::part(row) {
+    width: fit-content;
+    max-width: 100%;
+    border-radius: 999px;
+    background: var(--iswc-bg-soft);
+    box-shadow: inset 0 1px 2px color-mix(in srgb, var(--iswc-text) 10%, transparent);
+  }
+}
+
+/* Barra secundaria: franja a todo el ancho (también bajo el logo) en el tono secundario. El tono sale
+   de la marca girada con hue-rotate, así sigue a la paleta y al tema. */
+.franja {
+  margin: 0 calc(-1 * var(--margen));
+  padding: 0 var(--margen);
+  border-top: 1px solid color-mix(in srgb, var(--iswc-color-brand) 16%, transparent);
+  background: linear-gradient(90deg, color-mix(in srgb, var(--iswc-color-brand) 11%, var(--iswc-bg)), color-mix(in srgb, var(--iswc-color-brand) 5%, var(--iswc-bg)));
+  filter: hue-rotate(52deg);
+
+  &[hidden] { display: none; }
+
+  .interior { display: block; }
+}
+
+/* Compacta: ~60 % del alto de la barra principal. */
+.secciones {
+  --iswc-app-nav-tab-color: color-mix(in srgb, var(--iswc-color-brand) 45%, var(--iswc-text-soft));
+  --iswc-app-nav-tab-height: 1.45rem;
+  font-size: 0.92em;
+
+  &::part(row) { padding: 0.15rem 0.1rem; }
+
+  &::part(tab) { padding: 0.1rem 0.75rem; }
+}
+
+.acciones {
+  display: flex;
+  flex: none;
+  gap: t.esp(2);
+  align-items: center;
+}
+
+.vista {
+  display: block;
+}
+
+.pie {
+  padding: t.esp(12) t.esp(6) t.esp(8);
+  border-top: 1px solid var(--iswc-border-soft);
+  background: var(--iswc-bg-soft);
+
+  .interior {
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+
+  .firma { max-width: 100%; }
+
+  .redes {
+    display: flex;
+    gap: t.esp(1);
+    font-size: 1.15rem;
+  }
+
+  .legal {
+    flex-basis: 100%;
+    margin: t.esp(4) 0 0;
+    padding-top: t.esp(6);
+    border-top: 1px solid var(--iswc-border-soft);
+    color: var(--iswc-text-dim);
+    font-size: 0.8125rem;
+  }
+}
+
+@include m.movil {
+  .barra { --margen: #{t.esp(4)}; padding-top: t.esp(2); }
+
+  .barra > .interior { gap: t.esp(3); padding-bottom: t.esp(2); }
+
+  .marca ja-marca::part(subtitulo) { display: none; }
+
+
+  .marca { flex: 1; min-width: 0; }
+
+  .pestanas { flex: none; }
+}
+
+@media print {
+  .barra,
+  .saltar,
+  .pie .redes { display: none; }
+
+  .pie { padding: t.esp(4) 0; background: none; }
+}

@@ -1,0 +1,28 @@
+{
+  "$schema": "iswc-preview/v1",
+  "tag": "ja-trayectoria",
+  "category": "portafolio",
+  "navTitle": "Trayectoria",
+  "title": "&lt;ja-trayectoria&gt;",
+  "titleHtml": false,
+  "storageKey": "docs-ja-trayectoria",
+  "styles": ".stage{padding:0}",
+  "sections": [
+    {
+      "id": "intro",
+      "title": "&lt;ja-trayectoria&gt;",
+      "lede": "La experiencia como gráfico de ramas al estilo GitHub: tronco hasta la actualidad y una rama por vinculación (inicio y fin); las simultáneas corren en paralelo.",
+      "blocks": [
+        {
+          "kind": "demo",
+          "html": "<div class=\"stage\"><ja-trayectoria id=\"demo\"></ja-trayectoria></div>",
+          "target": "#demo"
+        },
+        {
+          "kind": "html",
+          "html": "<iswc-callout tone=\"info\"><strong slot=\"title\">Cuándo usarlo</strong>En la sección Trayectoria.</iswc-callout>"
+        }
+      ]
+    }
+  ]
+}

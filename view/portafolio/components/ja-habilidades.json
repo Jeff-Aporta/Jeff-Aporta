@@ -1,0 +1,28 @@
+{
+  "$schema": "iswc-preview/v1",
+  "tag": "ja-habilidades",
+  "category": "portafolio",
+  "navTitle": "Habilidades",
+  "title": "&lt;ja-habilidades&gt;",
+  "titleHtml": false,
+  "storageKey": "docs-ja-habilidades",
+  "styles": ".stage{padding:0}",
+  "sections": [
+    {
+      "id": "intro",
+      "title": "&lt;ja-habilidades&gt;",
+      "lede": "Áreas de capacidad con sus tecnologías y el uso real acumulado por tecnología (sin doble conteo).",
+      "blocks": [
+        {
+          "kind": "demo",
+          "html": "<div class=\"stage\"><ja-habilidades id=\"demo\"></ja-habilidades></div>",
+          "target": "#demo"
+        },
+        {
+          "kind": "html",
+          "html": "<iswc-callout tone=\"info\"><strong slot=\"title\">Cuándo usarlo</strong>En la sección Habilidades.</iswc-callout>"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "$schema": "iswc-preview/v1",
+  "tag": "ja-educacion",
+  "category": "portafolio",
+  "navTitle": "Educación",
+  "title": "&lt;ja-educacion&gt;",
+  "titleHtml": false,
+  "storageKey": "docs-ja-educacion",
+  "styles": ".stage{padding:0}",
+  "sections": [
+    {
+      "id": "intro",
+      "title": "&lt;ja-educacion&gt;",
+      "lede": "Formación académica en tarjetas, con nota de honor y certificado cuando existen.",
+      "blocks": [
+        {
+          "kind": "demo",
+          "html": "<div class=\"stage\"><ja-educacion id=\"demo\"></ja-educacion></div>",
+          "target": "#demo"
+        },
+        {
+          "kind": "html",
+          "html": "<iswc-callout tone=\"info\"><strong slot=\"title\">Cuándo usarlo</strong>En la sección Educación.</iswc-callout>"
+        }
+      ]
+    }
+  ]
+}

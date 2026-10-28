@@ -1,0 +1,13 @@
+@use "tokens" as t;
+@use "mixins" as m;
+
+/* ja-blog — la vista ocupa al menos la ventana para que el pie no suba en blogs cortos. */
+:host {
+  @include m.host-bloque;
+  min-height: 70vh;
+}
+
+.lista {
+  display: grid;
+  gap: t.esp(6);
+}

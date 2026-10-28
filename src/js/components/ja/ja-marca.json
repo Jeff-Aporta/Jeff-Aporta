@@ -1,0 +1,45 @@
+{
+  "$schema": "iswc-preview/v1",
+  "tag": "ja-marca",
+  "category": "transversal",
+  "navTitle": "Marca",
+  "title": "&lt;ja-marca&gt;",
+  "titleHtml": false,
+  "storageKey": "docs-ja-marca",
+  "styles": ".stage{padding:1.5rem}",
+  "sections": [
+    {
+      "id": "intro",
+      "title": "&lt;ja-marca&gt;",
+      "lede": "Identidad: logo circular con el avatar ilustrado de Jeffrey, nombre y subtítulo; el logo gira levemente al pasar el cursor.",
+      "blocks": [
+        {
+          "kind": "demo",
+          "html": "<div class=\"stage\"><ja-marca id=\"demo\"></ja-marca></div>",
+          "target": "#demo",
+          "props": {
+            "subtitulo": "Full Stack Developer"
+          },
+          "controls": [
+            {
+              "control": "text",
+              "prop": "props:subtitulo",
+              "label": "subtitulo",
+              "default": "Full Stack Developer"
+            },
+            {
+              "control": "boolean",
+              "prop": "props:compacta",
+              "label": "compacta",
+              "default": false
+            }
+          ]
+        },
+        {
+          "kind": "html",
+          "html": "<iswc-callout tone=\"info\"><strong slot=\"title\">Cuándo usarlo</strong>En la barra y el pie del sitio.</iswc-callout>"
+        }
+      ]
+    }
+  ]
+}

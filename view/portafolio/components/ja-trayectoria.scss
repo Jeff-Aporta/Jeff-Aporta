@@ -1,0 +1,38 @@
+@use "tokens" as t;
+@use "mixins" as m;
+
+/* ja-trayectoria — filas del gráfico de ramas, sin separación vertical para que las líneas se unan. */
+:host {
+  @include m.host-bloque;
+  /* Ocupa el ancho de la sección; con la columna de ilustraciones de los arranques (≥ 75rem) el grafo
+     se corre a la derecha. */
+  margin: 0 auto;
+}
+
+/* Ficha completa de una empresa: modal a todo el ancho. */
+.modal {
+  --width: min(calc(100vw - #{t.esp(8)}), 64rem);
+
+  &::part(dialog) { max-width: none; max-height: calc(100dvh - #{t.esp(8)}); }
+
+  &::part(header),
+  &::part(body) { min-width: 0; max-width: 100%; box-sizing: border-box; }
+
+  &::part(body) { overflow-x: hidden; }
+
+  &::part(title) { font-size: 1.125rem; font-weight: 700; }
+}
+
+@include m.movil {
+  .modal { --width: calc(100vw - #{t.esp(2)}); }
+}
+
+/* La ficha se ajusta al ancho del modal (sin desbordar en móvil). */
+.ficha { min-width: 0; }
+
+.grafo {
+  display: grid;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}

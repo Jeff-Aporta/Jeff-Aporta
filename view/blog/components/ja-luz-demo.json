@@ -1,0 +1,39 @@
+{
+  "$schema": "iswc-preview/v1",
+  "tag": "ja-luz-demo",
+  "category": "blog",
+  "navTitle": "Demo de luz",
+  "title": "&lt;ja-luz-demo&gt;",
+  "titleHtml": false,
+  "storageKey": "docs-ja-luz-demo",
+  "styles": ".stage{max-width:56rem;padding:1rem}",
+  "sections": [
+    {
+      "id": "intro",
+      "title": "&lt;ja-luz-demo&gt;",
+      "lede": "Demo interactiva de luz y sombra 2D por paso (0 a 8): sigue al cursor o al dedo y, sin interacción, la luz recorre la escena; solo anima mientras está visible.",
+      "blocks": [
+        {
+          "kind": "demo",
+          "html": "<div class=\"stage\"><ja-luz-demo id=\"demo\"></ja-luz-demo></div>",
+          "target": "#demo",
+          "props": {
+            "paso": 5
+          },
+          "controls": [
+            {
+              "control": "number",
+              "prop": "props:paso",
+              "label": "paso",
+              "default": 5
+            }
+          ]
+        },
+        {
+          "kind": "html",
+          "html": "<iswc-callout tone=\"info\"><strong slot=\"title\">Cuándo usarlo</strong>En publicaciones sobre visibilidad 2D.</iswc-callout>"
+        }
+      ]
+    }
+  ]
+}

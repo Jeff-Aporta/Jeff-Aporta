@@ -1,0 +1,69 @@
+{
+  "$schema": "iswc-preview/v1",
+  "tag": "ja-boton-icono",
+  "category": "transversal",
+  "navTitle": "Botón con ícono",
+  "title": "&lt;ja-boton-icono&gt;",
+  "titleHtml": false,
+  "storageKey": "docs-ja-boton-icono",
+  "styles": ".stage{padding:2rem}",
+  "sections": [
+    {
+      "id": "intro",
+      "title": "&lt;ja-boton-icono&gt;",
+      "lede": "Botón redondo solo con ícono en volumen de plastilina; la etiqueta va a aria-label y al tooltip. Con href es enlace; activo lo deja hundido.",
+      "blocks": [
+        {
+          "kind": "demo",
+          "html": "<div class=\"stage\"><ja-boton-icono id=\"demo\"></ja-boton-icono></div>",
+          "target": "#demo",
+          "props": {
+            "icono": "mdi:play",
+            "etiqueta": "Escuchar",
+            "tono": "marca",
+            "tam": "lg"
+          },
+          "controls": [
+            {
+              "control": "select",
+              "prop": "props:icono",
+              "label": "icono",
+              "default": "mdi:play",
+              "options": [
+                "mdi:play",
+                "mdi:arrow-left",
+                "mdi:chevron-right",
+                "mdi:auto-mode"
+              ]
+            },
+            {
+              "control": "select",
+              "prop": "props:tono",
+              "label": "tono",
+              "default": "marca",
+              "options": [
+                "papel",
+                "marca",
+                "acento"
+              ]
+            },
+            {
+              "control": "select",
+              "prop": "props:tam",
+              "label": "tam",
+              "default": "lg",
+              "options": [
+                "md",
+                "lg"
+              ]
+            }
+          ]
+        },
+        {
+          "kind": "html",
+          "html": "<iswc-callout tone=\"info\"><strong slot=\"title\">Cuándo usarlo</strong>Controles de <ja-post> y regreso al blog.</iswc-callout>"
+        }
+      ]
+    }
+  ]
+}

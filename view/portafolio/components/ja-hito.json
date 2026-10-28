@@ -1,0 +1,51 @@
+{
+  "$schema": "iswc-preview/v1",
+  "tag": "ja-hito",
+  "category": "portafolio",
+  "navTitle": "Hito",
+  "title": "&lt;ja-hito&gt;",
+  "titleHtml": false,
+  "storageKey": "docs-ja-hito",
+  "styles": ".stage{max-width:40rem;padding:1rem}",
+  "sections": [
+    {
+      "id": "intro",
+      "title": "&lt;ja-hito&gt;",
+      "lede": "Fila del gráfico de ramas: fecha, tramo del grafo (tronco, ramas que cruzan, curva hacia el tronco y punto) y tarjeta del evento (inicio, fin o actualidad).",
+      "blocks": [
+        {
+          "kind": "demo",
+          "html": "<div class=\"stage\"><ja-hito id=\"demo\"></ja-hito></div>",
+          "target": "#demo",
+          "props": {
+            "evento": {
+              "clave": "insoft-0-inicio",
+              "tipo": "inicio",
+              "fecha": "2025-09-01",
+              "carril": 1,
+              "pasantes": [
+                2
+              ],
+              "empleoId": "insoft",
+              "periodo": 0,
+              "ultimo": false
+            },
+            "carriles": 3
+          },
+          "controls": [
+            {
+              "control": "number",
+              "prop": "props:carriles",
+              "label": "carriles",
+              "default": 3
+            }
+          ]
+        },
+        {
+          "kind": "html",
+          "html": "<iswc-callout tone=\"info\"><strong slot=\"title\">Cuándo usarlo</strong>Dentro de <ja-trayectoria>.</iswc-callout>"
+        }
+      ]
+    }
+  ]
+}

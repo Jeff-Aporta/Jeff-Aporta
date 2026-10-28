@@ -1,0 +1,89 @@
+// _mixins.scss — patrones recurrentes de las hojas de la app (estándar iswc-foundation).
+//
+//   - MIXIN cuando el patrón es un BLOQUE de declaraciones: `@include m.una-linea;`
+//   - FUNCIÓN (en `_tokens.scss`) cuando devuelve un VALOR: `padding: t.esp(2);`
+//
+// Colores siempre desde tokens `--iswc-*` del kit.
+@use "tokens" as t;
+
+/// Host de un componente de bloque: ocupa su línea, puede encogerse en un grid y hereda la fuente del kit.
+@mixin host-bloque {
+  display: block;
+  min-width: 0;
+  font-family: var(--iswc-font-sans);
+}
+
+/// Texto en una sola línea con elipsis.
+@mixin una-linea {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/// Rótulo en versalitas (cejillas, metadatos). `$opacidad` atenúa el texto.
+@mixin rotulo($opacidad: 0.7) {
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  opacity: $opacidad;
+  text-transform: uppercase;
+}
+
+/// Título de la marca: fuente de títulos, peso alto y tracking cerrado.
+@mixin titulo($tam: 2rem) {
+  margin: 0;
+  font-family: t.$titulos;
+  font-size: $tam;
+  font-weight: 800;
+  letter-spacing: -0.025em;
+  line-height: 1.12;
+}
+
+/// Superficie elevada: tarjetas del portafolio.
+@mixin superficie {
+  background: var(--iswc-bg-elev);
+  border: 1px solid var(--iswc-border-soft);
+  border-radius: t.radio(lg);
+  box-shadow: 0 1px 2px color-mix(in srgb, var(--iswc-text) 6%, transparent), 0 12px 32px -18px color-mix(in srgb, var(--iswc-color-brand) 35%, transparent);
+}
+
+/// Elevación al pasar el cursor (solo si el usuario no pidió menos movimiento).
+@mixin elevable {
+  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+
+  &:hover {
+    border-color: color-mix(in srgb, var(--iswc-color-brand) 40%, var(--iswc-border-soft));
+    box-shadow: 0 2px 4px color-mix(in srgb, var(--iswc-text) 6%, transparent), 0 22px 44px -20px color-mix(in srgb, var(--iswc-color-brand) 45%, transparent);
+    transform: translateY(-3px);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    transition: none;
+
+    &:hover { transform: none; }
+  }
+}
+
+/// Grid de tarjetas que se adapta al ancho. `auto-fill` deja columnas vacías (listas largas: todas las
+/// tarjetas del mismo ancho); `auto-fit` estira las que hay hasta llenar la fila (pocas tarjetas fijas).
+@mixin rejilla($min: 18rem, $gap: t.esp(6), $modo: auto-fill) {
+  display: grid;
+  gap: $gap;
+  grid-template-columns: repeat($modo, minmax(min($min, 100%), 1fr));
+}
+
+/// Hasta el ancho de tableta.
+@mixin tableta {
+  @media (max-width: t.$tableta) { @content; }
+}
+
+/// Hasta el ancho de móvil.
+@mixin movil {
+  @media (max-width: t.$movil) { @content; }
+}
+
+/* Parallax con el cursor (ver `base/paralaje.ts`): desplaza según `--px`/`--py` de <html> por la
+   profundidad dada. Usa `translate` (no `transform`) para sumarse a las animaciones del elemento. */
+@mixin paralaje($prof: 1) {
+  translate: calc(var(--px, 0) * #{$prof} * 22px) calc(var(--py, 0) * #{$prof} * 12px);
+}

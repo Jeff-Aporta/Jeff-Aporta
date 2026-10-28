@@ -1,0 +1,67 @@
+{
+  "$schema": "iswc-preview/v1",
+  "tag": "ja-lista",
+  "category": "transversal",
+  "navTitle": "Lista",
+  "title": "&lt;ja-lista&gt;",
+  "titleHtml": false,
+  "storageKey": "docs-ja-lista",
+  "styles": ".stage{padding:1.5rem}",
+  "sections": [
+    {
+      "id": "intro",
+      "title": "&lt;ja-lista&gt;",
+      "lede": "Lista con un ícono por ítem, en columna (logros) o en línea (roles).",
+      "blocks": [
+        {
+          "kind": "demo",
+          "html": "<div class=\"stage\"><ja-lista id=\"demo\"></ja-lista></div>",
+          "target": "#demo",
+          "props": {
+            "items": [
+              "Full Stack",
+              "IA aplicada",
+              "Liderazgo técnico"
+            ],
+            "variante": "linea"
+          },
+          "controls": [
+            {
+              "control": "text",
+              "prop": "props:icono",
+              "label": "icono",
+              "default": "mdi:check-circle"
+            },
+            {
+              "control": "select",
+              "prop": "props:tono",
+              "label": "tono",
+              "default": "exito",
+              "options": [
+                "marca",
+                "acento",
+                "exito",
+                "peligro",
+                "lila"
+              ]
+            },
+            {
+              "control": "select",
+              "prop": "props:variante",
+              "label": "variante",
+              "default": "columna",
+              "options": [
+                "columna",
+                "linea"
+              ]
+            }
+          ]
+        },
+        {
+          "kind": "html",
+          "html": "<iswc-callout tone=\"info\"><strong slot=\"title\">Cuándo usarlo</strong>Para viñetas con ícono.</iswc-callout>"
+        }
+      ]
+    }
+  ]
+}

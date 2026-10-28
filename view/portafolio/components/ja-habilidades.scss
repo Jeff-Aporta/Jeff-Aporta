@@ -1,0 +1,81 @@
+@use "tokens" as t;
+@use "mixins" as m;
+
+/* ja-habilidades — rejilla de áreas + tarjeta de uso acumulado. */
+:host {
+  @include m.host-bloque;
+  display: grid;
+  gap: t.esp(10);
+}
+
+.areas {
+  @include m.rejilla(19rem, t.esp(5));
+}
+
+.items {
+  display: flex;
+  flex-wrap: wrap;
+  gap: t.esp(1) t.esp(2);
+
+  iswc-tag { font-size: 0.75rem; }
+
+  .extra { display: none; }
+}
+
+:host([data-todas]) .items {
+  .extra { display: inline-block; }
+
+  .mas { display: none; }
+}
+
+/* «+N más»: misma forma que una etiqueta, rellena en marca para que se note que es un botón. */
+.mas {
+  padding: 0.2rem 0.7rem;
+  border: 0;
+  border-radius: 999px;
+  background: var(--iswc-color-brand);
+  color: var(--iswc-on-brand);
+  font: inherit;
+  font-size: 0.75rem;
+  font-weight: 700;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+
+  &:hover { box-shadow: 0 0.35rem 0.8rem -0.4rem var(--iswc-color-brand); transform: translateY(-1px); }
+
+  &:focus-visible { outline: 3px solid var(--iswc-color-brand); outline-offset: 2px; }
+}
+
+.uso {
+  display: block;
+}
+
+.uso-cabeza {
+  margin-bottom: t.esp(6);
+
+  h3 { @include m.titulo(1.5rem); }
+
+  p {
+    max-width: 44rem;
+    margin: t.esp(2) 0 0;
+    color: var(--iswc-text-soft);
+    line-height: 1.6;
+  }
+}
+
+.bloques {
+  display: grid;
+  gap: t.esp(8);
+
+  h4 {
+    @include m.rotulo(1);
+    margin: 0 0 t.esp(4);
+    color: var(--iswc-brand-text);
+  }
+}
+
+.barras {
+  display: grid;
+  gap: t.esp(4);
+}

@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 520" fill="none">
+  <title>Composición corporate memphis de portada</title>
+  <!-- Mancha base -->
+  <path d="M260 34c96 0 186 52 214 142 28 92-6 196-82 256-78 62-196 74-284 22C22 404-8 300 24 208 58 108 158 34 260 34Z" fill="#EAF0FF"/>
+  <!-- Anillo -->
+  <circle cx="260" cy="262" r="196" stroke="#2563EB" stroke-width="3" stroke-dasharray="2 12" stroke-linecap="round" opacity=".55"/>
+  <!-- Semicírculo amarillo -->
+  <path d="M60 330a70 70 0 0 1 140 0Z" fill="#FFC845"/>
+  <!-- Triángulo coral -->
+  <path d="m430 92 44 74h-88Z" fill="#FF6B6B"/>
+  <!-- Zigzag -->
+  <path d="M392 446l18-20 18 20 18-20 18 20" stroke="#2BC4A9" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+  <!-- Onda -->
+  <path d="M40 140c14-16 28-16 42 0s28 16 42 0" stroke="#2563EB" stroke-width="7" stroke-linecap="round"/>
+  <!-- Puntos -->
+  <g fill="#1E2A5A" opacity=".55">
+    <circle cx="420" cy="250" r="4"/><circle cx="440" cy="250" r="4"/><circle cx="460" cy="250" r="4"/>
+    <circle cx="420" cy="270" r="4"/><circle cx="440" cy="270" r="4"/><circle cx="460" cy="270" r="4"/>
+    <circle cx="420" cy="290" r="4"/><circle cx="440" cy="290" r="4"/><circle cx="460" cy="290" r="4"/>
+  </g>
+  <!-- Cruces -->
+  <path d="M120 54v28M106 68h28" stroke="#9B8CFF" stroke-width="7" stroke-linecap="round"/>
+  <path d="M478 360v22M467 371h22" stroke="#FFC845" stroke-width="6" stroke-linecap="round"/>
+  <!-- Círculo lila -->
+  <circle cx="96" cy="430" r="26" fill="#9B8CFF"/>
+  <circle cx="96" cy="430" r="10" fill="#EAF0FF"/>
+  <!-- Tarjeta de código -->
+  <g transform="rotate(-8 400 360)">
+    <rect x="352" y="326" width="120" height="78" rx="14" fill="#1E2A5A"/>
+    <circle cx="370" cy="342" r="4" fill="#FF6B6B"/><circle cx="383" cy="342" r="4" fill="#FFC845"/><circle cx="396" cy="342" r="4" fill="#2BC4A9"/>
+    <rect x="366" y="358" width="54" height="6" rx="3" fill="#9B8CFF"/>
+    <rect x="378" y="372" width="72" height="6" rx="3" fill="#2BC4A9"/>
+    <rect x="378" y="386" width="40" height="6" rx="3" fill="#FFC845"/>
+  </g>
+  <!-- Tarjeta de gráfico -->
+  <g transform="rotate(6 98 214)">
+    <rect x="40" y="176" width="116" height="80" rx="14" fill="#fff" stroke="#D6DCE8" stroke-width="2"/>
+    <rect x="58" y="226" width="14" height="18" rx="3" fill="#9B8CFF"/>
+    <rect x="80" y="210" width="14" height="34" rx="3" fill="#2563EB"/>
+    <rect x="102" y="198" width="14" height="46" rx="3" fill="#2BC4A9"/>
+    <rect x="124" y="214" width="14" height="30" rx="3" fill="#FFC845"/>
+  </g>
+</svg>

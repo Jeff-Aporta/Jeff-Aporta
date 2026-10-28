@@ -1,0 +1,48 @@
+{
+  "$schema": "iswc-preview/v1",
+  "tag": "ja-proyecto",
+  "category": "portafolio",
+  "navTitle": "Proyecto",
+  "title": "&lt;ja-proyecto&gt;",
+  "titleHtml": false,
+  "storageKey": "docs-ja-proyecto",
+  "styles": ".stage{max-width:22rem;padding:1rem}",
+  "sections": [
+    {
+      "id": "intro",
+      "title": "&lt;ja-proyecto&gt;",
+      "lede": "Tarjeta de un proyecto por id: portada, categoría, descripción, tecnologías y enlaces (demo, código, video).",
+      "blocks": [
+        {
+          "kind": "demo",
+          "html": "<div class=\"stage\"><ja-proyecto id=\"demo\"></ja-proyecto></div>",
+          "target": "#demo",
+          "props": {
+            "id": "fyxtoken"
+          },
+          "controls": [
+            {
+              "control": "select",
+              "prop": "props:id",
+              "label": "id",
+              "default": "fyxtoken",
+              "options": [
+                "fyxtoken",
+                "drtrack",
+                "army",
+                "magnetlab",
+                "memorama",
+                "tetris",
+                "mandelbrot"
+              ]
+            }
+          ]
+        },
+        {
+          "kind": "html",
+          "html": "<iswc-callout tone=\"info\"><strong slot=\"title\">Cuándo usarlo</strong>Dentro de <ja-proyectos>.</iswc-callout>"
+        }
+      ]
+    }
+  ]
+}
