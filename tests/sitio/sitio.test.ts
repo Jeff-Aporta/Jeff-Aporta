@@ -5,6 +5,7 @@
 //   W-SIT-03  los íconos del manifest y la imagen social existen
 //   W-SIT-04  rutas relativas: nada de la app se pide desde la raíz absoluta «/» (rompería en /Jeff-Aporta/)
 //   W-SIT-05  caché: todo lo que los HTML piden de dist/cdn/ lleva el ?v= del hash vigente (asset-hashes.json)
+//   W-SIT-06  index.html lleva un resumen estático del contenido (nombre, empresas, proyectos, publicaciones) legible sin JS
 import { existsSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { definirPruebas } from '@iswc/testing/pruebas.ts';
@@ -75,6 +76,20 @@ export default definirPruebas([
       }
       expect('hay recursos que revisar', total > 0);
       eq('recursos sin el ?v= vigente', viejos, []);
+    },
+  },
+  {
+    nombre: 'sitio W-SIT-06 resumen estático del contenido en index.html',
+    categoria: 'what',
+    correr({ expect }) {
+      const html = leer('index.html');
+      const resumen = html.match(/<!-- resumen:inicio[^>]*-->([\s\S]*?)<!-- resumen:fin -->/)?.[1] ?? '';
+      expect('resumen dentro de <ja-app>', html.indexOf('<ja-app>') < html.indexOf('<!-- resumen:inicio') && html.indexOf('<!-- resumen:fin') < html.indexOf('</ja-app>'));
+      expect('nombre como h1', resumen.includes(`<h1>${contenido.perfil.nombre}</h1>`));
+      for (const e of contenido.experiencia) expect(`empresa ${e.empresa}`, resumen.includes(e.empresa.replace(/&/g, '&amp;')));
+      for (const p of contenido.proyectos) expect(`proyecto ${p.titulo}`, resumen.includes(p.titulo));
+      for (const p of contenido.blog) expect(`publicación ${p.slug}`, resumen.includes(`>${p.titulo}</a>`));
+      expect('enlace a la hoja de vida', resumen.includes(contenido.perfil.cv));
     },
   },
 ]);

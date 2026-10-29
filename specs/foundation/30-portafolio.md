@@ -25,6 +25,7 @@ habilidades, educación y contacto; y el blog (`view/blog/`) con publicaciones q
 | W-SIT-03 | Existen los íconos del manifest, el favicon, el logo y la imagen social. |
 | W-SIT-04 | Ninguna ruta de la app es absoluta a la raíz del dominio (el sitio vive en `/Jeff-Aporta/`). |
 | W-SIT-05 | Todo lo que las páginas piden de `dist/cdn/` lleva el `?v=` de su hash vigente: la caché del navegador nunca sirve un arranque viejo. |
+| W-SIT-06 | `index.html` lleva, dentro de `<ja-app>`, un resumen estático del contenido (nombre, trayectoria, proyectos, habilidades, educación, blog y contacto) que un rastreador lee sin ejecutar JS. |
 | W-POR-01 | La portada muestra el nombre y cuatro cifras calculadas. |
 | W-POR-02 | Están todas las secciones de la navegación, en orden. |
 | W-POR-03 | La trayectoria alterna lados y se filtra por experiencia o formación. |
