@@ -24,7 +24,7 @@ Todo el texto y los datos viven en `src/js/contenido/`, separados de la UI y val
 | `derivados.ts` | Lo que se calcula: duraciones, total sin doble conteo, trayectoria, cifras, uso por tecnología |
 
 Cambias un archivo, corres `deno task build` y se actualizan la página, los metadatos (`<head>`, JSON-LD,
-sitemap, manifest) y las cifras. La hoja de vida en PDF está en `assets/docs/jeffrey-agudelo-cv.pdf`.
+sitemap, manifest) y las cifras. La hoja de vida está en `assets/docs/`: el `.docx` es la fuente y el `.pdf` se exporta desde él (Word) con el mismo nombre.
 
 ## Comandos
 
