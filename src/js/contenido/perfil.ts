@@ -14,7 +14,7 @@ export const perfil = {
   foto: { src: 'assets/img/perfil/jeffrey-agudelo.jpg', alt: 'Retrato de Jeffrey Agudelo, desarrollador full stack' },
   propuesta: 'Construyo productos web de punta a punta: interfaces impecables, APIs robustas y procesos de entrega que escalan con el negocio.',
   resumen: [
-    'Desarrollador full stack con más de 8 años construyendo software para empresas de tecnología, logística, finanzas, comercio y educación. Hoy curso Ingeniería de Sistemas en la Corporación Universitaria Remington (7.º semestre).',
+    'Desarrollador full stack con más de 8 años construyendo software para empresas de tecnología, logística, finanzas, comercio y educación.',
     'Especializado en el ecosistema JavaScript/TypeScript (Web Components, React, Svelte, Node.js, Deno, NestJS) y en backend con Python (FastAPI), Java y PHP, con bases de datos relacionales y NoSQL.',
     'Hoy enfocado en Inteligencia Artificial aplicada: chats corporativos con LLM, Model Context Protocol (MCP) y sistemas de componentes UI/UX que aceleran equipos completos.',
   ],
