@@ -143,6 +143,7 @@ export const SitioSchema = z.object({
   palabrasClave: z.array(z.string().min(1)).min(3),
   imagenOg: ImagenSchema,
   colorTema: z.string().regex(/^#[0-9a-f]{6}$/i),
+  verificacionGoogle: z.string().regex(/^[\w-]{20,}$/).optional(),
   secciones: z.array(SeccionSchema).min(1),
 });
 export type Sitio = z.infer<typeof SitioSchema>;

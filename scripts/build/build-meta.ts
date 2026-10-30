@@ -78,6 +78,7 @@ const meta = [
   `<meta name="keywords" content="${esc(sitio.palabrasClave.join(', '))}">`,
   `<meta name="author" content="${esc(perfil.nombre)}">`,
   `<meta name="robots" content="index, follow, max-image-preview:large">`,
+  ...(sitio.verificacionGoogle ? [`<meta name="google-site-verification" content="${esc(sitio.verificacionGoogle)}">`] : []),
   `<meta name="theme-color" content="${sitio.colorTema}">`,
   `<meta name="color-scheme" content="light dark">`,
   `<link rel="canonical" href="${sitio.url}">`,

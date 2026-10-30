@@ -10,6 +10,8 @@ export const sitio = {
   palabrasClave: ['Jeffrey Agudelo', 'Jeff Aporta', 'desarrollador full stack', 'ingeniería de sistemas', 'TypeScript', 'JavaScript', 'Web Components', 'Node.js', 'React', 'Angular', 'Deno', 'Python', 'FastAPI', 'C#', '.NET', 'AWS', 'Azure', 'inteligencia artificial', 'Model Context Protocol', 'Colombia', 'hoja de vida', 'portafolio', 'blog de programación'],
   imagenOg: { src: 'assets/img/og/portada.png', alt: 'Jeffrey Agudelo — Desarrollador Full Stack' },
   colorTema: '#2563eb',
+  /** Token de la etiqueta de verificación de Google Search Console (propiedad de prefijo de URL). */
+  verificacionGoogle: 'GpoghZlKIsd4HjpFh18Y4kIS3hkKnfJwI0xFE6-cNf4',
   secciones: [
     { id: 'inicio', titulo: 'Inicio', icono: 'mdi:home-outline' },
     { id: 'perfil', titulo: 'Perfil', icono: 'mdi:account-outline' },

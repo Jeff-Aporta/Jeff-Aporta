@@ -1,4 +1,4 @@
-import{crearComponente as n,define as a,html as o}from"../../../js/base/componente.js?v=evs5g9";import{contenido as e}from"../../../js/contenido/index.js?v=yi9vmp";const r=n(import.meta.url,"ja-estudio",{id:""},(t,s)=>{const i=e.educacion.find(c=>c.id===s.id);i&&t.append(o`
+import{crearComponente as n,define as a,html as o}from"../../../js/base/componente.js?v=esixd4";import{contenido as e}from"../../../js/contenido/index.js?v=mecx72";const r=n(import.meta.url,"ja-estudio",{id:""},(t,s)=>{const i=e.educacion.find(c=>c.id===s.id);i&&t.append(o`
     <article class="tarjeta" part="tarjeta">
       <div class="sello"><iswc-icon icon=${i.icono}></iswc-icon><span>${i.sigla}</span></div>
       <div class="texto">

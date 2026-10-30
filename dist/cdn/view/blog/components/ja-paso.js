@@ -1,4 +1,4 @@
-import{crearComponente as n,define as l,html as e,pieza as r}from"../../../js/base/componente.js?v=evs5g9";import{contenido as d}from"../../../js/contenido/index.js?v=yi9vmp";import"./ja-bloque.js?v=5iysqp";const p=n(import.meta.url,"ja-paso",{slug:"",indice:0},(t,o)=>{const a=d.blog.find(i=>i.slug===o.slug),s=a?.pasos[o.indice];if(!a||!s)return;const c=o.indice===a.pasos.length-1;t.append(e`
+import{crearComponente as n,define as l,html as e,pieza as r}from"../../../js/base/componente.js?v=esixd4";import{contenido as d}from"../../../js/contenido/index.js?v=mecx72";import"./ja-bloque.js?v=lsizf1";const p=n(import.meta.url,"ja-paso",{slug:"",indice:0},(t,o)=>{const a=d.blog.find(i=>i.slug===o.slug),s=a?.pasos[o.indice];if(!a||!s)return;const c=o.indice===a.pasos.length-1;t.append(e`
     <article class="tarjeta" part="tarjeta" aria-labelledby="titulo">
       <span class="pliegue" aria-hidden="true"></span>
       <header class="cabecera">
