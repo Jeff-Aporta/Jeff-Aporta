@@ -1,14 +1,15 @@
 /**
  * <ja-post-tarjeta> — tarjeta de una publicación en la lista del blog: portada, fecha, número de
- * pasos, título, resumen y etiquetas. Toda la tarjeta enlaza a la vista completa (`?s=` con `{ v: 'post', p: slug }`).
+ * pasos, título, resumen y etiquetas. Toda la tarjeta enlaza a la vista completa (URL limpia `blog/<slug>/`,
+ * que la SPA navega sin recargar). Lee el contenido importado: la lista no necesita descargar JSON.
  */
 import { crearComponente, define, html } from '../../../src/js/base/componente.js';
 import { contenido, rutaSitio } from '../../../src/js/contenido/index.js';
 import { fechaLarga } from '../../../src/js/contenido/derivados.js';
 import { hrefDe } from '../../../src/js/base/rutas.js';
-import type { JaPostProps } from '../../../src/js/consts/schemas/componentes.schemas.js';
+import type { JaPostTarjetaProps } from '../../../src/js/consts/schemas/componentes.schemas.js';
 
-const JaPostTarjeta = crearComponente<JaPostProps>(import.meta.url, 'ja-post-tarjeta', { slug: '' }, (root, props) => {
+const JaPostTarjeta = crearComponente<JaPostTarjetaProps>(import.meta.url, 'ja-post-tarjeta', { slug: '' }, (root, props) => {
   const p = contenido.blog.find((x) => x.slug === props.slug);
   if (!p) return;
   root.append(html`

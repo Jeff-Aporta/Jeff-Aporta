@@ -1,0 +1,43 @@
+{
+  "$schema": "iswc-preview/v1",
+  "tag": "ja-pagina",
+  "category": "shell",
+  "navTitle": "Página especializada",
+  "title": "&lt;ja-pagina&gt;",
+  "titleHtml": false,
+  "storageKey": "docs-ja-pagina",
+  "styles": ".stage{padding:0;min-height:20rem}",
+  "sections": [
+    {
+      "id": "intro",
+      "title": "&lt;ja-pagina&gt;",
+      "lede": "Shell mínimo de una página especializada: barra fija con marca, enlaces a las vistas y tema; la vista en el slot; el pie común.",
+      "blocks": [
+        {
+          "kind": "demo",
+          "html": "<div class=\"stage\"><ja-pagina id=\"demo\" activa=\"blog\"><div style=\"padding:2rem\"><iswc-callout tone=\"info\"><strong slot=\"title\">Slot</strong>Aquí va la vista de la página (<ja-post> o <ja-blog>).</iswc-callout></div></ja-pagina></div>",
+          "target": "#demo",
+          "props": {
+            "activa": "blog"
+          },
+          "controls": [
+            {
+              "control": "select",
+              "prop": "props:activa",
+              "label": "activa",
+              "default": "blog",
+              "options": [
+                "portafolio",
+                "blog"
+              ]
+            }
+          ]
+        },
+        {
+          "kind": "html",
+          "html": "<iswc-callout tone=\"info\"><strong slot=\"title\">Cuándo usarlo</strong>Solo en los HTML que genera el build para blog/ y blog/&lt;slug&gt;/. La SPA usa <ja-app>.</iswc-callout>"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,235 @@
+{
+  "slug": "luz-y-sombra-2d",
+  "titulo": "Luz y sombra en 2D",
+  "subtitulo": "Una guía narrada para crear visibilidad y sombras dinámicas en tus juegos, paso a paso y con demos que puedes tocar.",
+  "resumen": "Construimos desde cero el clásico efecto de luz que proyecta sombras sobre una escena 2D: rayos, intersecciones, el polígono de visión, sombras suaves y varias luces. Cada paso trae su narración y su demo interactiva.",
+  "fecha": "2026-10-27",
+  "etiquetas": [
+    "Guía narrada",
+    "Canvas 2D",
+    "Geometría",
+    "Videojuegos",
+    "TypeScript"
+  ],
+  "portada": {
+    "src": "assets/blog/luz-y-sombra/portada.png",
+    "alt": "Escena 2D iluminada por dos luces que proyectan sombras"
+  },
+  "creditos": "Esta guía reinterpreta en español «Sight & Light» de Nicky Case (ncase.me/sight-and-light), de quien tomé la idea, la escena y las imágenes de fondo y frente. El texto, la narración, el código y los componentes son propios y están hechos con web components sobre el kit iswc.",
+  "pasos": [
+    {
+      "titulo": "Bienvenida",
+      "icono": "mdi:hand-wave-outline",
+      "narracion": "Hola, soy Jeff. En esta guía vamos a construir juntos un efecto que seguro has visto en muchos juegos 2D: una luz que ilumina la escena y proyecta sombras detrás de los obstáculos. Mueve el cursor sobre la demo para ver a dónde vamos a llegar. Cuando quieras, pasa al siguiente paso.",
+      "bloques": [
+        {
+          "tipo": "md",
+          "md": "Este efecto se usa en juegos de sigilo, en mazmorras con niebla de guerra y en cualquier juego donde **lo que ve el personaje** importa. No necesitas un motor gráfico: con **un poco de geometría** y el **canvas 2D** del navegador es suficiente.\n\nLo construimos en **diez pasos**, cometiendo a propósito los mismos errores que uno comete la primera vez, para entender por qué la solución final funciona."
+        }
+      ],
+      "demo": {
+        "demo": "luz",
+        "paso": 8,
+        "leyenda": "El resultado final: dos luces que siguen al cursor y proyectan sombras suaves."
+      }
+    },
+    {
+      "titulo": "La escena",
+      "icono": "mdi:vector-polygon",
+      "narracion": "Todo empieza por describir el mundo. Nuestra escena es un rectángulo con seis obstáculos, y cada pared es un segmento: un punto de inicio y un punto final. Los bordes también son segmentos, porque la luz tiene que chocar contra algo.",
+      "bloques": [
+        {
+          "tipo": "md",
+          "md": "La escena mide **840 × 360** píxeles. Cada pared es un **segmento** con un punto `a` y un punto `b`; un polígono se convierte en sus segmentos uniendo cada vértice con el siguiente."
+        },
+        {
+          "tipo": "codigo",
+          "lenguaje": "typescript",
+          "titulo": "luz.ts · la escena",
+          "codigo": "type Punto = { x: number; y: number };\ntype Segmento = { a: Punto; b: Punto };\n\n// Un polígono cerrado se convierte en sus segmentos: cada vértice con el siguiente.\nfunction poligono(vertices: Punto[]): Segmento[] {\n  return vertices.map((a, i) => ({ a, b: vertices[(i + 1) % vertices.length] }));\n}\n\nconst ESCENA: Segmento[] = [\n  ...poligono([{ x: 0, y: 0 }, { x: 840, y: 0 }, { x: 840, y: 360 }, { x: 0, y: 360 }]), // borde\n  ...poligono([{ x: 100, y: 150 }, { x: 120, y: 50 }, { x: 200, y: 80 }, { x: 140, y: 210 }]),\n  // …y los demás obstáculos\n];"
+        }
+      ],
+      "demo": {
+        "demo": "luz",
+        "paso": 0,
+        "leyenda": "Los segmentos de las paredes y un punto que sigue al cursor."
+      }
+    },
+    {
+      "titulo": "Un rayo",
+      "icono": "mdi:ray-start-arrow",
+      "narracion": "La idea central es lanzar rayos desde la luz y averiguar dónde chocan con las paredes. Empecemos con uno solo. El rayo y el segmento se escriben como un punto más una dirección, y el producto cruz nos dice dónde se cruzan, o si son paralelos. Nos quedamos con el choque más cercano.",
+      "bloques": [
+        {
+          "tipo": "md",
+          "md": "Cualquier recta se puede escribir en **forma paramétrica**: un punto de partida más una dirección multiplicada por un número.\n\n- El **rayo** es `origen + dirección · t`, con `t ≥ 0` (solo hacia adelante).\n- El **segmento** es `a + (b − a) · u`, con `0 ≤ u ≤ 1` (solo entre sus extremos).\n\nPara resolver el sistema usamos el **producto cruz** en 2D, `cruz(p, q) = p.x · q.y − p.y · q.x`, que además avisa cuando las rectas son **paralelas**."
+        },
+        {
+          "tipo": "codigo",
+          "lenguaje": "typescript",
+          "titulo": "luz.ts · intersección de un rayo con un segmento",
+          "codigo": "function interseccion(rayo: Segmento, seg: Segmento) {\n  const r = { x: rayo.b.x - rayo.a.x, y: rayo.b.y - rayo.a.y }; // dirección del rayo\n  const s = { x: seg.b.x - seg.a.x, y: seg.b.y - seg.a.y };     // dirección del segmento\n  const den = r.x * s.y - r.y * s.x;                           // cruz(r, s)\n  if (Math.abs(den) < 1e-12) return null;                      // paralelos\n\n  const q = { x: seg.a.x - rayo.a.x, y: seg.a.y - rayo.a.y };\n  const t = (q.x * s.y - q.y * s.x) / den; // distancia a lo largo del rayo\n  const u = (q.x * r.y - q.y * r.x) / den; // posición sobre el segmento\n\n  if (t < 0 || u < 0 || u > 1) return null; // detrás del rayo o fuera del segmento\n  return { x: rayo.a.x + r.x * t, y: rayo.a.y + r.y * t, t };\n}"
+        },
+        {
+          "tipo": "md",
+          "md": "Probamos el rayo contra **todos** los segmentos y nos quedamos con el de **menor `t`**: el más cercano. Lo que hay detrás queda en sombra."
+        }
+      ],
+      "demo": {
+        "demo": "luz",
+        "paso": 1,
+        "leyenda": "Un rayo desde el centro hacia el cursor: se detiene en la primera pared."
+      }
+    },
+    {
+      "titulo": "Rayos en todas direcciones",
+      "icono": "mdi:white-balance-sunny",
+      "narracion": "Una luz no ilumina en una sola dirección. Lo más intuitivo es lanzar muchos rayos repartidos en círculo, por ejemplo cincuenta, y guardar el choque más cercano de cada uno. Mira cómo se ven en la demo.",
+      "bloques": [
+        {
+          "tipo": "codigo",
+          "lenguaje": "typescript",
+          "titulo": "Cincuenta rayos alrededor de la luz",
+          "codigo": "const choques = [];\nfor (let k = 0; k < 50; k++) {\n  const angulo = (k / 50) * Math.PI * 2;\n  const rayo = { a: luz, b: { x: luz.x + Math.cos(angulo), y: luz.y + Math.sin(angulo) } };\n  const choque = masCercano(rayo); // el de menor t entre todos los segmentos\n  if (choque) choques.push(choque);\n}"
+        }
+      ],
+      "demo": {
+        "demo": "luz",
+        "paso": 2,
+        "leyenda": "Cincuenta rayos uniformes desde el cursor."
+      }
+    },
+    {
+      "titulo": "El primer polígono (y su error)",
+      "icono": "mdi:alert-outline",
+      "narracion": "Si unimos los choques en orden, obtenemos la zona iluminada. Pero fíjate en las esquinas: el polígono las corta o las atraviesa. Subir a miles de rayos solo esconde el problema. La clave es que la sombra solo cambia en los vértices de los obstáculos.",
+      "bloques": [
+        {
+          "tipo": "md",
+          "md": "Con 50 rayos nunca acertamos justo en los vértices, y subir a 500 o 5000 rayos solo esconde el problema mientras el rendimiento se desploma."
+        },
+        {
+          "tipo": "nota",
+          "tono": "warning",
+          "titulo": "La clave del efecto",
+          "md": "La forma de la sombra solo cambia **en los vértices** de los obstáculos. Entre dos vértices la luz recorre la pared en línea recta. No necesitamos miles de rayos: necesitamos **un rayo por vértice**."
+        }
+      ],
+      "demo": {
+        "demo": "luz",
+        "paso": 3,
+        "leyenda": "El polígono con 50 rayos: mira cómo se come las esquinas."
+      }
+    },
+    {
+      "titulo": "Rayos hacia cada vértice",
+      "icono": "mdi:vector-point",
+      "narracion": "Ahora lanzamos un rayo hacia cada vértice de la escena. Hay una trampa: cuando el rayo roza una esquina, la luz puede seguir de largo. Por eso lanzamos dos rayos extra, desviados un ángulo diminuto a cada lado. Uno choca con la esquina y el otro sigue hasta el fondo.",
+      "bloques": [
+        {
+          "tipo": "codigo",
+          "lenguaje": "typescript",
+          "titulo": "Tres rayos por vértice",
+          "codigo": "const DESVIO = 0.00001;\n\nconst angulos = vertices(ESCENA).flatMap((p) => {\n  const a = Math.atan2(p.y - luz.y, p.x - luz.x);\n  return [a - DESVIO, a, a + DESVIO];\n});"
+        }
+      ],
+      "demo": {
+        "demo": "luz",
+        "paso": 4,
+        "leyenda": "Un rayo a cada vértice y dos más rozando sus lados."
+      }
+    },
+    {
+      "titulo": "El polígono de visión",
+      "icono": "mdi:eye-outline",
+      "narracion": "Los choques ya son exactos, pero llegan desordenados. Los ordenamos por ángulo alrededor de la luz y los unimos en ese orden. El resultado es el polígono de visión: todo lo que la luz alcanza, con las esquinas perfectas y apenas unas decenas de rayos.",
+      "bloques": [
+        {
+          "tipo": "codigo",
+          "lenguaje": "typescript",
+          "titulo": "luz.ts · polígono de visión",
+          "codigo": "function poligonoVision(luz: Punto): Choque[] {\n  const choques = [];\n  for (const angulo of angulos) {\n    const choque = masCercano(rayoAngulo(luz, angulo));\n    if (choque) choques.push({ ...choque, angulo });\n  }\n  return choques.sort((p, q) => p.angulo - q.angulo); // en orden alrededor de la luz\n}\n\n// Dibujarlo es recorrer los puntos y rellenar.\nctx.beginPath();\nctx.moveTo(poli[0].x, poli[0].y);\nfor (const p of poli.slice(1)) ctx.lineTo(p.x, p.y);\nctx.fill();"
+        }
+      ],
+      "demo": {
+        "demo": "luz",
+        "paso": 5,
+        "leyenda": "El polígono de visión correcto, con unas pocas decenas de rayos."
+      }
+    },
+    {
+      "titulo": "Sombras suaves",
+      "icono": "mdi:blur",
+      "narracion": "Las sombras reales no tienen bordes perfectos, porque las luces tienen tamaño. Un truco barato y muy efectivo es dibujar la luz principal y diez luces más a su alrededor, casi transparentes. Donde se superponen, la luz se suma, y en los bordes aparece la penumbra.",
+      "bloques": [
+        {
+          "tipo": "codigo",
+          "lenguaje": "typescript",
+          "titulo": "Luz difusa: la principal y diez a su alrededor",
+          "codigo": "const radio = 10;\nfor (let k = 0; k < 10; k++) {\n  const a = (k / 10) * Math.PI * 2;\n  const otra = { x: luz.x + Math.cos(a) * radio, y: luz.y + Math.sin(a) * radio };\n  ctx.globalAlpha = 0.2;\n  rellenar(poligonoVision(otra));\n}\nctx.globalAlpha = 1;\nrellenar(poligonoVision(luz));"
+        }
+      ],
+      "demo": {
+        "demo": "luz",
+        "paso": 6,
+        "leyenda": "Once polígonos superpuestos forman la penumbra."
+      }
+    },
+    {
+      "titulo": "Del polígono a la escena",
+      "icono": "mdi:image-filter-hdr",
+      "narracion": "La luz blanca todavía parece un diagrama. Para que se vea como un juego usamos dos imágenes: un fondo en penumbra y un frente iluminado. El polígono de luz funciona como máscara, y el frente solo se pinta donde ya había luz.",
+      "bloques": [
+        {
+          "tipo": "md",
+          "md": "Con `globalCompositeOperation = 'source-in'`, al dibujar el frente solo se pinta donde ya había píxeles de luz. El fondo queda debajo, como el fondo del lienzo."
+        },
+        {
+          "tipo": "codigo",
+          "lenguaje": "typescript",
+          "titulo": "La luz como máscara del frente",
+          "codigo": "dibujarLuz(ctx, luz);                         // polígonos blancos\nctx.globalCompositeOperation = 'source-in';  // lo siguiente solo donde ya hay píxeles\nctx.drawImage(frente, 0, 0);\nctx.globalCompositeOperation = 'source-over'; // volver al modo normal"
+        }
+      ],
+      "demo": {
+        "demo": "luz",
+        "paso": 7,
+        "leyenda": "El frente iluminado aparece solo dentro de la zona de luz."
+      }
+    },
+    {
+      "titulo": "Más de una luz",
+      "icono": "mdi:lightbulb-group-outline",
+      "narracion": "Como cada luz es solo un conjunto de polígonos, agregar luces es repetir el dibujo antes de aplicar la máscara. En la demo hay dos, una a cada lado, que se mueven en sentidos opuestos con el cursor. Fíjate cómo las sombras se cruzan y se suman.",
+      "bloques": [
+        {
+          "tipo": "nota",
+          "tono": "info",
+          "titulo": "Rendimiento",
+          "md": "Cada polígono lanza **3 rayos por vértice** y prueba cada rayo contra **todos los segmentos**: unas 3·V·S pruebas. Para escenas pequeñas sobra; en mapas grandes conviene filtrar los segmentos cercanos (una cuadrícula o un árbol espacial) y limitar el alcance de cada luz."
+        }
+      ],
+      "demo": {
+        "demo": "luz",
+        "paso": 8,
+        "leyenda": "Dos luces sobre la misma escena: las sombras se cruzan y se suman."
+      }
+    },
+    {
+      "titulo": "Para terminar",
+      "icono": "mdi:flag-checkered",
+      "narracion": "Y listo. Con una función de intersección, un rayo por vértice y ordenar por ángulo tienes el núcleo de cualquier sistema de visibilidad 2D. Desde aquí puedes hacer una linterna, decidir qué enemigos ve el jugador o mezclar luces de colores. Si lo llevas a tu juego, cuéntame cómo te fue. Gracias por acompañarme.",
+      "bloques": [
+        {
+          "tipo": "md",
+          "md": "- **Linterna:** filtra los ángulos dentro de un cono.\n- **Sigilo:** usa el polígono para decidir **qué enemigos ve el jugador**.\n- **Ambiente:** combina varias luces de colores.\n\nLas demos son un web component del portafolio, `<ja-luz-demo>`, que recibe el paso como propiedad y solo anima mientras está a la vista."
+        }
+      ],
+      "demo": {
+        "demo": "luz",
+        "paso": 8,
+        "leyenda": "Juega con la escena final cuanto quieras."
+      }
+    }
+  ]
+}

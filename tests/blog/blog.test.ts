@@ -3,7 +3,7 @@
 //   W-BLG-01  cada publicación cumple el schema, tiene slug único y su portada existe
 //   W-BLG-02  el post «Luz y sombra en 2D» es una guía cuyas demos cubren los pasos de luz 0 a 8
 //   W-BLG-03  cada paso de cada guía tiene su narración en audio (voz clonada) publicada
-//   W-SPA-01  las rutas en ?s= van y vuelven: portafolio (con sección), blog y publicación
+//   W-SPA-01  las rutas van y vuelven: portafolio (sección en ?s=), blog/ y blog/<slug>/ limpias; los ?s= viejos del blog se reconocen
 //   W-LUZ-01  la intersección rayo-segmento acierta, descarta paralelos y lo que queda detrás del rayo
 //   W-LUZ-02  el polígono de visión queda dentro de la escena y en orden de ángulo
 import { existsSync } from 'node:fs';
@@ -12,7 +12,7 @@ import { definirPruebas } from '@iswc/testing/pruebas.ts';
 import { PublicacionSchema } from '../../src/js/consts/schemas/contenido.schemas.ts';
 import { contenido } from '../../src/js/contenido/index.ts';
 import { audioPaso } from '../../src/js/contenido/derivados.ts';
-import { estadoDe, rutaDe } from '../../src/js/base/rutas.ts';
+import { estadoDe, rutaDe, rutaDeUrl, rutaRelativa } from '../../src/js/base/rutas.ts';
 import { ALTO, ANCHO, interseccion, poligonoVision } from '../../view/blog/utils/luz.ts';
 
 const RAIZ = Deno.cwd();
@@ -54,16 +54,35 @@ export default definirPruebas([
     },
   },
   {
-    nombre: 'blog W-SPA-01 rutas en el estado ?s=',
+    nombre: 'blog W-SPA-01 rutas limpias del blog y ?s= del portafolio',
     categoria: 'what',
     correr({ eq }) {
+      const raiz = '/Jeff-Aporta/';
+      const url = (rel: string) => new URL(rel, `https://jeff-aporta.github.io${raiz}`);
       eq('vacío', rutaDe({}), { vista: 'portafolio', seccion: 'inicio' });
       eq('sección', rutaDe({ sec: 'perfil', theme: 'dark' }), { vista: 'portafolio', seccion: 'perfil' });
-      eq('blog', rutaDe({ v: 'blog' }), { vista: 'blog' });
-      eq('post', rutaDe({ v: 'post', p: 'luz-y-sombra-2d' }), { vista: 'post', slug: 'luz-y-sombra-2d' });
+      eq('?s= viejo del blog', rutaDe({ v: 'blog' }), { vista: 'blog' });
+      eq('?s= viejo de un post', rutaDe({ v: 'post', p: 'luz-y-sombra-2d' }), { vista: 'post', slug: 'luz-y-sombra-2d' });
       eq('post sin slug es la portada', rutaDe({ v: 'post' }), { vista: 'portafolio', seccion: 'inicio' });
       eq('la portada no ensucia la URL', estadoDe({ vista: 'portafolio', seccion: 'inicio' }), {});
-      for (const e of [{}, { sec: 'perfil' }, { v: 'blog' }, { v: 'post', p: 'luz-y-sombra-2d' }]) eq(`ida y vuelta ${JSON.stringify(e)}`, estadoDe(rutaDe(e)), e);
+      eq('la sección va en ?s=', estadoDe({ vista: 'portafolio', seccion: 'perfil' }), { sec: 'perfil' });
+      eq('el blog no lleva ?s=', estadoDe({ vista: 'blog' }), {});
+      eq('pathname de la portada', rutaRelativa({ vista: 'portafolio', seccion: 'inicio' }), '');
+      eq('pathname del blog', rutaRelativa({ vista: 'blog' }), 'blog/');
+      eq('pathname de un post', rutaRelativa({ vista: 'post', slug: 'luz-y-sombra-2d' }), 'blog/luz-y-sombra-2d/');
+      for (const r of [{ vista: 'portafolio', seccion: 'inicio' }, { vista: 'portafolio', seccion: 'perfil' }, { vista: 'blog' }, { vista: 'post', slug: 'luz-y-sombra-2d' }] as const) {
+        const u = url(rutaRelativa(r));
+        const estado = estadoDe(r);
+        if (Object.keys(estado).length) u.searchParams.set('s', btoa(JSON.stringify(estado)).replace(/=+$/, ''));
+        eq(`ida y vuelta ${u.pathname}${u.search}`, rutaDeUrl(u, raiz), r);
+      }
+      eq('blog sin barra final', rutaDeUrl(url('blog'), raiz), { vista: 'blog' });
+      eq('post con index.html', rutaDeUrl(url('blog/luz-y-sombra-2d/index.html'), raiz), { vista: 'post', slug: 'luz-y-sombra-2d' });
+      eq('index.html de la raíz', rutaDeUrl(url('index.html'), raiz), { vista: 'portafolio', seccion: 'inicio' });
+      eq('?s= viejo en la raíz', rutaDeUrl(url(`?s=${btoa(JSON.stringify({ v: 'post', p: 'luz-y-sombra-2d' })).replace(/=+$/, '')}`), raiz), { vista: 'post', slug: 'luz-y-sombra-2d' });
+      eq('un asset no es ruta', rutaDeUrl(url('assets/img/og/portada.png'), raiz), null);
+      eq('view/ no es ruta', rutaDeUrl(url('view/portafolio/index.html'), raiz), null);
+      eq('otra raíz no es ruta', rutaDeUrl(new URL('https://jeff-aporta.github.io/otro/blog/'), raiz), null);
     },
   },
   {

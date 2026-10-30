@@ -1,0 +1,195 @@
+<!doctype html>
+<html lang="es" data-theme="light" data-palette="jeff">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<!-- Página especializada: la escribe `deno task build` (scripts/build/build-blog.ts) desde src/js/contenido/blog/ (no editar a mano). -->
+<title>Luz y sombra en 2D · Jeffrey Agudelo</title>
+<meta name="description" content="Construimos desde cero el clásico efecto de luz que proyecta sombras sobre una escena 2D: rayos, intersecciones, el polígono de visión, sombras suaves y varias luces. Cada paso trae su narración y su demo interactiva.">
+<meta name="author" content="Jeffrey Alexander Agudelo Espitia">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta name="theme-color" content="#2563eb">
+<meta name="color-scheme" content="light dark">
+<link rel="canonical" href="https://jeff-aporta.github.io/Jeff-Aporta/blog/luz-y-sombra-2d/">
+<meta property="og:type" content="article">
+<meta property="og:locale" content="es_CO">
+<meta property="og:site_name" content="Jeffrey Agudelo">
+<meta property="og:title" content="Luz y sombra en 2D · Jeffrey Agudelo">
+<meta property="og:description" content="Construimos desde cero el clásico efecto de luz que proyecta sombras sobre una escena 2D: rayos, intersecciones, el polígono de visión, sombras suaves y varias luces. Cada paso trae su narración y su demo interactiva.">
+<meta property="og:url" content="https://jeff-aporta.github.io/Jeff-Aporta/blog/luz-y-sombra-2d/">
+<meta property="og:image" content="https://jeff-aporta.github.io/Jeff-Aporta/assets/blog/luz-y-sombra/portada.png">
+<meta property="og:image:alt" content="Escena 2D iluminada por dos luces que proyectan sombras">
+<meta property="article:published_time" content="2026-10-27">
+<meta property="article:author" content="Jeffrey Alexander Agudelo Espitia">
+<meta property="article:tag" content="Guía narrada">
+<meta property="article:tag" content="Canvas 2D">
+<meta property="article:tag" content="Geometría">
+<meta property="article:tag" content="Videojuegos">
+<meta property="article:tag" content="TypeScript">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Luz y sombra en 2D · Jeffrey Agudelo">
+<meta name="twitter:description" content="Construimos desde cero el clásico efecto de luz que proyecta sombras sobre una escena 2D: rayos, intersecciones, el polígono de visión, sombras suaves y varias luces. Cada paso trae su narración y su demo interactiva.">
+<meta name="twitter:image" content="https://jeff-aporta.github.io/Jeff-Aporta/assets/blog/luz-y-sombra/portada.png">
+<meta name="twitter:image:alt" content="Escena 2D iluminada por dos luces que proyectan sombras">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","@id":"https://jeff-aporta.github.io/Jeff-Aporta/blog/luz-y-sombra-2d/#post","mainEntityOfPage":"https://jeff-aporta.github.io/Jeff-Aporta/blog/luz-y-sombra-2d/","headline":"Luz y sombra en 2D","alternativeHeadline":"Una guía narrada para crear visibilidad y sombras dinámicas en tus juegos, paso a paso y con demos que puedes tocar.","description":"Construimos desde cero el clásico efecto de luz que proyecta sombras sobre una escena 2D: rayos, intersecciones, el polígono de visión, sombras suaves y varias luces. Cada paso trae su narración y su demo interactiva.","url":"https://jeff-aporta.github.io/Jeff-Aporta/blog/luz-y-sombra-2d/","datePublished":"2026-10-27","image":"https://jeff-aporta.github.io/Jeff-Aporta/assets/blog/luz-y-sombra/portada.png","keywords":"Guía narrada, Canvas 2D, Geometría, Videojuegos, TypeScript","inLanguage":"es-CO","isPartOf":{"@id":"https://jeff-aporta.github.io/Jeff-Aporta/#blog"},"author":{"@type":"Person","@id":"https://jeff-aporta.github.io/Jeff-Aporta/#persona","name":"Jeffrey Alexander Agudelo Espitia","url":"https://jeff-aporta.github.io/Jeff-Aporta/"},"publisher":{"@type":"Person","@id":"https://jeff-aporta.github.io/Jeff-Aporta/#persona","name":"Jeffrey Alexander Agudelo Espitia"}}</script>
+<meta name="google-site-verification" content="GpoghZlKIsd4HjpFh18Y4kIS3hkKnfJwI0xFE6-cNf4">
+<link rel="icon" href="../../favicon.ico?v=2" sizes="any">
+<link rel="icon" href="../../assets/img/favicon-32.png?v=2" type="image/png" sizes="32x32">
+<link rel="icon" href="../../assets/img/favicon-64.png?v=2" type="image/png" sizes="64x64">
+<link rel="apple-touch-icon" href="../../assets/img/icono-180.png?v=2" sizes="180x180">
+<link rel="manifest" href="../../site.webmanifest">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap">
+<!-- Tema antes del primer pintado: ?s= (theme/palette) > localStorage del kit > light / jeff. Script plano. -->
+<script src="../../dist/cdn/boot.js?v=i5w9k0"></script>
+<link rel="stylesheet" href="../../dist/cdn/styles/app.css?v=rukr0f">
+<!-- 1) Loader del kit por CDN pineado (el mismo SHA que index.html). 2) Registrador de la app. -->
+<script type="module" src="https://cdn.jsdelivr.net/gh/Jeff-Aporta/is-webcomponents@a1df39adb9e421de874dd624901b72daa9e25e5c/dist/cdn/core/loader.min.js"></script>
+<script type="module" src="../../dist/cdn/jaLoader.min.js?v=1u5sr0"></script>
+<!-- 3) Arranque: estilos del kit, tags del kit, transversales (sin el shell de la SPA) y la vista del blog. -->
+<script type="module">
+  const L = globalThis.iswcLoader;
+  const listo = () => document.documentElement.setAttribute('data-app-ready', '');
+  const watchdog = setTimeout(() => { console.warn('[ja] el arranque excedió 6 s; se revela la página'); listo(); }, 6000);
+  try {
+    if (!L) throw new Error('falta iswcLoader');
+    await L.loadPageStyles(['iswc-palettes-default']);
+    const { KIT_TAGS, tagsArranque, tagsVista } = await import('../../dist/cdn/js/kit-tags.js?v=ussgej');
+    await L.load(...KIT_TAGS, ...tagsArranque().filter((t) => t !== 'ja-app'), ...tagsVista('blog'));
+    await customElements.whenDefined('ja-pagina');
+  } catch (e) {
+    console.warn('[ja] arranque', e);
+  } finally {
+    clearTimeout(watchdog);
+    listo();
+  }
+</script>
+</head>
+<body>
+  <noscript>Esta página necesita JavaScript para la guía interactiva; el texto completo está abajo. Portafolio: <a href="../../">inicio</a>.</noscript>
+  <iswc-toast placement="bottom-end"></iswc-toast>
+  <ja-pagina activa="blog">
+    <ja-post slug="luz-y-sombra-2d">
+<!-- resumen estático del post para rastreadores sin JS (el componente lo reemplaza al pintar) -->
+<article>
+<h1>Luz y sombra en 2D</h1>
+<p>Una guía narrada para crear visibilidad y sombras dinámicas en tus juegos, paso a paso y con demos que puedes tocar.</p>
+<p>Jeffrey Agudelo · <time datetime="2026-10-27">2026-10-27</time> · Guía narrada, Canvas 2D, Geometría, Videojuegos, TypeScript</p>
+<img src="https://jeff-aporta.github.io/Jeff-Aporta/assets/blog/luz-y-sombra/portada.png" alt="Escena 2D iluminada por dos luces que proyectan sombras" width="1200" height="630">
+<p>Construimos desde cero el clásico efecto de luz que proyecta sombras sobre una escena 2D: rayos, intersecciones, el polígono de visión, sombras suaves y varias luces. Cada paso trae su narración y su demo interactiva.</p>
+<h2>1. Bienvenida</h2>
+<p>Hola, soy Jeff. En esta guía vamos a construir juntos un efecto que seguro has visto en muchos juegos 2D: una luz que ilumina la escena y proyecta sombras detrás de los obstáculos. Mueve el cursor sobre la demo para ver a dónde vamos a llegar. Cuando quieras, pasa al siguiente paso.</p>
+<p>Este efecto se usa en juegos de sigilo, en mazmorras con niebla de guerra y en cualquier juego donde **lo que ve el personaje** importa. No necesitas un motor gráfico: con **un poco de geometría** y el **canvas 2D** del navegador es suficiente.
+
+Lo construimos en **diez pasos**, cometiendo a propósito los mismos errores que uno comete la primera vez, para entender por qué la solución final funciona.</p>
+<h2>2. La escena</h2>
+<p>Todo empieza por describir el mundo. Nuestra escena es un rectángulo con seis obstáculos, y cada pared es un segmento: un punto de inicio y un punto final. Los bordes también son segmentos, porque la luz tiene que chocar contra algo.</p>
+<p>La escena mide **840 × 360** píxeles. Cada pared es un **segmento** con un punto `a` y un punto `b`; un polígono se convierte en sus segmentos uniendo cada vértice con el siguiente.</p>
+<pre><code title="luz.ts · la escena">type Punto = { x: number; y: number };
+type Segmento = { a: Punto; b: Punto };
+
+// Un polígono cerrado se convierte en sus segmentos: cada vértice con el siguiente.
+function poligono(vertices: Punto[]): Segmento[] {
+  return vertices.map((a, i) =&gt; ({ a, b: vertices[(i + 1) % vertices.length] }));
+}
+
+const ESCENA: Segmento[] = [
+  ...poligono([{ x: 0, y: 0 }, { x: 840, y: 0 }, { x: 840, y: 360 }, { x: 0, y: 360 }]), // borde
+  ...poligono([{ x: 100, y: 150 }, { x: 120, y: 50 }, { x: 200, y: 80 }, { x: 140, y: 210 }]),
+  // …y los demás obstáculos
+];</code></pre>
+<h2>3. Un rayo</h2>
+<p>La idea central es lanzar rayos desde la luz y averiguar dónde chocan con las paredes. Empecemos con uno solo. El rayo y el segmento se escriben como un punto más una dirección, y el producto cruz nos dice dónde se cruzan, o si son paralelos. Nos quedamos con el choque más cercano.</p>
+<p>Cualquier recta se puede escribir en **forma paramétrica**: un punto de partida más una dirección multiplicada por un número.
+
+- El **rayo** es `origen + dirección · t`, con `t ≥ 0` (solo hacia adelante).
+- El **segmento** es `a + (b − a) · u`, con `0 ≤ u ≤ 1` (solo entre sus extremos).
+
+Para resolver el sistema usamos el **producto cruz** en 2D, `cruz(p, q) = p.x · q.y − p.y · q.x`, que además avisa cuando las rectas son **paralelas**.</p>
+<pre><code title="luz.ts · intersección de un rayo con un segmento">function interseccion(rayo: Segmento, seg: Segmento) {
+  const r = { x: rayo.b.x - rayo.a.x, y: rayo.b.y - rayo.a.y }; // dirección del rayo
+  const s = { x: seg.b.x - seg.a.x, y: seg.b.y - seg.a.y };     // dirección del segmento
+  const den = r.x * s.y - r.y * s.x;                           // cruz(r, s)
+  if (Math.abs(den) &lt; 1e-12) return null;                      // paralelos
+
+  const q = { x: seg.a.x - rayo.a.x, y: seg.a.y - rayo.a.y };
+  const t = (q.x * s.y - q.y * s.x) / den; // distancia a lo largo del rayo
+  const u = (q.x * r.y - q.y * r.x) / den; // posición sobre el segmento
+
+  if (t &lt; 0 || u &lt; 0 || u &gt; 1) return null; // detrás del rayo o fuera del segmento
+  return { x: rayo.a.x + r.x * t, y: rayo.a.y + r.y * t, t };
+}</code></pre>
+<p>Probamos el rayo contra **todos** los segmentos y nos quedamos con el de **menor `t`**: el más cercano. Lo que hay detrás queda en sombra.</p>
+<h2>4. Rayos en todas direcciones</h2>
+<p>Una luz no ilumina en una sola dirección. Lo más intuitivo es lanzar muchos rayos repartidos en círculo, por ejemplo cincuenta, y guardar el choque más cercano de cada uno. Mira cómo se ven en la demo.</p>
+<pre><code title="Cincuenta rayos alrededor de la luz">const choques = [];
+for (let k = 0; k &lt; 50; k++) {
+  const angulo = (k / 50) * Math.PI * 2;
+  const rayo = { a: luz, b: { x: luz.x + Math.cos(angulo), y: luz.y + Math.sin(angulo) } };
+  const choque = masCercano(rayo); // el de menor t entre todos los segmentos
+  if (choque) choques.push(choque);
+}</code></pre>
+<h2>5. El primer polígono (y su error)</h2>
+<p>Si unimos los choques en orden, obtenemos la zona iluminada. Pero fíjate en las esquinas: el polígono las corta o las atraviesa. Subir a miles de rayos solo esconde el problema. La clave es que la sombra solo cambia en los vértices de los obstáculos.</p>
+<p>Con 50 rayos nunca acertamos justo en los vértices, y subir a 500 o 5000 rayos solo esconde el problema mientras el rendimiento se desploma.</p>
+<p><strong>La clave del efecto.</strong> La forma de la sombra solo cambia **en los vértices** de los obstáculos. Entre dos vértices la luz recorre la pared en línea recta. No necesitamos miles de rayos: necesitamos **un rayo por vértice**.</p>
+<h2>6. Rayos hacia cada vértice</h2>
+<p>Ahora lanzamos un rayo hacia cada vértice de la escena. Hay una trampa: cuando el rayo roza una esquina, la luz puede seguir de largo. Por eso lanzamos dos rayos extra, desviados un ángulo diminuto a cada lado. Uno choca con la esquina y el otro sigue hasta el fondo.</p>
+<pre><code title="Tres rayos por vértice">const DESVIO = 0.00001;
+
+const angulos = vertices(ESCENA).flatMap((p) =&gt; {
+  const a = Math.atan2(p.y - luz.y, p.x - luz.x);
+  return [a - DESVIO, a, a + DESVIO];
+});</code></pre>
+<h2>7. El polígono de visión</h2>
+<p>Los choques ya son exactos, pero llegan desordenados. Los ordenamos por ángulo alrededor de la luz y los unimos en ese orden. El resultado es el polígono de visión: todo lo que la luz alcanza, con las esquinas perfectas y apenas unas decenas de rayos.</p>
+<pre><code title="luz.ts · polígono de visión">function poligonoVision(luz: Punto): Choque[] {
+  const choques = [];
+  for (const angulo of angulos) {
+    const choque = masCercano(rayoAngulo(luz, angulo));
+    if (choque) choques.push({ ...choque, angulo });
+  }
+  return choques.sort((p, q) =&gt; p.angulo - q.angulo); // en orden alrededor de la luz
+}
+
+// Dibujarlo es recorrer los puntos y rellenar.
+ctx.beginPath();
+ctx.moveTo(poli[0].x, poli[0].y);
+for (const p of poli.slice(1)) ctx.lineTo(p.x, p.y);
+ctx.fill();</code></pre>
+<h2>8. Sombras suaves</h2>
+<p>Las sombras reales no tienen bordes perfectos, porque las luces tienen tamaño. Un truco barato y muy efectivo es dibujar la luz principal y diez luces más a su alrededor, casi transparentes. Donde se superponen, la luz se suma, y en los bordes aparece la penumbra.</p>
+<pre><code title="Luz difusa: la principal y diez a su alrededor">const radio = 10;
+for (let k = 0; k &lt; 10; k++) {
+  const a = (k / 10) * Math.PI * 2;
+  const otra = { x: luz.x + Math.cos(a) * radio, y: luz.y + Math.sin(a) * radio };
+  ctx.globalAlpha = 0.2;
+  rellenar(poligonoVision(otra));
+}
+ctx.globalAlpha = 1;
+rellenar(poligonoVision(luz));</code></pre>
+<h2>9. Del polígono a la escena</h2>
+<p>La luz blanca todavía parece un diagrama. Para que se vea como un juego usamos dos imágenes: un fondo en penumbra y un frente iluminado. El polígono de luz funciona como máscara, y el frente solo se pinta donde ya había luz.</p>
+<p>Con `globalCompositeOperation = 'source-in'`, al dibujar el frente solo se pinta donde ya había píxeles de luz. El fondo queda debajo, como el fondo del lienzo.</p>
+<pre><code title="La luz como máscara del frente">dibujarLuz(ctx, luz);                         // polígonos blancos
+ctx.globalCompositeOperation = 'source-in';  // lo siguiente solo donde ya hay píxeles
+ctx.drawImage(frente, 0, 0);
+ctx.globalCompositeOperation = 'source-over'; // volver al modo normal</code></pre>
+<h2>10. Más de una luz</h2>
+<p>Como cada luz es solo un conjunto de polígonos, agregar luces es repetir el dibujo antes de aplicar la máscara. En la demo hay dos, una a cada lado, que se mueven en sentidos opuestos con el cursor. Fíjate cómo las sombras se cruzan y se suman.</p>
+<p><strong>Rendimiento.</strong> Cada polígono lanza **3 rayos por vértice** y prueba cada rayo contra **todos los segmentos**: unas 3·V·S pruebas. Para escenas pequeñas sobra; en mapas grandes conviene filtrar los segmentos cercanos (una cuadrícula o un árbol espacial) y limitar el alcance de cada luz.</p>
+<h2>11. Para terminar</h2>
+<p>Y listo. Con una función de intersección, un rayo por vértice y ordenar por ángulo tienes el núcleo de cualquier sistema de visibilidad 2D. Desde aquí puedes hacer una linterna, decidir qué enemigos ve el jugador o mezclar luces de colores. Si lo llevas a tu juego, cuéntame cómo te fue. Gracias por acompañarme.</p>
+<p>- **Linterna:** filtra los ángulos dentro de un cono.
+- **Sigilo:** usa el polígono para decidir **qué enemigos ve el jugador**.
+- **Ambiente:** combina varias luces de colores.
+
+Las demos son un web component del portafolio, `&lt;ja-luz-demo>`, que recibe el paso como propiedad y solo anima mientras está a la vista.</p>
+<p><strong>Créditos.</strong> Esta guía reinterpreta en español «Sight &amp; Light» de Nicky Case (ncase.me/sight-and-light), de quien tomé la idea, la escena y las imágenes de fondo y frente. El texto, la narración, el código y los componentes son propios y están hechos con web components sobre el kit iswc.</p>
+</article>
+    </ja-post>
+  </ja-pagina>
+</body>
+</html>

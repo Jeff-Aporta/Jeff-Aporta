@@ -200,6 +200,8 @@ export function adoptarPropsTardias(host: HTMLElement & { props?: unknown }): vo
  * Fábrica de componente: `props` mezcla lo nuevo con lo anterior (lo ausente se conserva) y
  * repinta. `nombre` = tag = nombre de la hoja (obligatorio: en un bundle `import.meta.url` es el
  * del bundle). `parcial` evita el repintado completo cuando devuelve `true` (foco, scroll).
+ * `atributos`: props de texto que también se aceptan como atributo HTML (`<ja-post slug="…">`), para
+ * que una página estática pueda montar el componente sin script; el atributo escribe la prop homónima.
  */
 export function crearComponente<P extends object>(
   moduleUrl: string,
@@ -207,15 +209,22 @@ export function crearComponente<P extends object>(
   inicial: P,
   render: (root: ShadowRoot, props: P, host: HTMLElement) => void,
   parcial?: (root: ShadowRoot, props: P, previos: P, host: HTMLElement) => boolean,
+  atributos: readonly (keyof P & string)[] = [],
 ): CustomElementConstructor {
   precargarCss(moduleUrl, nombre);
   return class extends HTMLElement {
+    static observedAttributes = [...atributos];
     #props: P = inicial;
     #root = this.attachShadow({ mode: 'open' });
 
     connectedCallback(): void {
       adoptarPropsTardias(this);
       this.#pintar();
+    }
+
+    attributeChangedCallback(attr: string, antes: string | null, valor: string | null): void {
+      if (antes === valor) return;
+      this.props = { [attr]: valor ?? '' } as Partial<P>;
     }
 
     get props(): P {

@@ -1,0 +1,23 @@
+[
+  {
+    "slug": "luz-y-sombra-2d",
+    "titulo": "Luz y sombra en 2D",
+    "subtitulo": "Una guía narrada para crear visibilidad y sombras dinámicas en tus juegos, paso a paso y con demos que puedes tocar.",
+    "resumen": "Construimos desde cero el clásico efecto de luz que proyecta sombras sobre una escena 2D: rayos, intersecciones, el polígono de visión, sombras suaves y varias luces. Cada paso trae su narración y su demo interactiva.",
+    "fecha": "2026-10-27",
+    "etiquetas": [
+      "Guía narrada",
+      "Canvas 2D",
+      "Geometría",
+      "Videojuegos",
+      "TypeScript"
+    ],
+    "portada": {
+      "src": "assets/blog/luz-y-sombra/portada.png",
+      "alt": "Escena 2D iluminada por dos luces que proyectan sombras"
+    },
+    "pasos": 11,
+    "url": "https://jeff-aporta.github.io/Jeff-Aporta/blog/luz-y-sombra-2d/",
+    "datos": "https://jeff-aporta.github.io/Jeff-Aporta/blog/luz-y-sombra-2d/post.json"
+  }
+]

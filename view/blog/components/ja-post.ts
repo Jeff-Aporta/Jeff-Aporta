@@ -1,8 +1,17 @@
 /**
  * <ja-post> — una publicación como guía narrada, a todo el ancho:
  *
- *   índice (regreso, título, progreso y lista de pasos) · tarjeta del paso (`<ja-paso>`) ·
+ *   índice (regreso, título, autor, compartir, progreso y lista de pasos) · tarjeta del paso (`<ja-paso>`) ·
  *   demo del paso (`<ja-luz-demo>`) y controles, fijos al lado mientras se lee.
+ *
+ * Datos mínimos: con `slug` descarga `blog/<slug>/post.json` (lo escribe el build desde
+ * `src/js/contenido/blog/`, validado con `PublicacionSchema`; mientras llega pinta esqueletos del kit) o
+ * recibe la publicación completa en `datos`. Así la misma pieza sirve en la SPA (`<ja-app>` la monta por
+ * slug) y en la página especializada `blog/<slug>/index.html` (`<ja-post slug="…">` en HTML estático, con
+ * el resumen del post como hijos de luz para rastreadores sin JS).
+ *
+ * «Compartir» entrega la URL limpia y pública (`https://…/blog/<slug>/`) con los componentes del kit:
+ * `<iswc-share-button>` (Web Share; sin ella copia) y `<iswc-copy-button>` (portapapeles).
  *
  * Controles solo con ícono (`<ja-boton-icono>`): anterior, escuchar/pausar la narración (voz clonada,
  * `assets/blog/<slug>/voz/NN.mp3`), siguiente y «modo guiado», que al terminar cada narración pasa
@@ -16,24 +25,46 @@ import { audioPaso, fechaLarga } from '../../../src/js/contenido/derivados.js';
 import { alCambiarRuta, hrefDe } from '../../../src/js/base/rutas.js';
 import { deslizar } from '../../../src/js/base/gestos.js';
 import type { JaPostProps } from '../../../src/js/consts/schemas/componentes.schemas.js';
+import type { Publicacion } from '../../../src/js/consts/schemas/contenido.schemas.js';
+import { cargarPublicacion, urlPublica } from '../utils/publicaciones.js';
 import '../../../src/js/components/ja/ja-boton-icono.js';
 import '../../../src/js/components/ja/ja-forma.js';
 import './ja-luz-demo.js';
 import './ja-paso.js';
 
 type Boton = HTMLElement & { props: Record<string, unknown> };
+type Host = HTMLElement & { props: Partial<JaPostProps> };
 
 const TECLADO = new WeakSet<HTMLElement>();
+/** Slugs cuyo `post.json` no llegó: se pinta «no encontrada» en vez de volver a esperar. */
+const PERDIDOS = new Set<string>();
 
-const JaPost = crearComponente<JaPostProps>(import.meta.url, 'ja-post', { slug: '' }, (root, props, host) => {
-  const p = contenido.blog.find((x) => x.slug === props.slug);
-  const volver = pieza('ja-boton-icono', { icono: 'mdi:arrow-left', etiqueta: 'Todas las publicaciones', href: hrefDe({ vista: 'blog' }) }, { class: 'volver' });
-  if (!p) {
-    root.append(html`<div class="perdido">${volver}<iswc-callout tone="warning"><strong slot="title">Publicación no encontrada</strong>Revisa el enlace o vuelve a la lista del blog.</iswc-callout></div>`);
-    return;
-  }
+const volverA = () => pieza('ja-boton-icono', { icono: 'mdi:arrow-left', etiqueta: 'Todas las publicaciones', href: hrefDe({ vista: 'blog' }) }, { class: 'volver' });
+
+/** Mientras baja el JSON: la silueta de la guía con esqueletos del kit. */
+function esperando(root: ShadowRoot): void {
+  root.append(html`
+    <div class="guia cargando" part="guia" aria-busy="true" aria-label="Cargando la publicación">
+      <aside class="indice">
+        <div class="arriba">${volverA()}</div>
+        <iswc-skeleton effect="sheen" style="height:2rem;width:85%"></iswc-skeleton>
+        <iswc-skeleton effect="sheen" style="height:1rem"></iswc-skeleton>
+        <iswc-skeleton effect="sheen" style="height:1rem;width:70%"></iswc-skeleton>
+      </aside>
+      <section class="escenario"><iswc-skeleton effect="sheen" style="height:22rem;border-radius:1rem"></iswc-skeleton></section>
+      <aside class="lado"><iswc-skeleton effect="sheen" style="height:18rem;border-radius:1rem"></iswc-skeleton></aside>
+    </div>
+  `);
+}
+
+function perdido(root: ShadowRoot): void {
+  root.append(html`<div class="perdido">${volverA()}<iswc-callout tone="warning"><strong slot="title">Publicación no encontrada</strong>Revisa el enlace o vuelve a la lista del blog.</iswc-callout></div>`);
+}
+
+function guia(root: ShadowRoot, p: Publicacion, host: HTMLElement): void {
   const { perfil } = contenido;
   const total = p.pasos.length;
+  const enlace = urlPublica(p.slug);
   root.append(html`
     ${pieza('ja-forma', { tipo: 'semicirculo', tono: 'acento', tam: 7, animacion: 'flotar' }, { class: 'forma f1' })}
     ${pieza('ja-forma', { tipo: 'zigzag', tono: 'lila', tam: 4, animacion: 'derivar', retraso: 2 }, { class: 'forma f2' })}
@@ -41,7 +72,7 @@ const JaPost = crearComponente<JaPostProps>(import.meta.url, 'ja-post', { slug: 
     <div class="guia" part="guia">
       <aside class="indice" part="indice" aria-label="Pasos de la guía">
         <div class="arriba">
-          ${volver}
+          ${volverA()}
           <span class="insignia"><iswc-icon icon="mdi:headphones"></iswc-icon>Guía narrada</span>
         </div>
         <h1>${p.titulo}</h1>
@@ -49,6 +80,10 @@ const JaPost = crearComponente<JaPostProps>(import.meta.url, 'ja-post', { slug: 
         <div class="autor">
           <img src=${rutaSitio(perfil.logo)} alt="" width="36" height="36">
           <div><strong>${perfil.nombreCorto}</strong><span>${fechaLarga(p.fecha)}</span></div>
+        </div>
+        <div class="compartir" part="compartir">
+          <iswc-share-button class="share" share-title=${p.titulo} text=${p.resumen} url=${enlace}></iswc-share-button>
+          <iswc-copy-button class="copiar" value=${enlace} tooltip="full" copy-label="Copiar enlace" success-label="Enlace copiado" error-label="No se pudo copiar"></iswc-copy-button>
         </div>
         <div class="avance">
           <span class="cuenta"></span>
@@ -123,7 +158,7 @@ const JaPost = crearComponente<JaPostProps>(import.meta.url, 'ja-post', { slug: 
     const previo = actual;
     actual = i;
     const paso = p.pasos[i]!;
-    zonaPaso.replaceChildren(pieza('ja-paso', { slug: p.slug, indice: i }));
+    zonaPaso.replaceChildren(pieza('ja-paso', { paso, indice: i, total, creditos: p.creditos ?? '' }));
     const demo = paso.demo;
     figura.hidden = !demo;
     if (demo && (previo < 0 || p.pasos[previo]?.demo?.paso !== demo.paso)) zonaDemo.replaceChildren(pieza('ja-luz-demo', { paso: demo.paso }));
@@ -191,6 +226,20 @@ const JaPost = crearComponente<JaPostProps>(import.meta.url, 'ja-post', { slug: 
   }
   ir(0, false);
   pintarAudio();
-});
+}
+
+const JaPost = crearComponente<JaPostProps>(import.meta.url, 'ja-post', { slug: '', datos: null }, (root, props, host) => {
+  // `datos` manda si no hay slug o si es la publicación de ese slug; si no, se descarga el JSON del slug.
+  const datos = props.datos && (!props.slug || props.datos.slug === props.slug) ? props.datos : null;
+  if (datos) return guia(root, datos, host);
+  if (!props.slug || PERDIDOS.has(props.slug)) return perdido(root);
+  esperando(root);
+  const slug = props.slug;
+  void cargarPublicacion(slug).then((p) => {
+    if (!host.isConnected || (host as Host).props.slug !== slug) return;
+    if (!p) PERDIDOS.add(slug);
+    (host as Host).props = { datos: p };
+  });
+}, undefined, ['slug']);
 
 define('ja-post', JaPost);

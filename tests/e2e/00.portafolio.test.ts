@@ -8,7 +8,7 @@
 //   W-POR-03   la trayectoria es un grafo de ramas: «Hoy» arriba, sin filtros, hitos de inicio y fin
 //   W-POR-04   cada fila de empresa (inicio, fin, periodo, cambio) tiene «Ver detalle», que abre su ficha completa en un modal
 //   W-POR-05   cada cifra de la portada abre su lista completa; los enlaces externos abren en otra pestaña
-//   W-SPA-02   la pestaña Blog lleva a la lista, una tarjeta abre la guía, «siguiente» avanza de paso y Yo regresa
+//   W-SPA-02   la pestaña Blog lleva a la lista (blog/), una tarjeta abre la guía (blog/<slug>/) sin recargar, «siguiente» avanza de paso y Yo regresa
 //   W-SPA-03   un enlace directo a una sección (?s= con { sec: 'habilidades' }) aterriza en ella y la conserva
 import { definirPruebas } from '@iswc/testing/pruebas.ts';
 import { abrir, esperar } from '../../scripts/gate/e2e/harness.ts';
@@ -129,19 +129,25 @@ export default definirPruebas([
     categoria: 'what',
     async correr({ eq, expect }) {
       const vista = () => s.page.evaluate(() => document.querySelector('ja-app')!.shadowRoot!.querySelector('main')!.firstElementChild?.localName ?? '', undefined);
-      // Las pestañas de la barra son enlaces `?s=`: el kit los navega sin recargar.
+      const ruta = () => s.page.evaluate(() => location.pathname + location.search, undefined);
+      // Una marca en la ventana: si la página se recargara, se perdería.
+      await s.page.evaluate(() => { (globalThis as { __sinRecarga?: number }).__sinRecarga = 1; }, undefined);
+      // Las pestañas de la barra son enlaces a URL limpias: el router propio los navega sin recargar.
       await s.page.evaluate(() => {
         const nav = document.querySelector('ja-app')!.shadowRoot!.querySelector('.pestanas')!.shadowRoot!;
         ([...nav.querySelectorAll('a')].find((a) => a.textContent?.includes('Blog')) as HTMLAnchorElement).click();
       }, undefined);
       await esperar(s.page, () => !!document.querySelector('ja-app')?.shadowRoot?.querySelector('ja-blog')?.shadowRoot?.querySelector('ja-seccion'));
       eq('lista', await vista(), 'ja-blog');
+      eq('URL limpia de la lista', await ruta(), '/blog/');
       await s.page.evaluate(() => {
         const blog = document.querySelector('ja-app')!.shadowRoot!.querySelector('ja-blog')!.shadowRoot!;
         (blog.querySelector('ja-post-tarjeta')!.shadowRoot!.querySelector('a') as HTMLAnchorElement).click();
       }, undefined);
       await esperar(s.page, () => !!document.querySelector('ja-app')?.shadowRoot?.querySelector('ja-post')?.shadowRoot?.querySelector('h1'));
       eq('publicación', await vista(), 'ja-post');
+      eq('URL limpia de la publicación', await ruta(), '/blog/luz-y-sombra-2d/');
+      eq('sin recarga', await s.page.evaluate(() => (globalThis as { __sinRecarga?: number }).__sinRecarga, undefined), 1);
       expect('título de la pestaña', (await s.page.evaluate(() => document.title, undefined)).startsWith('Luz y sombra en 2D'));
       const guia = () => s.page.evaluate(() => {
         const post = document.querySelector('ja-app')!.shadowRoot!.querySelector('ja-post')!.shadowRoot!;
@@ -166,13 +172,14 @@ export default definirPruebas([
       await s.page.evaluate(() => history.back(), undefined);
       await esperar(s.page, () => !!document.querySelector('ja-app')?.shadowRoot?.querySelector('ja-blog'));
       eq('atrás vuelve a la lista', await vista(), 'ja-blog');
-      expect('la URL lleva el estado', (await s.page.evaluate(() => location.search, undefined)).startsWith('?s='));
+      eq('atrás deja la URL de la lista', await ruta(), '/blog/');
       await s.page.evaluate(() => {
         const nav = document.querySelector('ja-app')!.shadowRoot!.querySelector('.pestanas')!.shadowRoot!;
         ([...nav.querySelectorAll('a')].find((a) => a.textContent?.includes('Yo')) as HTMLAnchorElement).click();
       }, undefined);
       await esperar(s.page, () => !!document.querySelector('ja-app')?.shadowRoot?.querySelector('ja-portafolio'));
       eq('regresa al portafolio', await vista(), 'ja-portafolio');
+      eq('la portada vuelve a la raíz', await ruta(), '/');
       expect('sin errores de consola', s.errores().length === 0, s.errores().join(' | '));
     },
   },

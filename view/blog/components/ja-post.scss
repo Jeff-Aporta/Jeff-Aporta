@@ -364,3 +364,21 @@ h1 { @include m.titulo(clamp(1.6rem, 1.3rem + 1vw, 2.15rem)); }
   max-width: 40rem;
   margin: 0 auto;
 }
+
+/* ── compartir (piezas del kit) y espera ──────────────────────────────── */
+.compartir {
+  display: flex;
+  flex-wrap: wrap;
+  gap: t.esp(1);
+  align-items: center;
+
+  .share::part(button) { border-radius: 999px; font-size: 0.875rem; }
+}
+
+.cargando {
+  .indice,
+  .escenario,
+  .lado { display: grid; gap: t.esp(3); }
+
+  iswc-skeleton { display: block; width: 100%; }
+}

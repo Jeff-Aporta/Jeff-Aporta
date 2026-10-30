@@ -11,7 +11,7 @@
     {
       "id": "intro",
       "title": "&lt;ja-post&gt;",
-      "lede": "Publicación como guía narrada a todo el ancho: índice de pasos con progreso, tarjeta del paso (<ja-paso>), demo fija y controles solo con ícono (anterior, escuchar, siguiente, modo guiado); flechas del teclado.",
+      "lede": "Publicación como guía narrada a todo el ancho, a partir de datos mínimos (blog/<slug>/post.json por slug, o `datos`): índice de pasos con progreso, compartir, tarjeta del paso (<ja-paso>), demo fija y controles solo con ícono.",
       "blocks": [
         {
           "kind": "demo",
@@ -35,7 +35,27 @@
         },
         {
           "kind": "html",
-          "html": "<iswc-callout tone=\"info\"><strong slot=\"title\">Cuándo usarlo</strong>Como vista de una publicación (?s= con { v: 'post', p: slug }).</iswc-callout>"
+          "html": "<iswc-callout tone=\"info\"><strong slot=\"title\">Cuándo usarlo</strong>Como vista de una publicación: en la SPA (<ja-app> la monta por slug en blog/&lt;slug&gt;/) y en su página especializada blog/&lt;slug&gt;/index.html (<ja-post slug=\"…\"> estático). Con <code>datos</code> pinta sin red.</iswc-callout>"
+        },
+        {
+          "kind": "demo",
+          "html": "<div class=\"stage\"><ja-post id=\"demo-datos\"></ja-post></div>",
+          "target": "#demo-datos",
+          "props": {
+            "datos": {
+              "slug": "demo",
+              "titulo": "Guía de muestra",
+              "subtitulo": "Dos pasos con datos pasados por prop, sin red.",
+              "resumen": "Publicación mínima para el playground.",
+              "fecha": "2026-01-15",
+              "etiquetas": ["demo"],
+              "portada": { "src": "assets/img/og/portada.png", "alt": "Portada de muestra" },
+              "pasos": [
+                { "titulo": "Primer paso", "icono": "mdi:numeric-1-circle-outline", "narracion": "Este es el primer paso de la guía de muestra: solo texto, sin bloques ni demo.", "bloques": [], "demo": null },
+                { "titulo": "Segundo paso", "icono": "mdi:numeric-2-circle-outline", "narracion": "El segundo paso trae un bloque de código para ver cómo se pinta.", "bloques": [{ "tipo": "codigo", "lenguaje": "javascript", "titulo": "hola.js", "codigo": "console.log('hola');" }], "demo": null }
+              ]
+            }
+          }
         }
       ]
     }

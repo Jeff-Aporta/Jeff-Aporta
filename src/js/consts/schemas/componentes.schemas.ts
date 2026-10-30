@@ -7,6 +7,8 @@
  */
 import { z } from '../../base/zod.js';
 import { BloqueSchema } from './contenido.schemas.js';
+import { PasoGuiaSchema } from './contenido.schemas.js';
+import { PublicacionSchema } from './contenido.schemas.js';
 import { EventoGrafoSchema } from './contenido.schemas.js';
 
 /** `<ja-app>`: el shell. `seccion` es la sección visible (la marca la navegación). */
@@ -101,17 +103,33 @@ export type JaCanalProps = z.infer<typeof JaCanalPropsSchema>;
 export const JaLuzDemoPropsSchema = z.object({ paso: z.number().int().min(0).max(8).default(0) });
 export type JaLuzDemoProps = z.infer<typeof JaLuzDemoPropsSchema>;
 
-/** `<ja-post>` y `<ja-post-tarjeta>`: una publicación del blog por slug. */
-export const JaPostPropsSchema = z.object({ slug: z.string().default('') });
+/** `<ja-post-tarjeta>`: una publicación del blog por slug (lee el contenido importado). */
+export const JaPostTarjetaPropsSchema = z.object({ slug: z.string().default('') });
+export type JaPostTarjetaProps = z.infer<typeof JaPostTarjetaPropsSchema>;
+
+/**
+ * `<ja-post>`: la publicación por `slug` (carga `blog/<slug>/post.json`, validado con `PublicacionSchema`)
+ * o directamente con `datos`. Si vienen los dos, `datos` manda cuando su slug coincide.
+ */
+export const JaPostPropsSchema = z.object({ slug: z.string().default(''), datos: PublicacionSchema.nullable().default(null) });
 export type JaPostProps = z.infer<typeof JaPostPropsSchema>;
 
 /** `<ja-bloque>`: un bloque (markdown, código o nota) dentro de un paso de una publicación. */
 export const JaBloquePropsSchema = z.object({ bloque: BloqueSchema.nullable().default(null) });
 export type JaBloqueProps = z.infer<typeof JaBloquePropsSchema>;
 
-/** `<ja-paso>`: la tarjeta de un paso de una publicación guiada (slug + índice del paso). */
-export const JaPasoPropsSchema = z.object({ slug: z.string().default(''), indice: z.number().int().min(0).default(0) });
+/** `<ja-paso>`: la tarjeta de un paso de una guía: el paso, su índice, cuántos hay y los créditos (solo se pintan en el último). */
+export const JaPasoPropsSchema = z.object({
+  paso: PasoGuiaSchema.nullable().default(null),
+  indice: z.number().int().min(0).default(0),
+  total: z.number().int().min(1).default(1),
+  creditos: z.string().default(''),
+});
 export type JaPasoProps = z.infer<typeof JaPasoPropsSchema>;
+
+/** `<ja-pagina>`: shell mínimo de una página especializada (barra con marca, vistas y tema; la vista en el slot; el pie). */
+export const JaPaginaPropsSchema = z.object({ activa: z.enum(['portafolio', 'blog']).default('blog') });
+export type JaPaginaProps = z.infer<typeof JaPaginaPropsSchema>;
 
 /** `<ja-boton-icono>`: botón redondo solo con ícono (la etiqueta va al lector de pantalla y al tooltip). */
 export const JaBotonIconoPropsSchema = z.object({
@@ -125,7 +143,7 @@ export const JaBotonIconoPropsSchema = z.object({
 });
 export type JaBotonIconoProps = z.infer<typeof JaBotonIconoPropsSchema>;
 
-/** Ruta de la SPA (hash): portafolio con sección opcional, lista del blog o una publicación. */
+/** Ruta de la SPA: portafolio con sección (`?s=`), lista del blog (`blog/`) o una publicación (`blog/<slug>/`). */
 export const RutaSpaSchema = z.discriminatedUnion('vista', [
   z.object({ vista: z.literal('portafolio'), seccion: z.string() }),
   z.object({ vista: z.literal('blog') }),

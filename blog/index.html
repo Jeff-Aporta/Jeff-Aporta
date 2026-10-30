@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="es" data-theme="light" data-palette="jeff">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<!-- Página especializada: la escribe `deno task build` (scripts/build/build-blog.ts) desde src/js/contenido/blog/ (no editar a mano). -->
+<title>Blog · Jeffrey Agudelo</title>
+<meta name="description" content="Blog de Jeffrey Agudelo: guías de programación paso a paso, narradas con su voz y con demos interactivas.">
+<meta name="author" content="Jeffrey Alexander Agudelo Espitia">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta name="theme-color" content="#2563eb">
+<meta name="color-scheme" content="light dark">
+<link rel="canonical" href="https://jeff-aporta.github.io/Jeff-Aporta/blog/">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="es_CO">
+<meta property="og:site_name" content="Jeffrey Agudelo">
+<meta property="og:title" content="Blog · Jeffrey Agudelo">
+<meta property="og:description" content="Blog de Jeffrey Agudelo: guías de programación paso a paso, narradas con su voz y con demos interactivas.">
+<meta property="og:url" content="https://jeff-aporta.github.io/Jeff-Aporta/blog/">
+<meta property="og:image" content="https://jeff-aporta.github.io/Jeff-Aporta/assets/img/og/portada.png">
+<meta property="og:image:alt" content="Jeffrey Agudelo — Desarrollador Full Stack">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Blog · Jeffrey Agudelo">
+<meta name="twitter:description" content="Blog de Jeffrey Agudelo: guías de programación paso a paso, narradas con su voz y con demos interactivas.">
+<meta name="twitter:image" content="https://jeff-aporta.github.io/Jeff-Aporta/assets/img/og/portada.png">
+<meta name="twitter:image:alt" content="Jeffrey Agudelo — Desarrollador Full Stack">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Blog","@id":"https://jeff-aporta.github.io/Jeff-Aporta/#blog","url":"https://jeff-aporta.github.io/Jeff-Aporta/blog/","name":"Blog de Jeffrey Agudelo","description":"Guías paso a paso, narradas y con demos interactivas.","inLanguage":"es-CO","author":{"@type":"Person","@id":"https://jeff-aporta.github.io/Jeff-Aporta/#persona","name":"Jeffrey Alexander Agudelo Espitia","url":"https://jeff-aporta.github.io/Jeff-Aporta/"},"blogPost":[{"@type":"BlogPosting","@id":"https://jeff-aporta.github.io/Jeff-Aporta/blog/luz-y-sombra-2d/#post","mainEntityOfPage":"https://jeff-aporta.github.io/Jeff-Aporta/blog/luz-y-sombra-2d/","headline":"Luz y sombra en 2D","alternativeHeadline":"Una guía narrada para crear visibilidad y sombras dinámicas en tus juegos, paso a paso y con demos que puedes tocar.","description":"Construimos desde cero el clásico efecto de luz que proyecta sombras sobre una escena 2D: rayos, intersecciones, el polígono de visión, sombras suaves y varias luces. Cada paso trae su narración y su demo interactiva.","url":"https://jeff-aporta.github.io/Jeff-Aporta/blog/luz-y-sombra-2d/","datePublished":"2026-10-27","image":"https://jeff-aporta.github.io/Jeff-Aporta/assets/blog/luz-y-sombra/portada.png","keywords":"Guía narrada, Canvas 2D, Geometría, Videojuegos, TypeScript","inLanguage":"es-CO","isPartOf":{"@id":"https://jeff-aporta.github.io/Jeff-Aporta/#blog"},"author":{"@id":"https://jeff-aporta.github.io/Jeff-Aporta/#persona"},"publisher":{"@id":"https://jeff-aporta.github.io/Jeff-Aporta/#persona"}}]}</script>
+<meta name="google-site-verification" content="GpoghZlKIsd4HjpFh18Y4kIS3hkKnfJwI0xFE6-cNf4">
+<link rel="icon" href="../favicon.ico?v=2" sizes="any">
+<link rel="icon" href="../assets/img/favicon-32.png?v=2" type="image/png" sizes="32x32">
+<link rel="icon" href="../assets/img/favicon-64.png?v=2" type="image/png" sizes="64x64">
+<link rel="apple-touch-icon" href="../assets/img/icono-180.png?v=2" sizes="180x180">
+<link rel="manifest" href="../site.webmanifest">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap">
+<!-- Tema antes del primer pintado: ?s= (theme/palette) > localStorage del kit > light / jeff. Script plano. -->
+<script src="../dist/cdn/boot.js?v=i5w9k0"></script>
+<link rel="stylesheet" href="../dist/cdn/styles/app.css?v=rukr0f">
+<!-- 1) Loader del kit por CDN pineado (el mismo SHA que index.html). 2) Registrador de la app. -->
+<script type="module" src="https://cdn.jsdelivr.net/gh/Jeff-Aporta/is-webcomponents@a1df39adb9e421de874dd624901b72daa9e25e5c/dist/cdn/core/loader.min.js"></script>
+<script type="module" src="../dist/cdn/jaLoader.min.js?v=1u5sr0"></script>
+<!-- 3) Arranque: estilos del kit, tags del kit, transversales (sin el shell de la SPA) y la vista del blog. -->
+<script type="module">
+  const L = globalThis.iswcLoader;
+  const listo = () => document.documentElement.setAttribute('data-app-ready', '');
+  const watchdog = setTimeout(() => { console.warn('[ja] el arranque excedió 6 s; se revela la página'); listo(); }, 6000);
+  try {
+    if (!L) throw new Error('falta iswcLoader');
+    await L.loadPageStyles(['iswc-palettes-default']);
+    const { KIT_TAGS, tagsArranque, tagsVista } = await import('../dist/cdn/js/kit-tags.js?v=ussgej');
+    await L.load(...KIT_TAGS, ...tagsArranque().filter((t) => t !== 'ja-app'), ...tagsVista('blog'));
+    await customElements.whenDefined('ja-pagina');
+  } catch (e) {
+    console.warn('[ja] arranque', e);
+  } finally {
+    clearTimeout(watchdog);
+    listo();
+  }
+</script>
+</head>
+<body>
+  <noscript>Esta página necesita JavaScript para la guía interactiva; el texto completo está abajo. Portafolio: <a href="../">inicio</a>.</noscript>
+  <iswc-toast placement="bottom-end"></iswc-toast>
+  <ja-pagina activa="blog">
+    <ja-blog>
+<!-- resumen estático de la lista para rastreadores sin JS -->
+<h1>Blog de Jeffrey Agudelo</h1>
+<p>Guías paso a paso, narradas y con demos interactivas.</p>
+<ul>
+  <li><a href="../blog/luz-y-sombra-2d/">Luz y sombra en 2D</a> (2026-10-27): Construimos desde cero el clásico efecto de luz que proyecta sombras sobre una escena 2D: rayos, intersecciones, el polígono de visión, sombras suaves y varias luces. Cada paso trae su narración y su demo interactiva.</li>
+</ul>
+    </ja-blog>
+  </ja-pagina>
+</body>
+</html>

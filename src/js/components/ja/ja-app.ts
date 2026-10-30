@@ -2,9 +2,9 @@
  * <ja-app> — shell de la SPA: barra fija (marca, pestañas de `iswc-app-nav` y tema), la vista
  * activa y el pie.
  *
- * Rutas en `?s=` con el `createSpaState` del kit (ver `base/rutas.ts`): sin estado o `{ sec }` muestran
- * el portafolio, `{ v: 'blog' }` la lista y `{ v: 'post', p }` una publicación. La fila principal elige la
- * vista; la secundaria (solo en el portafolio) es una franja propia a todo el ancho, en el tono
+ * Rutas con el router propio (ver `base/rutas.ts`): la raíz (sin estado o `{ sec }` en `?s=`) muestra el
+ * portafolio, `blog/` la lista y `blog/<slug>/` una publicación (los enlaces viejos `?s=` con `{ v, p }` se
+ * reescriben a la URL limpia). La fila principal elige la vista; la secundaria (solo en el portafolio) es una franja propia a todo el ancho, en el tono
  * secundario, que lleva a cada sección y se marca sola al hacer scroll (`ja-seccion-visible`): la URL
  * queda al día sin crear historial.
  *
@@ -20,6 +20,7 @@ import { tagsVista, type Vista } from '../../kit-tags.js';
 import { LoaderAppSchema } from '../../consts/schemas/loader.schemas.js';
 import type { JaAppProps, RutaSpa } from '../../consts/schemas/componentes.schemas.js';
 import './ja-marca.js';
+import './ja-pie.js';
 
 type Nav = HTMLElement & { rows: unknown[] };
 type Portafolio = HTMLElement & { irA?(id: string, suave?: boolean): void };
@@ -65,7 +66,6 @@ function titulo(ruta: RutaSpa): string {
 }
 
 const JaApp = crearComponente<JaAppProps>(import.meta.url, 'ja-app', { seccion: 'inicio' }, (root, _props, host) => {
-  const { perfil } = contenido;
   root.append(html`
     <a class="saltar" href="#contenido">Saltar al contenido</a>
     <header class="barra" part="barra">
@@ -81,18 +81,7 @@ const JaApp = crearComponente<JaAppProps>(import.meta.url, 'ja-app', { seccion: 
       </div>
     </header>
     <main id="contenido" class="vista" part="vista"></main>
-    <footer class="pie" part="pie">
-      <div class="interior">
-        ${pieza('ja-marca', { subtitulo: `${perfil.titular} · ${perfil.ubicacion}` }, { class: 'firma' })}
-        <div class="redes">
-          <iswc-button variant="ghost" shape="pill" href=${perfil.contacto.github} target="_blank" rel="noopener" title="GitHub"><iswc-icon icon="mdi:github"></iswc-icon></iswc-button>
-          <iswc-button variant="ghost" shape="pill" href=${perfil.contacto.youtube} target="_blank" rel="noopener" title="YouTube"><iswc-icon icon="mdi:youtube"></iswc-icon></iswc-button>
-          <iswc-button variant="ghost" shape="pill" href=${perfil.contacto.whatsapp} target="_blank" rel="noopener" title="WhatsApp"><iswc-icon icon="mdi:whatsapp"></iswc-icon></iswc-button>
-          <iswc-button variant="ghost" shape="pill" href=${`mailto:${perfil.contacto.email}`} title="Correo"><iswc-icon icon="mdi:email-outline"></iswc-icon></iswc-button>
-        </div>
-        <p class="legal">© ${new Date().getFullYear()} ${perfil.nombreCorto}</p>
-      </div>
-    </footer>
+    ${pieza('ja-pie', {}, { part: 'pie' })}
   `);
   const nav = root.querySelector('.pestanas') as Nav;
   const secciones = root.querySelector('.secciones') as Nav;

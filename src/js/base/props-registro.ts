@@ -9,6 +9,8 @@ import { JaAppPropsSchema } from '../consts/schemas/componentes.schemas.js';
 import { JaBloquePropsSchema } from '../consts/schemas/componentes.schemas.js';
 import { JaLuzDemoPropsSchema } from '../consts/schemas/componentes.schemas.js';
 import { JaPostPropsSchema } from '../consts/schemas/componentes.schemas.js';
+import { JaPostTarjetaPropsSchema } from '../consts/schemas/componentes.schemas.js';
+import { JaPaginaPropsSchema } from '../consts/schemas/componentes.schemas.js';
 import { JaPasoPropsSchema } from '../consts/schemas/componentes.schemas.js';
 import { JaBotonIconoPropsSchema } from '../consts/schemas/componentes.schemas.js';
 import { JaBarraUsoPropsSchema } from '../consts/schemas/componentes.schemas.js';
@@ -37,7 +39,8 @@ export function registrarClaves(tag: string, esquema: { shape: object }): void {
 registrarClaves('ja-app', JaAppPropsSchema);
 registrarClaves('ja-luz-demo', JaLuzDemoPropsSchema);
 registrarClaves('ja-post', JaPostPropsSchema);
-registrarClaves('ja-post-tarjeta', JaPostPropsSchema);
+registrarClaves('ja-post-tarjeta', JaPostTarjetaPropsSchema);
+registrarClaves('ja-pagina', JaPaginaPropsSchema);
 registrarClaves('ja-bloque', JaBloquePropsSchema);
 registrarClaves('ja-paso', JaPasoPropsSchema);
 registrarClaves('ja-boton-icono', JaBotonIconoPropsSchema);
@@ -56,7 +59,7 @@ registrarClaves('ja-hito', JaHitoPropsSchema);
 registrarClaves('ja-empleo', JaEmpleoPropsSchema);
 registrarClaves('ja-proyectos', JaProyectosPropsSchema);
 registrarClaves('ja-proyecto', JaProyectoPropsSchema);
-for (const tag of ['ja-portafolio', 'ja-blog', 'ja-banner-blog', 'ja-trayectoria', 'ja-hero', 'ja-perfil', 'ja-habilidades', 'ja-educacion', 'ja-contacto']) registrarClaves(tag, SinPropsSchema);
+for (const tag of ['ja-portafolio', 'ja-pie', 'ja-blog', 'ja-banner-blog', 'ja-trayectoria', 'ja-hero', 'ja-perfil', 'ja-habilidades', 'ja-educacion', 'ja-contacto']) registrarClaves(tag, SinPropsSchema);
 
 export function revisarProps(tag: string, valor: unknown): void {
   if (!valor || typeof valor !== 'object') return;

@@ -11,37 +11,50 @@
     {
       "id": "intro",
       "title": "&lt;ja-paso&gt;",
-      "lede": "Tarjeta de papel de un paso de una guía: sello con el número, ícono de plastilina, título, transcripción de la narración y bloques; en el último paso, los créditos.",
+      "lede": "Tarjeta de papel de un paso de una guía, recibido por props: sello con el número, ícono de plastilina, título, transcripción de la narración y bloques; en el último paso, los créditos.",
       "blocks": [
         {
           "kind": "demo",
           "html": "<div class=\"stage\"><ja-paso id=\"demo\"></ja-paso></div>",
           "target": "#demo",
           "props": {
-            "slug": "luz-y-sombra-2d",
-            "indice": 2
+            "paso": {
+              "titulo": "Rayos hacia cada esquina",
+              "icono": "mdi:white-balance-sunny",
+              "narracion": "Desde la luz lanzamos un rayo hacia cada esquina de cada pared y nos quedamos con el primer choque: ahí termina lo que se ve.",
+              "bloques": [
+                { "tipo": "nota", "tono": "info", "titulo": "Por qué a las esquinas", "md": "Entre dos esquinas la frontera de la luz es una **línea recta**: basta con conocer sus extremos." }
+              ],
+              "demo": null
+            },
+            "indice": 2,
+            "total": 10,
+            "creditos": ""
           },
           "controls": [
-            {
-              "control": "select",
-              "prop": "props:slug",
-              "label": "slug",
-              "default": "luz-y-sombra-2d",
-              "options": [
-                "luz-y-sombra-2d"
-              ]
-            },
             {
               "control": "number",
               "prop": "props:indice",
               "label": "indice",
               "default": 2
+            },
+            {
+              "control": "number",
+              "prop": "props:total",
+              "label": "total",
+              "default": 10
+            },
+            {
+              "control": "text",
+              "prop": "props:creditos",
+              "label": "creditos (solo en el último paso)",
+              "default": ""
             }
           ]
         },
         {
           "kind": "html",
-          "html": "<iswc-callout tone=\"info\"><strong slot=\"title\">Cuándo usarlo</strong>Dentro de <ja-post>.</iswc-callout>"
+          "html": "<iswc-callout tone=\"info\"><strong slot=\"title\">Cuándo usarlo</strong>Dentro de <ja-post>, que le pasa el paso de post.json.</iswc-callout>"
         }
       ]
     }

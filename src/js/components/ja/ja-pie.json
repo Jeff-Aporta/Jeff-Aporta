@@ -1,0 +1,28 @@
+{
+  "$schema": "iswc-preview/v1",
+  "tag": "ja-pie",
+  "category": "transversal",
+  "navTitle": "Pie",
+  "title": "&lt;ja-pie&gt;",
+  "titleHtml": false,
+  "storageKey": "docs-ja-pie",
+  "styles": ".stage{padding:0}",
+  "sections": [
+    {
+      "id": "intro",
+      "title": "&lt;ja-pie&gt;",
+      "lede": "Pie del sitio: firma con la marca, redes de contacto y aviso legal con el año.",
+      "blocks": [
+        {
+          "kind": "demo",
+          "html": "<div class=\"stage\"><ja-pie id=\"demo\"></ja-pie></div>",
+          "target": "#demo"
+        },
+        {
+          "kind": "html",
+          "html": "<iswc-callout tone=\"info\"><strong slot=\"title\">Cuándo usarlo</strong>Al final de la SPA (<ja-app>) y de cada página especializada (<ja-pagina>).</iswc-callout>"
+        }
+      ]
+    }
+  ]
+}

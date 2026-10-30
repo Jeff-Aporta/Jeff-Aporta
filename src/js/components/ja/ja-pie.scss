@@ -1,0 +1,47 @@
+@use "tokens" as t;
+@use "mixins" as m;
+
+/* ja-pie — pie del sitio: firma, redes y aviso legal. */
+:host {
+  @include m.host-bloque;
+}
+
+.pie {
+  padding: t.esp(12) t.esp(6) t.esp(8);
+  border-top: 1px solid var(--iswc-border-soft);
+  background: var(--iswc-bg-soft);
+  color: var(--iswc-text);
+}
+
+.interior {
+  display: flex;
+  flex-wrap: wrap;
+  gap: t.esp(6);
+  align-items: center;
+  justify-content: space-between;
+  max-width: t.$ancho;
+  margin: 0 auto;
+}
+
+.firma { max-width: 100%; }
+
+.redes {
+  display: flex;
+  gap: t.esp(1);
+  font-size: 1.15rem;
+}
+
+.legal {
+  flex-basis: 100%;
+  margin: t.esp(4) 0 0;
+  padding-top: t.esp(6);
+  border-top: 1px solid var(--iswc-border-soft);
+  color: var(--iswc-text-dim);
+  font-size: 0.8125rem;
+}
+
+@media print {
+  .redes { display: none; }
+
+  .pie { padding: t.esp(4) 0; background: none; }
+}

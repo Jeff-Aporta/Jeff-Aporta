@@ -1,4 +1,4 @@
-import{crearComponente as r,define as c,html as o}from"../../../js/base/componente.js?v=esixd4";import{contenido as e,rutaSitio as n}from"../../../js/contenido/index.js?v=mecx72";import{fechaLarga as p}from"../../../js/contenido/derivados.js?v=iwigun";import{hrefDe as l}from"../../../js/base/rutas.js?v=a5yqf4";const m=r(import.meta.url,"ja-post-tarjeta",{slug:""},(i,t)=>{const a=e.blog.find(s=>s.slug===t.slug);a&&i.append(o`
+import{crearComponente as r,define as c,html as o}from"../../../js/base/componente.js?v=26a3va";import{contenido as e,rutaSitio as n}from"../../../js/contenido/index.js?v=mecx72";import{fechaLarga as p}from"../../../js/contenido/derivados.js?v=inbaus";import{hrefDe as l}from"../../../js/base/rutas.js?v=a7fbwz";const m=r(import.meta.url,"ja-post-tarjeta",{slug:""},(t,i)=>{const a=e.blog.find(s=>s.slug===i.slug);a&&t.append(o`
     <a class="tarjeta" part="tarjeta" href=${l({vista:"post",slug:a.slug})}>
       <div class="portada"><img src=${n(a.portada.src)} alt=${a.portada.alt} loading="lazy"></div>
       <div class="cuerpo">

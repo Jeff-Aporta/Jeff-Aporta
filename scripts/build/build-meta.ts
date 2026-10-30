@@ -9,20 +9,21 @@
  *     deja fuera de pantalla, pero los rastreadores que no ejecutan JS lo leen tal cual. Sus enlaces
  *     externos abren en otra pestaña; los del blog son relativos; los proyectos enlazan su repositorio
  *     (la demo queda en la app: la del kit vive en GitHub Pages y `deno task pin` la tomaría por un pin mutable).
- *   - sitemap.xml (portada, blog y cada publicación con su `?s=`), robots.txt, site.webmanifest y .nojekyll.
+ *   - blog/ (vía `build-blog.ts`): `index.json`, `index.html` y, por publicación, `<slug>/post.json` y
+ *     `<slug>/index.html` con su propio `<head>` SEO y URL limpia.
+ *   - sitemap.xml (portada, `blog/` y cada `blog/<slug>/`: URL limpias), robots.txt, site.webmanifest y .nojekyll.
+ * Los helpers comunes (URL públicas, escape, JSON-LD del blog, resúmenes) están en `seo.ts`.
  * Cambias el contenido → `deno task build` → los metadatos se actualizan solos.
  */
 import { readFileSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { contenido } from '../../src/js/contenido/index.ts';
 import { mesesCalendario, rangoEmpleo } from '../../src/js/contenido/derivados.ts';
+import { generarBlog } from './build-blog.ts';
+import { abs, blogLd, enlace, esc, lista, urlBlog, urlPost } from './seo.ts';
 
 const ROOT = join(import.meta.dirname!, '..', '..');
 const { sitio, perfil, experiencia, educacion, habilidades, proyectos, blog } = contenido;
-const abs = (ruta: string) => new URL(ruta, sitio.url).href;
-/** URL de una vista de la SPA: el estado va en `?s=` (base64url de un JSON, como `base/rutas.ts`). */
-const urlSpa = (estado: Record<string, string>) => `${sitio.url}?s=${btoa(JSON.stringify(estado)).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '')}`;
-const esc = (s: string) => s.replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;');
 
 const actual = experiencia.find((e) => e.periodos.some((p) => p.hasta === null));
 const jsonLd = {
@@ -49,25 +50,7 @@ const jsonLd = {
     },
     { '@type': 'WebSite', '@id': `${sitio.url}#sitio`, url: sitio.url, name: sitio.titulo, inLanguage: sitio.idioma, author: { '@id': `${sitio.url}#persona` } },
     { '@type': 'ProfilePage', url: sitio.url, name: sitio.titulo, mainEntity: { '@id': `${sitio.url}#persona` }, dateModified: new Date().toISOString().slice(0, 10) },
-    {
-      '@type': 'Blog',
-      '@id': `${sitio.url}#blog`,
-      url: urlSpa({ v: 'blog' }),
-      name: `Blog de ${perfil.nombreCorto}`,
-      inLanguage: sitio.idioma,
-      author: { '@id': `${sitio.url}#persona` },
-      blogPost: blog.map((p) => ({
-        '@type': 'BlogPosting',
-        headline: p.titulo,
-        description: p.resumen,
-        url: urlSpa({ v: 'post', p: p.slug }),
-        datePublished: p.fecha,
-        image: abs(p.portada.src),
-        keywords: p.etiquetas.join(', '),
-        inLanguage: sitio.idioma,
-        author: { '@id': `${sitio.url}#persona` },
-      })),
-    },
+    blogLd(blog),
   ],
 };
 
@@ -110,8 +93,6 @@ const rutaIndex = join(ROOT, 'index.html');
 const index = readFileSync(rutaIndex, 'utf8');
 const marca = /(<!-- meta:inicio[^>]*-->)[\s\S]*?(<!-- meta:fin -->)/;
 if (!marca.test(index)) throw new Error('build-meta: index.html no tiene los marcadores meta:inicio / meta:fin');
-const enlace = (href: string, texto: string) => `<a href="${esc(href)}"${/^https?:/.test(href) ? ' target="_blank" rel="noopener"' : ''}>${esc(texto)}</a>`;
-const lista = (items: string[]) => `<ul>\n${items.map((i) => `  <li>${i}</li>`).join('\n')}\n</ul>`;
 const resumen = [
   `<h1>${esc(perfil.nombre)}</h1>`,
   `<p>${esc(perfil.titular)} · ${esc(perfil.ubicacion)}</p>`,
@@ -125,8 +106,8 @@ const resumen = [
   lista(habilidades.map((h) => `<strong>${esc(h.titulo)}</strong>: ${esc(h.items.join(', '))}`)),
   '<h2>Educación</h2>',
   lista(educacion.map((s) => `<strong>${esc(s.titulo)}</strong> · ${esc(s.institucion)} (${s.cursando ? esc(s.cursando) : s.anio})`)),
-  '<h2>Blog</h2>',
-  lista(blog.map((p) => `${enlace(urlSpa({ v: 'post', p: p.slug }).replace(sitio.url, './'), p.titulo)} (${p.fecha}): ${esc(p.resumen)}`)),
+  `<h2>${enlace('./blog/', 'Blog')}</h2>`,
+  lista(blog.map((p) => `${enlace(`./blog/${p.slug}/`, p.titulo)} (${p.fecha}): ${esc(p.resumen)}`)),
   '<h2>Contacto</h2>',
   lista([enlace(`mailto:${perfil.contacto.email}`, perfil.contacto.email), enlace(perfil.contacto.github, 'GitHub'), enlace(perfil.contacto.youtube, 'YouTube'), enlace(abs(perfil.cv), 'Hoja de vida (PDF)')]),
 ].join('\n');
@@ -137,8 +118,8 @@ writeFileSync(rutaIndex, index.replace(marca, `$1\n${meta}\n$2`).replace(marcaRe
 const hoy = new Date().toISOString().slice(0, 10);
 const urls = [
   { loc: sitio.url, lastmod: hoy, freq: 'monthly', prioridad: '1.0' },
-  { loc: urlSpa({ v: 'blog' }), lastmod: hoy, freq: 'weekly', prioridad: '0.8' },
-  ...blog.map((p) => ({ loc: urlSpa({ v: 'post', p: p.slug }), lastmod: p.fecha, freq: 'monthly', prioridad: '0.7' })),
+  { loc: urlBlog(), lastmod: hoy, freq: 'weekly', prioridad: '0.8' },
+  ...blog.map((p) => ({ loc: urlPost(p), lastmod: p.fecha, freq: 'monthly', prioridad: '0.7' })),
 ];
 const fila = (u: (typeof urls)[number]) => `  <url><loc>${esc(u.loc)}</loc><lastmod>${u.lastmod}</lastmod><changefreq>${u.freq}</changefreq><priority>${u.prioridad}</priority></url>`;
 writeFileSync(join(ROOT, 'sitemap.xml'), `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls.map(fila).join('\n')}\n</urlset>\n`);
@@ -163,4 +144,5 @@ writeFileSync(join(ROOT, 'site.webmanifest'), `${JSON.stringify({
   ],
 }, null, 2)}\n`);
 writeFileSync(join(ROOT, '.nojekyll'), '');
-console.log(`[build:meta] index.html · sitemap.xml · robots.txt · site.webmanifest (${sitio.url})`);
+const paginasBlog = generarBlog(ROOT);
+console.log(`[build:meta] index.html · sitemap.xml · robots.txt · site.webmanifest · blog/ (${paginasBlog.length} archivos) (${sitio.url})`);

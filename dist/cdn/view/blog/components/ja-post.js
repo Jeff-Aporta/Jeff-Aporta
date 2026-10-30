@@ -1,25 +1,40 @@
-import{crearComponente as I,define as J,html as j,pieza as i}from"../../../js/base/componente.js?v=esixd4";import{contenido as T,rutaSitio as z}from"../../../js/contenido/index.js?v=mecx72";import{audioPaso as K,fechaLarga as N}from"../../../js/contenido/derivados.js?v=iwigun";import{alCambiarRuta as V,hrefDe as G}from"../../../js/base/rutas.js?v=a5yqf4";import{deslizar as O}from"../../../js/base/gestos.js?v=6stx69";import"../../../js/components/ja/ja-boton-icono.js?v=p3vqmq";import"../../../js/components/ja/ja-forma.js?v=5ui52s";import"./ja-luz-demo.js?v=3ra91f";import"./ja-paso.js?v=0482od";const q=new WeakSet,U=I(import.meta.url,"ja-post",{slug:""},(g,R,p)=>{const t=T.blog.find(a=>a.slug===R.slug),y=i("ja-boton-icono",{icono:"mdi:arrow-left",etiqueta:"Todas las publicaciones",href:G({vista:"blog"})},{class:"volver"});if(!t){g.append(j`<div class="perdido">${y}<iswc-callout tone="warning"><strong slot="title">Publicación no encontrada</strong>Revisa el enlace o vuelve a la lista del blog.</iswc-callout></div>`);return}const{perfil:L}=T,u=t.pasos.length;g.append(j`
-    ${i("ja-forma",{tipo:"semicirculo",tono:"acento",tam:7,animacion:"flotar"},{class:"forma f1"})}
-    ${i("ja-forma",{tipo:"zigzag",tono:"lila",tam:4,animacion:"derivar",retraso:2},{class:"forma f2"})}
-    ${i("ja-forma",{tipo:"puntos",tono:"marca",tam:4.5,animacion:"derivar",retraso:4},{class:"forma f3"})}
+import{crearComponente as I,define as J,html as $,pieza as c}from"../../../js/base/componente.js?v=26a3va";import{contenido as N,rutaSitio as R}from"../../../js/contenido/index.js?v=mecx72";import{audioPaso as K,fechaLarga as O}from"../../../js/contenido/derivados.js?v=inbaus";import{alCambiarRuta as V,hrefDe as G}from"../../../js/base/rutas.js?v=a7fbwz";import{deslizar as U}from"../../../js/base/gestos.js?v=6stx69";import{cargarPublicacion as W,urlPublica as X}from"../utils/publicaciones.js?v=vpss7i";import"../../../js/components/ja/ja-boton-icono.js?v=gygypq";import"../../../js/components/ja/ja-forma.js?v=0mkgi9";import"./ja-luz-demo.js?v=4ph62b";import"./ja-paso.js?v=scoli4";const S=new WeakSet,H=new Set,j=()=>c("ja-boton-icono",{icono:"mdi:arrow-left",etiqueta:"Todas las publicaciones",href:G({vista:"blog"})},{class:"volver"});function F(s){s.append($`
+    <div class="guia cargando" part="guia" aria-busy="true" aria-label="Cargando la publicación">
+      <aside class="indice">
+        <div class="arriba">${j()}</div>
+        <iswc-skeleton effect="sheen" style="height:2rem;width:85%"></iswc-skeleton>
+        <iswc-skeleton effect="sheen" style="height:1rem"></iswc-skeleton>
+        <iswc-skeleton effect="sheen" style="height:1rem;width:70%"></iswc-skeleton>
+      </aside>
+      <section class="escenario"><iswc-skeleton effect="sheen" style="height:22rem;border-radius:1rem"></iswc-skeleton></section>
+      <aside class="lado"><iswc-skeleton effect="sheen" style="height:18rem;border-radius:1rem"></iswc-skeleton></aside>
+    </div>
+  `)}function Q(s){s.append($`<div class="perdido">${j()}<iswc-callout tone="warning"><strong slot="title">Publicación no encontrada</strong>Revisa el enlace o vuelve a la lista del blog.</iswc-callout></div>`)}function Y(s,e,i){const{perfil:f}=N,n=e.pasos.length,g=X(e.slug);s.append($`
+    ${c("ja-forma",{tipo:"semicirculo",tono:"acento",tam:7,animacion:"flotar"},{class:"forma f1"})}
+    ${c("ja-forma",{tipo:"zigzag",tono:"lila",tam:4,animacion:"derivar",retraso:2},{class:"forma f2"})}
+    ${c("ja-forma",{tipo:"puntos",tono:"marca",tam:4.5,animacion:"derivar",retraso:4},{class:"forma f3"})}
     <div class="guia" part="guia">
       <aside class="indice" part="indice" aria-label="Pasos de la guía">
         <div class="arriba">
-          ${y}
+          ${j()}
           <span class="insignia"><iswc-icon icon="mdi:headphones"></iswc-icon>Guía narrada</span>
         </div>
-        <h1>${t.titulo}</h1>
-        <p class="subtitulo">${t.subtitulo}</p>
+        <h1>${e.titulo}</h1>
+        <p class="subtitulo">${e.subtitulo}</p>
         <div class="autor">
-          <img src=${z(L.logo)} alt="" width="36" height="36">
-          <div><strong>${L.nombreCorto}</strong><span>${N(t.fecha)}</span></div>
+          <img src=${R(f.logo)} alt="" width="36" height="36">
+          <div><strong>${f.nombreCorto}</strong><span>${O(e.fecha)}</span></div>
+        </div>
+        <div class="compartir" part="compartir">
+          <iswc-share-button class="share" share-title=${e.titulo} text=${e.resumen} url=${g}></iswc-share-button>
+          <iswc-copy-button class="copiar" value=${g} tooltip="full" copy-label="Copiar enlace" success-label="Enlace copiado" error-label="No se pudo copiar"></iswc-copy-button>
         </div>
         <div class="avance">
           <span class="cuenta"></span>
-          <iswc-progress-bar class="barra" max=${u} value="1"></iswc-progress-bar>
+          <iswc-progress-bar class="barra" max=${n} value="1"></iswc-progress-bar>
         </div>
         <ol class="pasos">
-          ${t.pasos.map((a,o)=>j`
+          ${e.pasos.map((a,o)=>$`
             <li><button type="button" class="paso" data-i=${o}>
               <span class="num">${o+1}</span>
               <iswc-icon icon=${a.icono} aria-hidden="true"></iswc-icon>
@@ -38,13 +53,13 @@ import{crearComponente as I,define as J,html as j,pieza as i}from"../../../js/ba
           <figcaption></figcaption>
         </figure>
         <nav class="controles" aria-label="Controles de la guía">
-          ${i("ja-boton-icono",{icono:"mdi:chevron-left",etiqueta:"Paso anterior"},{class:"anterior"})}
-          ${i("ja-boton-icono",{icono:"mdi:play",etiqueta:"Escuchar este paso",tono:"marca",tam:"lg"},{class:"escuchar"})}
-          ${i("ja-boton-icono",{icono:"mdi:chevron-right",etiqueta:"Paso siguiente"},{class:"siguiente"})}
+          ${c("ja-boton-icono",{icono:"mdi:chevron-left",etiqueta:"Paso anterior"},{class:"anterior"})}
+          ${c("ja-boton-icono",{icono:"mdi:play",etiqueta:"Escuchar este paso",tono:"marca",tam:"lg"},{class:"escuchar"})}
+          ${c("ja-boton-icono",{icono:"mdi:chevron-right",etiqueta:"Paso siguiente"},{class:"siguiente"})}
           <span class="onda" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span>
-          ${i("ja-boton-icono",{icono:"mdi:auto-mode",etiqueta:"Modo guiado: narra y avanza solo"},{class:"guiado"})}
+          ${c("ja-boton-icono",{icono:"mdi:auto-mode",etiqueta:"Modo guiado: narra y avanza solo"},{class:"guiado"})}
           <p class="atajo"><kbd>←</kbd><kbd>→</kbd> cambian de paso</p>
         </nav>
       </aside>
     </div>
-  `);const r=a=>g.querySelector(a),b=r(".zona-paso"),B=r(".zona-demo"),M=r("figcaption"),S=r(".demo"),H=r(".cuenta"),x=r(".barra"),$=[...g.querySelectorAll(".paso")],[k,P,A,C]=[".anterior",".escuchar",".siguiente",".guiado"].map(a=>r(a)),c=new Audio;c.preload="none";let s=-1,e=!1,m=!1;const v=(a,o)=>a.props={...a.props,...o},l=()=>{p.toggleAttribute("data-sonando",e),v(P,{icono:e?"mdi:pause":"mdi:play",etiqueta:e?"Pausar la narraci\xF3n":"Escuchar este paso"}),v(C,{activo:m})},E=()=>{c.play().then(()=>{e=!0,l()},()=>{e=!1,l()})},n=(a,o=!0)=>{if(a<0||a>=u||a===s)return;const d=s;s=a;const D=t.pasos[a];b.replaceChildren(i("ja-paso",{slug:t.slug,indice:a}));const f=D.demo;S.hidden=!f,f&&(d<0||t.pasos[d]?.demo?.paso!==f.paso)&&B.replaceChildren(i("ja-luz-demo",{paso:f.paso})),M.textContent=f?.leyenda??"",H.textContent=`Paso ${a+1} de ${u}`,x.setAttribute("value",String(a+1)),$.forEach((h,w)=>{h.toggleAttribute("data-hecho",w<a),h.toggleAttribute("data-actual",w===a),w===a?h.setAttribute("aria-current","step"):h.removeAttribute("aria-current")}),$[a]?.scrollIntoView({block:"nearest",inline:"center",behavior:"smooth"}),v(k,{deshabilitado:a===0}),v(A,{deshabilitado:a===u-1}),c.src=z(K(t,a)),e&&E(),o&&d>=0&&b.getBoundingClientRect().top<0&&b.scrollIntoView({block:"start",behavior:"smooth"})};c.addEventListener("ended",()=>{m&&s<u-1?n(s+1,!1):(e=!1,l())}),c.addEventListener("error",()=>{e=!1,l()});for(const a of $)a.addEventListener("click",()=>n(Number(a.dataset.i)));if(O(b,a=>n(s+a)),k.addEventListener("click",()=>n(s-1)),A.addEventListener("click",()=>n(s+1)),P.addEventListener("click",()=>{e?(c.pause(),e=!1,l()):E()}),C.addEventListener("click",()=>{m=!m,m&&!e&&E(),l()}),!q.has(p)){q.add(p);const a=V(()=>{p.isConnected||(c.pause(),a())});addEventListener("keydown",o=>{if(!p.isConnected||o.altKey||o.ctrlKey||o.metaKey)return;const d=o.composedPath()[0];d&&/^(INPUT|TEXTAREA|SELECT)$/.test(d.tagName)||(o.key==="ArrowRight"&&n(s+1),o.key==="ArrowLeft"&&n(s-1))})}n(0,!1),l()});J("ja-post",U);
+  `);const d=a=>s.querySelector(a),v=d(".zona-paso"),q=d(".zona-demo"),M=d("figcaption"),B=d(".demo"),x=d(".cuenta"),D=d(".barra"),E=[...s.querySelectorAll(".paso")],[L,C,A,T]=[".anterior",".escuchar",".siguiente",".guiado"].map(a=>d(a)),u=new Audio;u.preload="none";let r=-1,t=!1,h=!1;const w=(a,o)=>a.props={...a.props,...o},p=()=>{i.toggleAttribute("data-sonando",t),w(C,{icono:t?"mdi:pause":"mdi:play",etiqueta:t?"Pausar la narraci\xF3n":"Escuchar este paso"}),w(T,{activo:h})},k=()=>{u.play().then(()=>{t=!0,p()},()=>{t=!1,p()})},l=(a,o=!0)=>{if(a<0||a>=n||a===r)return;const m=r;r=a;const z=e.pasos[a];v.replaceChildren(c("ja-paso",{paso:z,indice:a,total:n,creditos:e.creditos??""}));const b=z.demo;B.hidden=!b,b&&(m<0||e.pasos[m]?.demo?.paso!==b.paso)&&q.replaceChildren(c("ja-luz-demo",{paso:b.paso})),M.textContent=b?.leyenda??"",x.textContent=`Paso ${a+1} de ${n}`,D.setAttribute("value",String(a+1)),E.forEach((y,P)=>{y.toggleAttribute("data-hecho",P<a),y.toggleAttribute("data-actual",P===a),P===a?y.setAttribute("aria-current","step"):y.removeAttribute("aria-current")}),E[a]?.scrollIntoView({block:"nearest",inline:"center",behavior:"smooth"}),w(L,{deshabilitado:a===0}),w(A,{deshabilitado:a===n-1}),u.src=R(K(e,a)),t&&k(),o&&m>=0&&v.getBoundingClientRect().top<0&&v.scrollIntoView({block:"start",behavior:"smooth"})};u.addEventListener("ended",()=>{h&&r<n-1?l(r+1,!1):(t=!1,p())}),u.addEventListener("error",()=>{t=!1,p()});for(const a of E)a.addEventListener("click",()=>l(Number(a.dataset.i)));if(U(v,a=>l(r+a)),L.addEventListener("click",()=>l(r-1)),A.addEventListener("click",()=>l(r+1)),C.addEventListener("click",()=>{t?(u.pause(),t=!1,p()):k()}),T.addEventListener("click",()=>{h=!h,h&&!t&&k(),p()}),!S.has(i)){S.add(i);const a=V(()=>{i.isConnected||(u.pause(),a())});addEventListener("keydown",o=>{if(!i.isConnected||o.altKey||o.ctrlKey||o.metaKey)return;const m=o.composedPath()[0];m&&/^(INPUT|TEXTAREA|SELECT)$/.test(m.tagName)||(o.key==="ArrowRight"&&l(r+1),o.key==="ArrowLeft"&&l(r-1))})}l(0,!1),p()}const Z=I(import.meta.url,"ja-post",{slug:"",datos:null},(s,e,i)=>{const f=e.datos&&(!e.slug||e.datos.slug===e.slug)?e.datos:null;if(f)return Y(s,f,i);if(!e.slug||H.has(e.slug))return Q(s);F(s);const n=e.slug;W(n).then(g=>{!i.isConnected||i.props.slug!==n||(g||H.add(n),i.props={datos:g})})},void 0,["slug"]);J("ja-post",Z);

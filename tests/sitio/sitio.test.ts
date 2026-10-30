@@ -6,13 +6,17 @@
 //   W-SIT-04  rutas relativas: nada de la app se pide desde la raíz absoluta «/» (rompería en /Jeff-Aporta/)
 //   W-SIT-05  caché: todo lo que los HTML piden de dist/cdn/ lleva el ?v= del hash vigente (asset-hashes.json)
 //   W-SIT-06  index.html lleva un resumen estático del contenido (nombre, empresas, proyectos, publicaciones) legible sin JS
+//   W-SIT-07  cada publicación tiene su HTML estático con URL limpia (blog/<slug>/index.html + post.json válido), blog/index.html
+//             e index.json; cada página con título, canonical, Open Graph, JSON-LD y el texto del post; sitemap con URL limpias
 import { existsSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { definirPruebas } from '@iswc/testing/pruebas.ts';
+import { PublicacionSchema } from '../../src/js/consts/schemas/contenido.schemas.ts';
 import { contenido } from '../../src/js/contenido/index.ts';
 
 const RAIZ = Deno.cwd();
 const leer = (rel: string) => readFileSync(join(RAIZ, rel), 'utf8');
+const paginasBlog = () => ['blog/index.html', ...contenido.blog.map((p) => `blog/${p.slug}/index.html`)];
 
 export default definirPruebas([
   {
@@ -65,7 +69,7 @@ export default definirPruebas([
     categoria: 'what',
     correr({ eq, expect }) {
       const { files } = JSON.parse(leer('dist/cdn/asset-hashes.json')) as { files: Record<string, string> };
-      const paginas = ['index.html', 'view/portafolio/index.html', 'view/portafolio/demo/index.html', 'view/demo/index.html'];
+      const paginas = ['index.html', 'view/portafolio/index.html', 'view/portafolio/demo/index.html', 'view/demo/index.html', ...paginasBlog()];
       const viejos: string[] = [];
       let total = 0;
       for (const pagina of paginas) {
@@ -88,8 +92,52 @@ export default definirPruebas([
       expect('nombre como h1', resumen.includes(`<h1>${contenido.perfil.nombre}</h1>`));
       for (const e of contenido.experiencia) expect(`empresa ${e.empresa}`, resumen.includes(e.empresa.replace(/&/g, '&amp;')));
       for (const p of contenido.proyectos) expect(`proyecto ${p.titulo}`, resumen.includes(p.titulo));
-      for (const p of contenido.blog) expect(`publicación ${p.slug}`, resumen.includes(`>${p.titulo}</a>`));
+      for (const p of contenido.blog) expect(`publicación ${p.slug}`, resumen.includes(`<a href="./blog/${p.slug}/">${p.titulo}</a>`));
       expect('enlace a la hoja de vida', resumen.includes(contenido.perfil.cv));
+    },
+  },
+  {
+    nombre: 'sitio W-SIT-07 cada publicación con su HTML estático y URL limpia',
+    categoria: 'what',
+    correr({ eq, expect }) {
+      const { sitio, blog } = contenido;
+      const ld = (html: string) => [...html.matchAll(/<script type="application\/ld\+json">(.+?)<\/script>/g)].map((m) => JSON.parse(m[1]!) as Record<string, unknown>);
+      // Lista del blog
+      const lista = leer('blog/index.html');
+      expect('blog/index.html título', lista.includes('<title>Blog · '));
+      expect('blog/index.html canonical', lista.includes(`<link rel="canonical" href="${sitio.url}blog/">`));
+      expect('blog/index.html monta <ja-blog> dentro de <ja-pagina>', /<ja-pagina[^>]*>[\s\S]*<ja-blog>[\s\S]*<\/ja-blog>[\s\S]*<\/ja-pagina>/.test(lista));
+      expect('blog/index.html JSON-LD Blog', ld(lista).some((n) => n['@type'] === 'Blog'));
+      for (const p of blog) expect(`lista enlaza ${p.slug}`, lista.includes(`<a href="../blog/${p.slug}/">${p.titulo}</a>`));
+      const indice = JSON.parse(leer('blog/index.json')) as Array<{ slug: string; url: string }>;
+      eq('index.json con todos los slugs', indice.map((i) => i.slug).sort(), blog.map((p) => p.slug).sort());
+      // Cada publicación
+      for (const p of blog) {
+        const json = JSON.parse(leer(`blog/${p.slug}/post.json`));
+        const parsed = PublicacionSchema.safeParse(json);
+        expect(`${p.slug} post.json válido`, parsed.success);
+        eq(`${p.slug} post.json es la publicación`, parsed.success ? parsed.data : null, p);
+        const html = leer(`blog/${p.slug}/index.html`);
+        expect(`${p.slug} título`, html.includes(`<title>${p.titulo} · `));
+        expect(`${p.slug} descripción`, html.includes(`<meta name="description" content="${p.resumen.replace(/&/g, '&amp;').replace(/"/g, '&quot;')}">`));
+        expect(`${p.slug} canonical`, html.includes(`<link rel="canonical" href="${sitio.url}blog/${p.slug}/">`));
+        expect(`${p.slug} og:image con la portada`, html.includes(`<meta property="og:image" content="${sitio.url}${p.portada.src}">`));
+        for (const m of ['og:title', 'og:type" content="article', 'twitter:card']) expect(`${p.slug} ${m}`, html.includes(m));
+        const posting = ld(html).find((n) => n['@type'] === 'BlogPosting');
+        expect(`${p.slug} JSON-LD BlogPosting`, posting?.headline === p.titulo && posting?.url === `${sitio.url}blog/${p.slug}/`);
+        expect(`${p.slug} monta <ja-post slug>`, html.includes(`<ja-post slug="${p.slug}">`) && html.includes('<ja-pagina activa="blog">'));
+        const dentro = html.match(/<ja-post[^>]*>([\s\S]*?)<\/ja-post>/)?.[1] ?? '';
+        expect(`${p.slug} h1 dentro del componente`, dentro.includes(`<h1>${p.titulo}</h1>`));
+        for (const paso of p.pasos) expect(`${p.slug} texto del paso «${paso.titulo}»`, dentro.includes(paso.narracion.replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;')));
+        expect(`${p.slug} arranque relativo desde la subcarpeta`, html.includes('../../dist/cdn/boot.js') && html.includes('../../dist/cdn/jaLoader.min.js'));
+        expect(`${p.slug} sin rutas absolutas a la raíz del dominio`, !/(?:src|href)="\/(?!\/)/.test(html));
+      }
+      // Sitemap y robots
+      const sitemap = leer('sitemap.xml');
+      expect('sitemap con blog/', sitemap.includes(`<loc>${sitio.url}blog/</loc>`));
+      for (const p of blog) expect(`sitemap con blog/${p.slug}/`, sitemap.includes(`<loc>${sitio.url}blog/${p.slug}/</loc>`));
+      expect('sitemap sin ?s= del blog', !sitemap.includes('?s='));
+      expect('robots permite blog/', !/Disallow:\s*\/blog/.test(leer('robots.txt')));
     },
   },
 ]);

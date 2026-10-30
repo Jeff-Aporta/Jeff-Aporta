@@ -8,7 +8,9 @@ estático publicable en GitHub Pages, con el contenido separado de la UI.
 ## 2. Alcance
 
 Una SPA con dos vistas: el portafolio (`view/portafolio/`) con portada, perfil y video, trayectoria, experiencia, proyectos,
-habilidades, educación y contacto; y el blog (`view/blog/`) con publicaciones quemadas. Fuera: backend, base de datos, formularios con envío.
+habilidades, educación y contacto; y el blog (`view/blog/`) con publicaciones quemadas, cada una además con su propio HTML
+estático y URL limpia (`blog/<slug>/`) generado por el build, que monta el mismo componente `<ja-post>` desde `post.json`.
+Fuera: backend, base de datos, formularios con envío.
 
 ## 3. Requisitos (WHAT)
 
@@ -26,14 +28,20 @@ habilidades, educación y contacto; y el blog (`view/blog/`) con publicaciones q
 | W-SIT-04 | Ninguna ruta de la app es absoluta a la raíz del dominio (el sitio vive en `/Jeff-Aporta/`). |
 | W-SIT-05 | Todo lo que las páginas piden de `dist/cdn/` lleva el `?v=` de su hash vigente: la caché del navegador nunca sirve un arranque viejo. |
 | W-SIT-06 | `index.html` lleva, dentro de `<ja-app>`, un resumen estático del contenido (nombre, trayectoria, proyectos, habilidades, educación, blog y contacto) que un rastreador lee sin ejecutar JS. |
+| W-SIT-07 | Cada publicación tiene su HTML estático con URL limpia (`blog/<slug>/index.html`) y sus datos mínimos (`blog/<slug>/post.json`, válido contra `PublicacionSchema`); existen `blog/index.html` e `index.json`. Cada página trae título, descripción, canonical a su URL limpia, Open Graph/Twitter con la portada, JSON-LD `BlogPosting` (`Blog` en la lista) y, dentro del tag del componente, el texto del post legible sin JS. El sitemap lista las URL limpias y ninguna `?s=` del blog; `robots.txt` permite `blog/`. |
 | W-POR-01 | La portada muestra el nombre y cuatro cifras calculadas. |
 | W-POR-02 | Están todas las secciones de la navegación, en orden. |
 | W-POR-03 | La trayectoria alterna lados y se filtra por experiencia o formación. |
 | W-POR-04 | Una tarjeta de empleo se abre y se cierra, y lo avisa con `ja-empleo-toggle`. |
 | W-BLG-01 | Cada publicación cumple `PublicacionSchema`, con slug único y portada existente. |
 | W-BLG-02 | El post «Luz y sombra en 2D» trae una demo interactiva por cada paso (0 a 8). |
-| W-SPA-01 | Las rutas por hash van y vuelven: portafolio (con sección), blog y publicación. |
-| W-SPA-02 | La pestaña Blog lleva a la lista, una tarjeta abre la publicación y Portafolio regresa, sin errores. |
+| W-BLG-03 | Cada paso de cada guía tiene su narración en audio publicada. |
+| W-BLG-04 | `blog/<slug>/` abierta directo arranca sin errores de consola, monta `<ja-pagina>` y `<ja-post>` con ese slug (datos desde `post.json`); «Compartir» (componentes del kit `iswc-share-button` e `iswc-copy-button`) entrega la URL limpia pública y el regreso lleva a `blog/`. |
+| W-BLG-05 | `<ja-post>` con `datos` por prop pinta la guía sin red: índice de pasos, tarjeta del paso y progreso. |
+| W-BLG-06 | Un enlace viejo `?s=` de una publicación sigue abriéndola y la URL se reescribe a la limpia sin crear historial. |
+| W-SPA-01 | Las rutas van y vuelven: portafolio con sección en `?s=`, `blog/` y `blog/<slug>/` limpias; los `?s=` viejos del blog se reconocen; assets y `view/` no son rutas. |
+| W-SPA-02 | La pestaña Blog lleva a la lista (`blog/`), una tarjeta abre la publicación (`blog/<slug>/`) sin recargar la página, atrás vuelve a la lista y Yo regresa a la raíz, sin errores. |
+| W-SPA-03 | Un enlace directo a una sección (`?s=` con `{ sec }`) aterriza en ella y la conserva. |
 | W-LUZ-01 | La intersección rayo-segmento acierta y descarta paralelos, choques detrás del rayo y fuera del segmento. |
 | W-LUZ-02 | El polígono de visión queda dentro de la escena y ordenado por ángulo. |
 
@@ -45,7 +53,7 @@ habilidades, educación y contacto; y el blog (`view/blog/`) con publicaciones q
 
 ## 5. Pruebas
 
-`tests/contenido/`, `tests/sitio/` (sin navegador) y `tests/e2e/00.portafolio.test.ts` (Stagehand).
+`tests/contenido/`, `tests/sitio/`, `tests/blog/` (sin navegador) y `tests/e2e/00.portafolio.test.ts`, `tests/e2e/01.blog.test.ts` (Stagehand).
 
 ## 6. Riesgos
 

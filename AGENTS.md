@@ -85,9 +85,16 @@ ja-app/
 
 ## SPA y blog
 
-- **Rutas por hash** (`src/js/base/rutas.ts`): `#/` y `#/<sección>` → portafolio, `#/blog` → lista, `#/blog/<slug>` →
-  publicación. `<ja-app>` enruta y usa `iswc-app-nav` (fila principal Portafolio | Blog; secundaria con las secciones).
+- **Rutas** (`src/js/base/rutas.ts`, router propio): la raíz (sin estado o `?s=` con `{ sec }`) → portafolio, `blog/` →
+  lista, `blog/<slug>/` → publicación (URL limpias; los `?s=` viejos con `{ v, p }` se reescriben). `<ja-app>` enruta y
+  usa `iswc-app-nav` (fila principal Yo | Blog; secundaria con las secciones). `hrefDe`/`navegar` arman las URL; en la
+  SPA los enlaces se interceptan y navegan sin recargar.
 - **Blog quemado**: cada publicación es un archivo en `src/js/contenido/blog/` con la forma de `PublicacionSchema`
   (bloques `md`, `codigo`, `nota`, `demo`) y se registra en `blog/index.ts`. Sin APIs.
+- **Una página por publicación**: `deno task build` (`scripts/build/build-blog.ts`) escribe `blog/index.html`,
+  `blog/index.json` y, por post, `blog/<slug>/post.json` (datos mínimos) y `blog/<slug>/index.html` (shell mínimo
+  `<ja-pagina>` + `<ja-post slug>`, `<head>` SEO, JSON-LD y resumen estático dentro del tag). `<ja-post>` carga el JSON
+  por slug o recibe `datos`; «Compartir» usa `iswc-share-button` e `iswc-copy-button` con la URL limpia. Se versiona
+  junto con `dist/cdn/`: es lo que sirve GitHub Pages.
 - **Primer post**: «Luz y sombra en 2D», reinterpretación en español de *Sight & Light* de Nicky Case (assets de fondo y
   frente con crédito). Geometría en `view/blog/utils/luz.ts`; demo por paso en `<ja-luz-demo>`.

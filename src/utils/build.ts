@@ -17,7 +17,7 @@
  * `L.registerApp`; además declara `<html data-icons>` = `deno.json` → `iswc.host` + `assets/iconify/`,
  * la web publicada de la app, para que `<iswc-icon>` busque ahí antes que en la API) y `build-stamp.json`.
  * Por último, `sellarHtml` pone el mismo `?v=` en lo que los HTML piden de `dist/cdn/` (boot, app.css,
- * registrador, kit-tags): la caché del navegador nunca sirve un arranque viejo.
+ * registrador, kit-tags), también en los HTML de `blog/`: la caché del navegador nunca sirve un arranque viejo.
  */
 import { existsSync, mkdirSync, readdirSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
 import { basename, dirname, join, relative, sep } from 'node:path';
@@ -96,8 +96,8 @@ function iconos(): string[] {
   return [`{const h=document.documentElement,p=${JSON.stringify(base)};if(!h.dataset.icons)h.dataset.icons=location.origin===new URL(p).origin?p:new URL("../../assets/iconify/",raiz).href;}`];
 }
 
-/** Páginas que arrancan la app: la raíz, cada vista aislada y las demos. */
-const paginas = (): string[] => [join(ROOT, 'index.html'), ...listar(VIEW, '.html')];
+/** Páginas que arrancan la app: la raíz, cada vista aislada, las demos y las páginas especializadas del blog. */
+const paginas = (): string[] => [join(ROOT, 'index.html'), ...listar(VIEW, '.html'), ...listar(join(ROOT, 'blog'), '.html')];
 
 /** `dist/cdn/<archivo>` con o sin `?v=` previo → `?v=<hash actual>` en cada página (solo si el texto cambia). */
 function sellarHtml(hashes: Record<string, string>): void {
