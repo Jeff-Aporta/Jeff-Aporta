@@ -53,9 +53,29 @@ Cada publicación vive en la SPA y además tiene su **propio HTML estático con 
 | `blog/index.html` · `blog/index.json` | Lista del blog (`<ja-blog>`, JSON-LD `Blog`) y su índice en JSON |
 
 URL: `https://jeff-aporta.github.io/Jeff-Aporta/blog/<slug>/`. El mismo componente `<ja-post>` pinta la publicación en
-la SPA (por slug, desde el JSON) y en su página; con `datos` por prop pinta sin red. «Compartir» entrega esa URL con
-`<iswc-share-button>` (Web Share) e `<iswc-copy-button>` (portapapeles) del kit. El sitemap lista las URL limpias; los
-enlaces viejos `?s=` del blog siguen funcionando y se reescriben a la URL limpia.
+la SPA (por slug, desde el JSON) y en su página: todos los pasos seguidos en una sola página, cada tarjeta con su botón
+discreto de narración; con `datos` por prop pinta sin red. El sitemap lista las URL limpias; los enlaces viejos `?s=` del
+blog siguen funcionando y se reescriben a la URL limpia.
+
+**Compartir** va en la barra, junto al tema, en la SPA (`<ja-app>`) y en las páginas del blog (`<ja-pagina>`):
+`<iswc-share-button>` del kit con la URL canónica de la vista actual (`urlCompartir` en `src/js/base/rutas.ts`); sin
+Web Share copia al portapapeles y avisa con el toast.
+
+**Metadatos** de cada página del blog (`scripts/build/seo.ts`, una sola fuente): el `Person` del sitio (el mismo de
+`index.html`), `Blog` + `ItemList` en la lista, `BlogPosting` completo en cada post (`author`/`publisher` → `#persona`,
+`mainEntityOfPage`, `isPartOf`, `dateModified` si la publicación trae `actualizado`), `article:*`, Open Graph y Twitter.
+
+### Enlaces internos: `<ja-link>` (candidato a `iswc-link`)
+
+Todo enlace interno entre vistas (marca, pestañas de las páginas del blog, tarjetas de `ja-blog`, «Todas las
+publicaciones») es un `<ja-link>` (`src/js/components/ja/ja-link.*`): recibe un `state` (el estado `?s=` de
+`createSpaState`, que `rutas.ts` da con `estadoSpa(ruta)`) y una `base` (en la SPA, `<html data-spa-base>` que fija
+`<ja-app>` con la raíz del sitio; en `blog/<slug>/index.html`, `data-spa-base="../../"`). Dentro de la SPA el router
+navega sin recargar y reescribe a la URL limpia; desde una página del blog aterriza en el SPA. Su API es general (nada
+del portafolio): es el **candidato a subir al kit como `iswc-link`** sin cambiar el contrato; cuando llegue, el
+reemplazo es mecánico (mismo nombre de props, solo cambia el tag en `ja-app`, `ja-pagina`, `ja-post` y
+`ja-post-tarjeta`). Las pestañas de `ja-app` siguen en `iswc-app-nav` del kit (reciben `href` de `hrefDe`), y los
+enlaces del resumen estático para rastreadores son `<a>` planos a propósito.
 
 ## Estructura
 

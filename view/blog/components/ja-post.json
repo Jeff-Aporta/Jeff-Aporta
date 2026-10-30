@@ -11,7 +11,7 @@
     {
       "id": "intro",
       "title": "&lt;ja-post&gt;",
-      "lede": "Publicación como guía narrada a todo el ancho, a partir de datos mínimos (blog/<slug>/post.json por slug, o `datos`): índice de pasos con progreso, compartir, tarjeta del paso (<ja-paso>), demo fija y controles solo con ícono.",
+      "lede": "Publicación en una sola página a partir de datos mínimos (blog/<slug>/post.json por slug, o `datos`): encabezado, índice compacto con anclas y todos los pasos seguidos (<ja-paso>), cada uno con su demo y su botón discreto de narración.",
       "blocks": [
         {
           "kind": "demo",

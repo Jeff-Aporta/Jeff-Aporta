@@ -1,0 +1,73 @@
+@use "tokens" as t;
+
+/* ja-link — enlace SPA calculado: plano, botón del kit o pastilla de navegación. Solo tokens del kit. */
+:host {
+  display: inline-flex;
+  min-width: 0;
+  vertical-align: middle;
+}
+
+:host([hidden]) { display: none; }
+
+.anchor {
+  display: inline-flex;
+  gap: 0.4em;
+  align-items: center;
+  min-width: 0;
+  color: inherit;
+  text-decoration: none;
+  cursor: pointer;
+
+  &:focus-visible { outline: 2px solid var(--iswc-color-brand); outline-offset: 2px; border-radius: t.radio(sm); }
+}
+
+.plain {
+  color: var(--iswc-brand-text, var(--iswc-color-brand));
+  text-decoration: underline;
+  text-decoration-color: color-mix(in srgb, currentColor 40%, transparent);
+  text-underline-offset: 0.18em;
+
+  &:hover { text-decoration-color: currentColor; }
+}
+
+/* nav: pastilla, igual al riel de pestañas de la barra. */
+.nav {
+  padding: 0.3rem 0.85rem;
+  border-radius: 999px;
+  color: var(--iswc-text-soft);
+  font-size: 0.9375rem;
+  font-weight: 600;
+  transition: color 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
+
+  &:hover { color: var(--iswc-text); background: color-mix(in srgb, var(--iswc-color-brand) 8%, transparent); }
+
+  &:focus-visible { border-radius: 999px; }
+}
+
+:host([current]) .nav,
+:host([data-activa]) .nav {
+  color: var(--iswc-color-brand);
+  background: var(--iswc-bg-elev);
+  box-shadow:
+    inset 0 0 0 1px color-mix(in srgb, var(--iswc-color-brand) 18%, transparent),
+    0 0.15rem 0 color-mix(in srgb, var(--iswc-color-brand) 16%, transparent),
+    0 0.4rem 0.8rem -0.5rem color-mix(in srgb, var(--iswc-color-brand) 55%, transparent);
+}
+
+.icono { font-size: 1.1em; }
+
+.label { min-width: 0; }
+
+:host([disabled]) .anchor {
+  color: var(--iswc-text-dim);
+  pointer-events: none;
+  text-decoration: none;
+}
+
+@media (pointer: coarse) {
+  .nav { min-height: 2.5rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .nav { transition: none; }
+}

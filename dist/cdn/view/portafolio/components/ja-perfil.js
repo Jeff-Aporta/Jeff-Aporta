@@ -1,4 +1,4 @@
-import{crearComponente as s,define as l,html as n,pieza as i}from"../../../js/base/componente.js?v=26a3va";import{contenido as p,rutaSitio as t}from"../../../js/contenido/index.js?v=mecx72";import"../../../js/components/ja/ja-forma.js?v=0mkgi9";import"../../../js/components/ja/ja-rasgo.js?v=czem0s";import"./ja-video.js?v=pp49za";const r=["marca","acento","exito","peligro"],d=s(import.meta.url,"ja-perfil",{},c=>{const{perfil:o}=p;c.append(n`
+import{crearComponente as s,define as l,html as n,pieza as i}from"../../../js/base/componente.js?v=sz3ptl";import{contenido as p,rutaSitio as t}from"../../../js/contenido/index.js?v=1rdoq5";import"../../../js/components/ja/ja-forma.js?v=nr6ehq";import"../../../js/components/ja/ja-rasgo.js?v=ggaabm";import"./ja-video.js?v=7einwj";const r=["marca","acento","exito","peligro"],d=s(import.meta.url,"ja-perfil",{},c=>{const{perfil:o}=p;c.append(n`
     <div class="principal">
       <div class="video">
         ${i("ja-forma",{tipo:"puntos",tono:"acento",tam:6,animacion:"derivar"},{class:"deco puntos"})}

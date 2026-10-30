@@ -1,4 +1,4 @@
-import{crearComponente as s,define as n,html as e}from"../../../js/base/componente.js?v=26a3va";const l=s(import.meta.url,"ja-bloque",{bloque:null},(i,t,c)=>{const o=t.bloque;o&&(c.dataset.tipo=o.tipo,o.tipo==="md"&&i.append(e`<iswc-md-render class="texto" readonly value=${o.md}></iswc-md-render>`),o.tipo==="nota"&&i.append(e`
+import{crearComponente as s,define as n,html as e}from"../../../js/base/componente.js?v=sz3ptl";const l=s(import.meta.url,"ja-bloque",{bloque:null},(i,t,c)=>{const o=t.bloque;o&&(c.dataset.tipo=o.tipo,o.tipo==="md"&&i.append(e`<iswc-md-render class="texto" readonly value=${o.md}></iswc-md-render>`),o.tipo==="nota"&&i.append(e`
       <iswc-callout tone=${o.tono}>
         <strong slot="title">${o.titulo}</strong>
         <iswc-md-render class="texto" readonly value=${o.md}></iswc-md-render>

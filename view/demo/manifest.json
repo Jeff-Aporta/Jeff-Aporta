@@ -17,6 +17,7 @@
   {"tag": "ja-boton-icono", "file": "../../src/js/components/ja/ja-boton-icono.json"},
   {"tag": "ja-forma", "file": "../../src/js/components/ja/ja-forma.json"},
   {"tag": "ja-marca", "file": "../../src/js/components/ja/ja-marca.json"},
+  {"tag": "ja-link", "file": "../../src/js/components/ja/ja-link.json"},
   {"tag": "ja-pie", "file": "../../src/js/components/ja/ja-pie.json"},
   {"tag": "ja-pagina", "file": "../../src/js/components/ja/ja-pagina.json"},
   {"tag": "ja-insignia", "file": "../../src/js/components/ja/ja-insignia.json"},

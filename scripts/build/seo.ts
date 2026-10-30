@@ -6,7 +6,7 @@
 import { contenido } from '../../src/js/contenido/index.ts';
 import type { Publicacion } from '../../src/js/consts/schemas/contenido.schemas.ts';
 
-const { sitio, perfil } = contenido;
+const { sitio, perfil, experiencia, educacion, habilidades } = contenido;
 
 export const abs = (ruta: string): string => new URL(ruta, sitio.url).href;
 export const esc = (s: string): string => s.replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;');
@@ -17,6 +17,30 @@ export const ldJson = (nodo: unknown): string => `<script type="application/ld+j
 export const urlBlog = (): string => `${sitio.url}blog/`;
 export const urlPost = (p: { slug: string }): string => `${sitio.url}blog/${p.slug}/`;
 export const idPersona = (): string => `${sitio.url}#persona`;
+
+/** Nodo JSON-LD `Person` del autor: ÚNICA fuente (lo usan la portada y cada página del blog). */
+export function persona(): Record<string, unknown> {
+  const actual = experiencia.find((e) => e.periodos.some((p) => p.hasta === null));
+  return {
+    '@type': 'Person',
+    '@id': idPersona(),
+    name: perfil.nombre,
+    alternateName: perfil.nombreCorto,
+    jobTitle: perfil.titular,
+    description: perfil.propuesta,
+    image: abs(perfil.foto.src),
+    url: sitio.url,
+    email: `mailto:${perfil.contacto.email}`,
+    telephone: perfil.contacto.telefono,
+    address: { '@type': 'PostalAddress', addressCountry: 'CO' },
+    sameAs: [perfil.contacto.github, perfil.contacto.youtube],
+    logo: abs(perfil.logo),
+    nationality: { '@type': 'Country', name: 'Colombia' },
+    knowsAbout: [...new Set(habilidades.flatMap((g) => g.items))],
+    alumniOf: educacion.map((s) => ({ '@type': 'EducationalOrganization', name: s.institucion })),
+    ...(actual ? { worksFor: { '@type': 'Organization', name: actual.empresa } } : {}),
+  };
+}
 
 export const enlace = (href: string, texto: string): string => `<a href="${esc(href)}"${/^https?:/.test(href) ? ' target="_blank" rel="noopener"' : ''}>${esc(texto)}</a>`;
 export const lista = (items: string[]): string => `<ul>\n${items.map((i) => `  <li>${i}</li>`).join('\n')}\n</ul>`;
@@ -60,6 +84,7 @@ export function blogPosting(p: Publicacion): Record<string, unknown> {
     description: p.resumen,
     url: urlPost(p),
     datePublished: p.fecha,
+    dateModified: p.actualizado ?? p.fecha,
     image: abs(p.portada.src),
     keywords: p.etiquetas.join(', '),
     inLanguage: sitio.idioma,
@@ -80,6 +105,19 @@ export function blogLd(blog: Publicacion[]): Record<string, unknown> {
     inLanguage: sitio.idioma,
     author: { '@id': idPersona() },
     blogPost: blog.map(blogPosting),
+  };
+}
+
+/** Nodo JSON-LD `ItemList` con las publicaciones, de la más reciente a la más antigua. */
+export function itemListBlog(blog: Publicacion[]): Record<string, unknown> {
+  const orden = [...blog].sort((a, b) => b.fecha.localeCompare(a.fecha));
+  return {
+    '@type': 'ItemList',
+    '@id': `${urlBlog()}#lista`,
+    name: `Publicaciones del blog de ${perfil.nombreCorto}`,
+    numberOfItems: orden.length,
+    itemListOrder: 'https://schema.org/ItemListOrderDescending',
+    itemListElement: orden.map((p, i) => ({ '@type': 'ListItem', position: i + 1, url: urlPost(p), name: p.titulo, item: { '@id': `${urlPost(p)}#post` } })),
   };
 }
 

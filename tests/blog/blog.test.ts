@@ -4,6 +4,7 @@
 //   W-BLG-02  el post «Luz y sombra en 2D» es una guía cuyas demos cubren los pasos de luz 0 a 8
 //   W-BLG-03  cada paso de cada guía tiene su narración en audio (voz clonada) publicada
 //   W-SPA-01  las rutas van y vuelven: portafolio (sección en ?s=), blog/ y blog/<slug>/ limpias; los ?s= viejos del blog se reconocen
+//   W-SPA-04  estadoSpa alimenta a <ja-link> con el estado ?s= de cada vista y urlCompartir da la URL canónica pública
 //   W-LUZ-01  la intersección rayo-segmento acierta, descarta paralelos y lo que queda detrás del rayo
 //   W-LUZ-02  el polígono de visión queda dentro de la escena y en orden de ángulo
 import { existsSync } from 'node:fs';
@@ -12,7 +13,7 @@ import { definirPruebas } from '@iswc/testing/pruebas.ts';
 import { PublicacionSchema } from '../../src/js/consts/schemas/contenido.schemas.ts';
 import { contenido } from '../../src/js/contenido/index.ts';
 import { audioPaso } from '../../src/js/contenido/derivados.ts';
-import { estadoDe, rutaDe, rutaDeUrl, rutaRelativa } from '../../src/js/base/rutas.ts';
+import { estadoDe, estadoSpa, rutaDe, rutaDeUrl, rutaRelativa, urlCompartir } from '../../src/js/base/rutas.ts';
 import { ALTO, ANCHO, interseccion, poligonoVision } from '../../view/blog/utils/luz.ts';
 
 const RAIZ = Deno.cwd();
@@ -83,6 +84,22 @@ export default definirPruebas([
       eq('un asset no es ruta', rutaDeUrl(url('assets/img/og/portada.png'), raiz), null);
       eq('view/ no es ruta', rutaDeUrl(url('view/portafolio/index.html'), raiz), null);
       eq('otra raíz no es ruta', rutaDeUrl(new URL('https://jeff-aporta.github.io/otro/blog/'), raiz), null);
+    },
+  },
+  {
+    nombre: 'blog W-SPA-04 estado para <ja-link> y URL para compartir',
+    categoria: 'what',
+    correr({ eq }) {
+      const base = 'https://jeff-aporta.github.io/Jeff-Aporta/';
+      eq('portada', estadoSpa({ vista: 'portafolio', seccion: 'inicio' }), {});
+      eq('sección', estadoSpa({ vista: 'portafolio', seccion: 'perfil' }), { sec: 'perfil' });
+      eq('blog', estadoSpa({ vista: 'blog' }), { v: 'blog' });
+      eq('post', estadoSpa({ vista: 'post', slug: 'luz-y-sombra-2d' }), { v: 'post', p: 'luz-y-sombra-2d' });
+      for (const r of [{ vista: 'blog' }, { vista: 'post', slug: 'luz-y-sombra-2d' }, { vista: 'portafolio', seccion: 'perfil' }] as const) eq(`el estado de <ja-link> vuelve a la ruta ${JSON.stringify(r)}`, rutaDe(estadoSpa(r)), r);
+      eq('compartir la portada', urlCompartir({ vista: 'portafolio', seccion: 'inicio' }, base), base);
+      eq('compartir una sección', urlCompartir({ vista: 'portafolio', seccion: 'habilidades' }, base), `${base}?s=${btoa(JSON.stringify({ sec: 'habilidades' })).replace(/=+$/, '')}`);
+      eq('compartir el blog', urlCompartir({ vista: 'blog' }, base), `${base}blog/`);
+      eq('compartir un post', urlCompartir({ vista: 'post', slug: 'luz-y-sombra-2d' }, base), `${base}blog/luz-y-sombra-2d/`);
     },
   },
   {

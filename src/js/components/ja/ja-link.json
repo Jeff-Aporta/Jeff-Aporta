@@ -1,0 +1,49 @@
+{
+  "$schema": "iswc-preview/v1",
+  "tag": "ja-link",
+  "category": "transversal",
+  "navTitle": "Enlace SPA",
+  "title": "&lt;ja-link&gt;",
+  "titleHtml": false,
+  "storageKey": "docs-ja-link",
+  "styles": ".stage{display:flex;flex-wrap:wrap;gap:1rem;align-items:center;padding:1.5rem}",
+  "reuso": {
+    "candidato": "iswc-root",
+    "motivo": "enlace general calculado desde el estado ?s= de createSpaState; sirve a cualquier app iswc y a páginas externas que entren al SPA",
+    "propuesta": "iswc-link"
+  },
+  "sections": [
+    {
+      "id": "intro",
+      "title": "&lt;ja-link&gt;",
+      "lede": "Enlace a una página SPA calculado desde su estado ?s=: href literal o state + base, variantes plain / button / nav, icono y slots. Candidato a iswc-link.",
+      "blocks": [
+        {
+          "kind": "demo",
+          "html": "<div class=\"stage\"><ja-link id=\"demo\">Ver el blog</ja-link></div>",
+          "target": "#demo",
+          "props": {
+            "state": { "v": "blog" },
+            "variant": "plain",
+            "icon": "mdi:post-outline"
+          },
+          "controls": [
+            { "control": "select", "prop": "props:variant", "label": "variant", "default": "plain", "options": ["plain", "button", "nav"] },
+            { "control": "text", "prop": "props:icon", "label": "icon", "default": "mdi:post-outline" },
+            { "control": "text", "prop": "props:base", "label": "base (relativa)", "default": "" },
+            { "control": "boolean", "prop": "props:merge", "label": "merge", "default": false },
+            { "control": "boolean", "prop": "props:disabled", "label": "disabled", "default": false }
+          ]
+        },
+        {
+          "kind": "html",
+          "html": "<div class=\"stage\"><ja-link href=\"https://github.com/Jeff-Aporta\" target=\"_blank\" icon=\"mdi:github\">href literal + _blank (rel noopener automático)</ja-link><ja-link state='{\"sec\":\"contacto\"}' base=\"../../\" variant=\"button\" icon=\"mdi:account-tie-outline\">state + base (SPA desde otra página)</ja-link><ja-link state='{\"tabs\":{\"demo\":1}}' merge variant=\"nav\">merge con el estado actual</ja-link><ja-link state='{}' variant=\"nav\">nav (current si coincide)</ja-link></div>"
+        },
+        {
+          "kind": "html",
+          "html": "<iswc-callout tone=\"info\"><strong slot=\"title\">Cuándo usarlo</strong>Todo enlace interno entre vistas de la SPA, y desde los HTML de blog/ hacia el SPA. Externos: href literal. Candidato a <code>iswc-link</code> en el kit.</iswc-callout>"
+        }
+      ]
+    }
+  ]
+}

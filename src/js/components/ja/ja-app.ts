@@ -11,14 +11,18 @@
  * Carga perezosa: cada vista pide sus componentes al loader del kit (`tagsVista`) la primera vez que se
  * abre; el elemento se monta enseguida y se actualiza al definirse. `vistaLista` es la promesa de la vista
  * inicial: el arranque la espera antes de revelar la página.
+ *
+ * «Compartir» en la barra, junto al tema: `<iswc-share-button>` del kit (Web Share; sin ella copia al
+ * portapapeles y avisa con el toast) con la URL canónica limpia de la vista actual (`urlCompartir`).
  */
-import { crearComponente, define, html, pieza } from '../../base/componente.js';
+import { avisar, crearComponente, define, html, pieza } from '../../base/componente.js';
 import { iniciarParalaje } from '../../base/paralaje.js';
-import { alCambiarRuta, hrefDe, leerRuta, navegar } from '../../base/rutas.js';
+import { alCambiarRuta, estadoSpa, hrefDe, leerRuta, navegar, raizSitio, urlCompartir } from '../../base/rutas.js';
 import { contenido } from '../../contenido/index.js';
 import { tagsVista, type Vista } from '../../kit-tags.js';
 import { LoaderAppSchema } from '../../consts/schemas/loader.schemas.js';
 import type { JaAppProps, RutaSpa } from '../../consts/schemas/componentes.schemas.js';
+import './ja-link.js';
 import './ja-marca.js';
 import './ja-pie.js';
 
@@ -66,13 +70,16 @@ function titulo(ruta: RutaSpa): string {
 }
 
 const JaApp = crearComponente<JaAppProps>(import.meta.url, 'ja-app', { seccion: 'inicio' }, (root, _props, host) => {
+  // Base SPA de todos los <ja-link> del documento: la raíz del sitio (la URL limpia de un post no lo es).
+  document.documentElement.dataset.spaBase ||= raizSitio();
   root.append(html`
     <a class="saltar" href="#contenido">Saltar al contenido</a>
     <header class="barra" part="barra">
       <div class="interior">
-        <a class="marca" href=${hrefDe({ vista: 'portafolio', seccion: 'inicio' })} aria-label="Ir al inicio">${pieza('ja-marca', { subtitulo: 'Full Stack Developer' })}</a>
+        ${pieza('ja-link', { state: estadoSpa({ vista: 'portafolio', seccion: 'inicio' }) }, { class: 'marca', 'aria-label': 'Ir al inicio' }, pieza('ja-marca', { subtitulo: 'Full Stack Developer' }))}
         <iswc-app-nav class="pestanas"></iswc-app-nav>
         <div class="acciones">
+          <iswc-share-button class="compartir" aria-label="Compartir esta página" title="Compartir esta página"><iswc-icon icon="mdi:share-variant-outline"></iswc-icon></iswc-share-button>
           <iswc-theme-toggle scope="root"></iswc-theme-toggle>
         </div>
       </div>
@@ -84,6 +91,11 @@ const JaApp = crearComponente<JaAppProps>(import.meta.url, 'ja-app', { seccion: 
     ${pieza('ja-pie', {}, { part: 'pie' })}
   `);
   const nav = root.querySelector('.pestanas') as Nav;
+  const compartir = root.querySelector('.compartir') as HTMLElement;
+  compartir.addEventListener('iswc-share', (ev) => {
+    if ((ev as CustomEvent<{ how: string }>).detail?.how === 'copied') avisar('Enlace copiado', 'success');
+  });
+  compartir.addEventListener('iswc-error', () => avisar('No se pudo compartir', 'warning'));
   const secciones = root.querySelector('.secciones') as Nav;
   const franja = root.querySelector('.franja') as HTMLElement;
   const vista = root.querySelector('main')!;
@@ -108,6 +120,8 @@ const JaApp = crearComponente<JaAppProps>(import.meta.url, 'ja-app', { seccion: 
       vista.replaceChildren(ruta.vista === 'portafolio' ? pieza('ja-portafolio', {}) : ruta.vista === 'blog' ? pieza('ja-blog', {}) : pieza('ja-post', { slug: ruta.slug }));
     }
     document.title = titulo(ruta);
+    compartir.setAttribute('url', urlCompartir(ruta, contenido.sitio.url));
+    compartir.setAttribute('share-title', document.title);
     marcar(ruta, ruta.vista === 'portafolio' ? ruta.seccion : 'inicio');
     if (ruta.vista === 'portafolio' && ruta.seccion !== 'inicio') {
       // Tras montar el portafolio (su definición se carga aparte), la sección pedida se lleva a la vista.
@@ -124,10 +138,6 @@ const JaApp = crearComponente<JaAppProps>(import.meta.url, 'ja-app', { seccion: 
     if (d.row === 'vista') navegar(d.id === 'blog' ? { vista: 'blog' } : { vista: 'portafolio', seccion: 'inicio' });
     else navegar({ vista: 'portafolio', seccion: d.id });
   });
-  root.querySelector('.marca')?.addEventListener('click', (ev) => {
-    ev.preventDefault();
-    navegar({ vista: 'portafolio', seccion: 'inicio' });
-  });
   // La sección visible marca su pestaña y deja la URL al día sin crear historial (ni volver a saltar).
   let silencio = false;
   root.addEventListener('ja-seccion-visible', (ev) => {
@@ -139,6 +149,7 @@ const JaApp = crearComponente<JaAppProps>(import.meta.url, 'ja-app', { seccion: 
     }
     marcar(actual, id);
     actual = { vista: 'portafolio', seccion: id };
+    compartir.setAttribute('url', urlCompartir(actual, contenido.sitio.url));
     silencio = true;
     navegar(actual, 'replace');
     silencio = false;

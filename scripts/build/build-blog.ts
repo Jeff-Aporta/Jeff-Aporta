@@ -18,7 +18,7 @@ import { withAssetHash } from '@iswc/build/asset-url.ts';
 import { contenido } from '../../src/js/contenido/index.ts';
 import { ISWC_LOADER_HREF } from '../../src/js/iswc.ts';
 import type { Publicacion } from '../../src/js/consts/schemas/contenido.schemas.ts';
-import { abs, blogLd, blogPosting, cabeceraSeo, esc, resumenBlog, resumenPost, urlBlog, urlPost } from './seo.ts';
+import { abs, blogLd, blogPosting, cabeceraSeo, esc, itemListBlog, persona, resumenBlog, resumenPost, urlBlog, urlPost } from './seo.ts';
 
 const { sitio, perfil, blog } = contenido;
 
@@ -32,8 +32,9 @@ function sellador(root: string): (rel: string) => string {
 /** Documento completo de una página especializada. `base` = prefijo relativo hasta la raíz (`../` o `../../`). */
 function pagina(o: { base: string; head: string; activa: 'blog'; vista: string; v: (rel: string) => string }): string {
   const cdn = (rel: string) => `${o.base}dist/cdn/${o.v(rel)}`;
+  // data-spa-base: los <ja-link> de la página apuntan al SPA de la raíz (resuelto contra esta URL).
   return `<!doctype html>
-<html lang="es" data-theme="light" data-palette="jeff">
+<html lang="es" data-theme="light" data-palette="jeff" data-spa-base="${o.base}">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
@@ -93,10 +94,13 @@ function paginaPost(p: Publicacion, v: (rel: string) => string): string {
     tipo: 'article',
     extra: [
       `<meta property="article:published_time" content="${p.fecha}">`,
+      ...(p.actualizado ? [`<meta property="article:modified_time" content="${p.actualizado}">`] : []),
       `<meta property="article:author" content="${esc(perfil.nombre)}">`,
+      `<meta property="article:section" content="Blog">`,
       ...p.etiquetas.map((e) => `<meta property="article:tag" content="${esc(e)}">`),
     ],
-    ld: [{ '@context': 'https://schema.org', ...blogPosting(p), author: { '@type': 'Person', '@id': `${sitio.url}#persona`, name: perfil.nombre, url: sitio.url }, publisher: { '@type': 'Person', '@id': `${sitio.url}#persona`, name: perfil.nombre } }],
+    // Un solo grafo: el Person del sitio (misma fuente que la portada), el Blog al que pertenece y el BlogPosting.
+    ld: [{ '@context': 'https://schema.org', '@graph': [persona(), { '@type': 'Blog', '@id': `${sitio.url}#blog`, url: urlBlog(), name: `Blog de ${perfil.nombreCorto}` }, blogPosting(p)] }],
   });
   const vista = `    <ja-post slug="${p.slug}">\n<!-- resumen estático del post para rastreadores sin JS (el componente lo reemplaza al pintar) -->\n${resumenPost(p)}\n    </ja-post>`;
   return pagina({ base: '../../', head, activa: 'blog', vista, v });
@@ -109,7 +113,7 @@ function paginaBlog(v: (rel: string) => string): string {
     url: urlBlog(),
     imagen: sitio.imagenOg,
     tipo: 'website',
-    ld: [{ '@context': 'https://schema.org', ...blogLd(blog), author: { '@type': 'Person', '@id': `${sitio.url}#persona`, name: perfil.nombre, url: sitio.url } }],
+    ld: [{ '@context': 'https://schema.org', '@graph': [persona(), blogLd(blog), itemListBlog(blog)] }],
   });
   const vista = `    <ja-blog>\n<!-- resumen estático de la lista para rastreadores sin JS -->\n${resumenBlog(blog, '../')}\n    </ja-blog>`;
   return pagina({ base: '../', head, activa: 'blog', vista, v });

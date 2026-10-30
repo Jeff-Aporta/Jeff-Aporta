@@ -24,6 +24,7 @@ export const KIT_TAGS = [
   'iswc-dialog',
   'iswc-icon',
   'iswc-progress-bar',
+  'iswc-share-button',
   'iswc-stat',
   'iswc-tab-group',
   'iswc-tag',
@@ -33,7 +34,7 @@ export const KIT_TAGS = [
 
 export const PREFIJO = 'ja';
 
-export const APP_TAGS = ['ja-forma', 'ja-boton-icono', 'ja-marca', 'ja-pie', 'ja-pagina', 'ja-insignia', 'ja-rasgo', 'ja-lista', 'ja-ilustracion', 'ja-seccion', 'ja-app'] as const;
+export const APP_TAGS = ['ja-forma', 'ja-boton-icono', 'ja-link', 'ja-marca', 'ja-pie', 'ja-pagina', 'ja-insignia', 'ja-rasgo', 'ja-lista', 'ja-ilustracion', 'ja-seccion', 'ja-app'] as const;
 
 export const VIEW_TAGS = {
   portafolio: [
@@ -59,7 +60,7 @@ export const VIEW_TAGS = {
 /** Tags del kit que solo usa una vista: se piden con ella, no en el arranque. */
 export const KIT_TAGS_VISTA = {
   portafolio: [],
-  blog: ['iswc-callout', 'iswc-code', 'iswc-md-render', 'iswc-share-button', 'iswc-skeleton'],
+  blog: ['iswc-callout', 'iswc-code', 'iswc-md-render', 'iswc-skeleton'],
 } as const satisfies Record<keyof typeof VIEW_TAGS, readonly `iswc-${string}`[]>;
 
 export type AppTag = (typeof APP_TAGS)[number] | (typeof VIEW_TAGS)[keyof typeof VIEW_TAGS][number];

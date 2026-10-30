@@ -10,5 +10,5 @@ await descargarIconos({
   raiz: new URL('..', import.meta.url),
   roots: ['index.html', 'src', 'view'],
   // Íconos que pintan por dentro los componentes del kit (tema, copiar, pestañas, spinner).
-  extra: ['mdi:loading', 'mdi:weather-night', 'mdi:weather-sunny', 'mdi:close', 'mdi:chevron-right', 'mdi:chevron-left', 'mdi:content-copy', 'mdi:check', 'mdi:share-variant-outline'],
+  extra: ['mdi:loading', 'mdi:weather-night', 'mdi:weather-sunny', 'mdi:close', 'mdi:chevron-right', 'mdi:chevron-left', 'mdi:content-copy', 'mdi:check', 'mdi:share-variant-outline', 'mdi:information-outline', 'mdi:pause'],
 });

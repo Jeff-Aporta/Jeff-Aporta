@@ -1,16 +1,17 @@
-import{crearComponente as n,define as r,html as t,pieza as e}from"../../base/componente.js?v=26a3va";import{hrefDe as i}from"../../base/rutas.js?v=a7fbwz";import"./ja-marca.js?v=27j7lj";import"./ja-pie.js?v=mfv8uv";const l=n(import.meta.url,"ja-pagina",{activa:"blog"},(s,o)=>{const c=[{id:"portafolio",etiqueta:"Yo",icono:"mdi:account-tie-outline",href:i({vista:"portafolio",seccion:"inicio"})},{id:"blog",etiqueta:"Blog",icono:"mdi:post-outline",href:i({vista:"blog"})}];s.append(t`
-    <a class="saltar" href="#contenido">Saltar al contenido</a>
+import{avisar as c,crearComponente as l,define as p,html as d,pieza as i}from"../../base/componente.js?v=sz3ptl";import{estadoSpa as t}from"../../base/rutas.js?v=mg1isv";import"./ja-link.js?v=9dv9k2";import"./ja-marca.js?v=uy7ov9";import"./ja-pie.js?v=3alizl";const m=l(import.meta.url,"ja-pagina",{activa:"blog"},(o,e)=>{const n=[{id:"portafolio",etiqueta:"Yo",icono:"mdi:account-tie-outline",state:t({vista:"portafolio",seccion:"inicio"})},{id:"blog",etiqueta:"Blog",icono:"mdi:post-outline",state:t({vista:"blog"})}],r=document.querySelector('link[rel="canonical"]')?.getAttribute("href")||location.href;o.append(d`
+    <a class="saltar" href="#contenido" data-spa="off">Saltar al contenido</a>
     <header class="barra" part="barra">
       <div class="interior">
-        <a class="marca" href=${i({vista:"portafolio",seccion:"inicio"})} aria-label="Ir al inicio">${e("ja-marca",{subtitulo:"Full Stack Developer"})}</a>
+        ${i("ja-link",{state:t({vista:"portafolio",seccion:"inicio"})},{class:"marca","aria-label":"Ir al inicio"},i("ja-marca",{subtitulo:"Full Stack Developer"}))}
         <nav class="vistas" part="vistas" aria-label="Vistas">
-          ${c.map(a=>t`<a class="vista" href=${a.href} ?data-activa=${a.id===o.activa} aria-current=${a.id===o.activa?"page":"false"}><iswc-icon icon=${a.icono}></iswc-icon>${a.etiqueta}</a>`)}
+          ${n.map(a=>i("ja-link",{state:a.state,variant:"nav",icon:a.icono},{class:"vista","data-activa":a.id===e.activa,"aria-current":a.id===e.activa?"page":!1},a.etiqueta))}
         </nav>
         <div class="acciones">
+          <iswc-share-button class="compartir" url=${r} share-title=${document.title} aria-label="Compartir esta página" title="Compartir esta página"><iswc-icon icon="mdi:share-variant-outline"></iswc-icon></iswc-share-button>
           <iswc-theme-toggle scope="root"></iswc-theme-toggle>
         </div>
       </div>
     </header>
     <main id="contenido" class="contenido" part="contenido"><slot></slot></main>
-    ${e("ja-pie",{})}
-  `)},void 0,["activa"]);r("ja-pagina",l);
+    ${i("ja-pie",{})}
+  `);const s=o.querySelector(".compartir");s.addEventListener("iswc-share",a=>{a.detail?.how==="copied"&&c("Enlace copiado","success")}),s.addEventListener("iswc-error",()=>c("No se pudo compartir","warning"))},void 0,["activa"]);p("ja-pagina",m);

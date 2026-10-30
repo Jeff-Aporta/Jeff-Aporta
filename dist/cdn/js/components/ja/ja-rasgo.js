@@ -1,4 +1,4 @@
-import{crearComponente as s,define as n,html as t}from"../../base/componente.js?v=26a3va";const c=s(import.meta.url,"ja-rasgo",{icono:"mdi:star-outline",titulo:"",texto:"",tono:"marca"},(a,o,e)=>{e.dataset.tono=o.tono,a.append(t`
+import{crearComponente as s,define as n,html as t}from"../../base/componente.js?v=sz3ptl";const c=s(import.meta.url,"ja-rasgo",{icono:"mdi:star-outline",titulo:"",texto:"",tono:"marca"},(a,o,e)=>{e.dataset.tono=o.tono,a.append(t`
     <article class="tarjeta" part="tarjeta">
       <header>
         <span class="icono" part="icono"><iswc-icon icon=${o.icono}></iswc-icon></span>

@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="es" data-theme="light" data-palette="jeff">
+<html lang="es" data-theme="light" data-palette="jeff" data-spa-base="../../">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
@@ -21,6 +21,7 @@
 <meta property="og:image:alt" content="Escena 2D iluminada por dos luces que proyectan sombras">
 <meta property="article:published_time" content="2026-10-27">
 <meta property="article:author" content="Jeffrey Alexander Agudelo Espitia">
+<meta property="article:section" content="Blog">
 <meta property="article:tag" content="Guía narrada">
 <meta property="article:tag" content="Canvas 2D">
 <meta property="article:tag" content="Geometría">
@@ -31,7 +32,7 @@
 <meta name="twitter:description" content="Construimos desde cero el clásico efecto de luz que proyecta sombras sobre una escena 2D: rayos, intersecciones, el polígono de visión, sombras suaves y varias luces. Cada paso trae su narración y su demo interactiva.">
 <meta name="twitter:image" content="https://jeff-aporta.github.io/Jeff-Aporta/assets/blog/luz-y-sombra/portada.png">
 <meta name="twitter:image:alt" content="Escena 2D iluminada por dos luces que proyectan sombras">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","@id":"https://jeff-aporta.github.io/Jeff-Aporta/blog/luz-y-sombra-2d/#post","mainEntityOfPage":"https://jeff-aporta.github.io/Jeff-Aporta/blog/luz-y-sombra-2d/","headline":"Luz y sombra en 2D","alternativeHeadline":"Una guía narrada para crear visibilidad y sombras dinámicas en tus juegos, paso a paso y con demos que puedes tocar.","description":"Construimos desde cero el clásico efecto de luz que proyecta sombras sobre una escena 2D: rayos, intersecciones, el polígono de visión, sombras suaves y varias luces. Cada paso trae su narración y su demo interactiva.","url":"https://jeff-aporta.github.io/Jeff-Aporta/blog/luz-y-sombra-2d/","datePublished":"2026-10-27","image":"https://jeff-aporta.github.io/Jeff-Aporta/assets/blog/luz-y-sombra/portada.png","keywords":"Guía narrada, Canvas 2D, Geometría, Videojuegos, TypeScript","inLanguage":"es-CO","isPartOf":{"@id":"https://jeff-aporta.github.io/Jeff-Aporta/#blog"},"author":{"@type":"Person","@id":"https://jeff-aporta.github.io/Jeff-Aporta/#persona","name":"Jeffrey Alexander Agudelo Espitia","url":"https://jeff-aporta.github.io/Jeff-Aporta/"},"publisher":{"@type":"Person","@id":"https://jeff-aporta.github.io/Jeff-Aporta/#persona","name":"Jeffrey Alexander Agudelo Espitia"}}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Person","@id":"https://jeff-aporta.github.io/Jeff-Aporta/#persona","name":"Jeffrey Alexander Agudelo Espitia","alternateName":"Jeffrey Agudelo","jobTitle":"Desarrollador Full Stack · Estudiante de Ingeniería de Sistemas","description":"Construyo productos web de punta a punta: interfaces impecables, APIs robustas y procesos de entrega que escalan con el negocio.","image":"https://jeff-aporta.github.io/Jeff-Aporta/assets/img/perfil/jeffrey-agudelo.jpg","url":"https://jeff-aporta.github.io/Jeff-Aporta/","email":"mailto:jeffrey.alexander.agudelo.espitia@gmail.com","telephone":"+57 310 725 7814","address":{"@type":"PostalAddress","addressCountry":"CO"},"sameAs":["https://github.com/Jeff-Aporta","https://www.youtube.com/@JeffAporta"],"logo":"https://jeff-aporta.github.io/Jeff-Aporta/assets/img/logo/jeffrey-agudelo-logo-256.png","nationality":{"@type":"Country","name":"Colombia"},"knowsAbout":["Web Components","JavaScript","TypeScript","React","Next.js","Svelte","SvelteKit","Astro","Shoelace","Material-UI","Tailwind CSS","SCSS","esbuild","UI/UX","Angular","Node.js","Deno","Hono","NestJS","Express","FastAPI","Java JEE","PHP","GraphQL","WebSockets","OpenAPI","JWT","Prisma","TypeORM","Zod","Python",".NET","Odoo","ERP","APIs de LLM","Integración de IA","RAG","Embeddings","pgvector","LangChain","Model Context Protocol","Agentes conversacionales","Voz en tiempo real","Texto a voz","Workers AI","Prompt engineering","TensorFlow","Scikit-learn","Machine Learning","Ciencia de datos","PostgreSQL","Neon","SQL Server","MySQL","MariaDB","SQLite","Firebird","MongoDB","Firebase","SQL","Ingeniería de datos","Cloudflare Workers","Durable Objects","Cloudflare R2","Azure Functions","AWS Lambda","Vercel","GitHub Pages","jsDelivr","Docker","Kubernetes","GitHub Actions","GitLab CI","VPS Linux","Nginx","Azure","AWS","CI/CD","Automatización","Canvas 2D","p5.js","GLSL","SVG","Remotion","FFmpeg","Geometría computacional","React Native","Kotlin","Android","C#","WPF","Java","Scrum","Kanban","Gestión de proyectos","Code review","Mentoría","Capacitación","Documentación técnica","Pruebas e2e","Testing / QA","Agile"],"alumniOf":[{"@type":"EducationalOrganization","name":"Corporación Universitaria Remington"},{"@type":"EducationalOrganization","name":"Servicio Nacional de Aprendizaje"}]},{"@type":"Blog","@id":"https://jeff-aporta.github.io/Jeff-Aporta/#blog","url":"https://jeff-aporta.github.io/Jeff-Aporta/blog/","name":"Blog de Jeffrey Agudelo"},{"@type":"BlogPosting","@id":"https://jeff-aporta.github.io/Jeff-Aporta/blog/luz-y-sombra-2d/#post","mainEntityOfPage":"https://jeff-aporta.github.io/Jeff-Aporta/blog/luz-y-sombra-2d/","headline":"Luz y sombra en 2D","alternativeHeadline":"Una guía narrada para crear visibilidad y sombras dinámicas en tus juegos, paso a paso y con demos que puedes tocar.","description":"Construimos desde cero el clásico efecto de luz que proyecta sombras sobre una escena 2D: rayos, intersecciones, el polígono de visión, sombras suaves y varias luces. Cada paso trae su narración y su demo interactiva.","url":"https://jeff-aporta.github.io/Jeff-Aporta/blog/luz-y-sombra-2d/","datePublished":"2026-10-27","dateModified":"2026-10-27","image":"https://jeff-aporta.github.io/Jeff-Aporta/assets/blog/luz-y-sombra/portada.png","keywords":"Guía narrada, Canvas 2D, Geometría, Videojuegos, TypeScript","inLanguage":"es-CO","isPartOf":{"@id":"https://jeff-aporta.github.io/Jeff-Aporta/#blog"},"author":{"@id":"https://jeff-aporta.github.io/Jeff-Aporta/#persona"},"publisher":{"@id":"https://jeff-aporta.github.io/Jeff-Aporta/#persona"}}]}</script>
 <meta name="google-site-verification" content="GpoghZlKIsd4HjpFh18Y4kIS3hkKnfJwI0xFE6-cNf4">
 <link rel="icon" href="../../favicon.ico?v=2" sizes="any">
 <link rel="icon" href="../../assets/img/favicon-32.png?v=2" type="image/png" sizes="32x32">
@@ -47,7 +48,7 @@
 <link rel="stylesheet" href="../../dist/cdn/styles/app.css?v=rukr0f">
 <!-- 1) Loader del kit por CDN pineado (el mismo SHA que index.html). 2) Registrador de la app. -->
 <script type="module" src="https://cdn.jsdelivr.net/gh/Jeff-Aporta/is-webcomponents@a1df39adb9e421de874dd624901b72daa9e25e5c/dist/cdn/core/loader.min.js"></script>
-<script type="module" src="../../dist/cdn/jaLoader.min.js?v=1u5sr0"></script>
+<script type="module" src="../../dist/cdn/jaLoader.min.js?v=0375iq"></script>
 <!-- 3) Arranque: estilos del kit, tags del kit, transversales (sin el shell de la SPA) y la vista del blog. -->
 <script type="module">
   const L = globalThis.iswcLoader;
@@ -56,7 +57,7 @@
   try {
     if (!L) throw new Error('falta iswcLoader');
     await L.loadPageStyles(['iswc-palettes-default']);
-    const { KIT_TAGS, tagsArranque, tagsVista } = await import('../../dist/cdn/js/kit-tags.js?v=ussgej');
+    const { KIT_TAGS, tagsArranque, tagsVista } = await import('../../dist/cdn/js/kit-tags.js?v=nidgz9');
     await L.load(...KIT_TAGS, ...tagsArranque().filter((t) => t !== 'ja-app'), ...tagsVista('blog'));
     await customElements.whenDefined('ja-pagina');
   } catch (e) {

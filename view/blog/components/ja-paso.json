@@ -11,7 +11,7 @@
     {
       "id": "intro",
       "title": "&lt;ja-paso&gt;",
-      "lede": "Tarjeta de papel de un paso de una guía, recibido por props: sello con el número, ícono de plastilina, título, transcripción de la narración y bloques; en el último paso, los créditos.",
+      "lede": "Tarjeta discreta y neutra de un paso de una guía, recibido por props: número y título, botón pequeño play/pausa de la narración, el texto del paso, bloques, demo y, en el último paso, los créditos.",
       "blocks": [
         {
           "kind": "demo",
@@ -29,7 +29,9 @@
             },
             "indice": 2,
             "total": 10,
-            "creditos": ""
+            "creditos": "",
+            "audio": "assets/blog/luz-y-sombra-2d/voz/02.mp3",
+            "sonando": false
           },
           "controls": [
             {
@@ -49,6 +51,12 @@
               "prop": "props:creditos",
               "label": "creditos (solo en el último paso)",
               "default": ""
+            },
+            {
+              "control": "boolean",
+              "prop": "props:sonando",
+              "label": "sonando",
+              "default": false
             }
           ]
         },

@@ -1,7 +1,7 @@
 @use "tokens" as t;
 @use "mixins" as m;
 
-/* ja-post-tarjeta — portada a la izquierda (arriba en móvil) y texto; toda la tarjeta es enlace. */
+/* ja-post-tarjeta — portada a la izquierda (arriba en móvil) y texto; toda la tarjeta es un <ja-link>. */
 :host {
   @include m.host-bloque;
 }
@@ -9,15 +9,26 @@
 .tarjeta {
   @include m.superficie;
   @include m.elevable;
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr);
+  display: block;
   overflow: hidden;
   color: inherit;
-  text-decoration: none;
 
-  &:focus-visible { outline: 3px solid var(--iswc-color-brand); outline-offset: 3px; }
+  &::part(anchor) {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr);
+    gap: 0;
+    color: inherit;
+    text-decoration: none;
 
-  @include m.tableta { grid-template-columns: 1fr; }
+    @include m.tableta { grid-template-columns: 1fr; }
+  }
+
+  &::part(anchor):focus-visible { outline: 3px solid var(--iswc-color-brand); outline-offset: 3px; }
+
+  &::part(start),
+  &::part(end) { display: none; }
+
+  &::part(label) { display: contents; }
 }
 
 .portada {

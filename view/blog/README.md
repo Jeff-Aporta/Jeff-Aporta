@@ -23,13 +23,16 @@ view/blog/
   `<ja-pagina activa="blog">` + `<ja-post slug="…">` con su `<head>` SEO y el texto del post dentro del tag.
 
 `<ja-post>` carga `blog/<slug>/post.json` (validado con Zod, con esqueletos del kit mientras llega) o recibe la
-publicación completa en `datos`. «Compartir» entrega `https://jeff-aporta.github.io/Jeff-Aporta/blog/<slug>/` con
-`<iswc-share-button>` e `<iswc-copy-button>` del kit. La lista sigue leyendo el contenido importado (no necesita red).
+publicación completa en `datos`, y pinta todos los pasos seguidos en una sola página: cada `<ja-paso>` es una tarjeta
+neutra con su botón discreto de narración (un solo audio a la vez) y su demo. «Compartir» va en la barra del sitio
+(`<ja-app>` / `<ja-pagina>`), no en el post. Los enlaces internos (tarjetas, «Todas las publicaciones») son `<ja-link>`.
+La lista sigue leyendo el contenido importado (no necesita red).
 
 - **Registro**: `VIEW_TAGS.blog` y `KIT_TAGS_VISTA.blog` (`iswc-callout`, `iswc-code`, `iswc-md-render`,
-  `iswc-share-button`, `iswc-skeleton`) en `src/js/kit-tags.ts`.
-- **Pruebas**: `tests/blog/` (datos, rutas y geometría), `tests/sitio/` (W-SIT-07: páginas generadas) y
-  `tests/e2e/01.blog.test.ts` (página especializada, compartir, `datos` por prop, enlaces viejos).
+  `iswc-skeleton`) en `src/js/kit-tags.ts`.
+- **Pruebas**: `tests/blog/` (datos, rutas, `estadoSpa`/`urlCompartir` y geometría), `tests/sitio/` (W-SIT-07: páginas
+  generadas y metadatos), `tests/enlaces/` (`<ja-link>`) y `tests/e2e/01.blog.test.ts` (página especializada, compartir,
+  `datos` por prop, `<ja-link>` al SPA, enlaces viejos).
 
 ## Publicar una guía nueva
 

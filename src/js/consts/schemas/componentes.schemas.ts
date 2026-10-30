@@ -118,16 +118,44 @@ export type JaPostProps = z.infer<typeof JaPostPropsSchema>;
 export const JaBloquePropsSchema = z.object({ bloque: BloqueSchema.nullable().default(null) });
 export type JaBloqueProps = z.infer<typeof JaBloquePropsSchema>;
 
-/** `<ja-paso>`: la tarjeta de un paso de una guía: el paso, su índice, cuántos hay y los créditos (solo se pintan en el último). */
+/**
+ * `<ja-paso>`: la tarjeta de un paso de una guía: el paso (con su demo), su índice, cuántos hay, los créditos
+ * (solo en el último), la URL de su narración (`audio`; vacía = sin botón) y si está sonando (`sonando`, lo marca `<ja-post>`).
+ */
 export const JaPasoPropsSchema = z.object({
   paso: PasoGuiaSchema.nullable().default(null),
   indice: z.number().int().min(0).default(0),
   total: z.number().int().min(1).default(1),
   creditos: z.string().default(''),
+  audio: z.string().default(''),
+  sonando: z.boolean().default(false),
 });
 export type JaPasoProps = z.infer<typeof JaPasoPropsSchema>;
 
-/** `<ja-pagina>`: shell mínimo de una página especializada (barra con marca, vistas y tema; la vista en el slot; el pie). */
+/**
+ * `<ja-link>`: enlace SPA general (candidato a `iswc-link`). `state` como objeto, o JSON cuando llega por atributo.
+ * `color`/`size`/`shape` solo aplican con `variant: 'button'` (pasan a `iswc-button`).
+ */
+export const JaLinkPropsSchema = z.object({
+  href: z.string().default(''),
+  state: z.union([z.record(z.string(), z.unknown()), z.string()]).nullable().default(null),
+  param: z.string().min(1).default('s'),
+  base: z.string().default(''),
+  merge: z.boolean().default(false),
+  variant: z.enum(['plain', 'button', 'nav']).default('plain'),
+  icon: z.string().default(''),
+  label: z.string().default(''),
+  target: z.string().default(''),
+  rel: z.string().default(''),
+  download: z.string().default(''),
+  disabled: z.boolean().default(false),
+  color: z.string().default(''),
+  size: z.string().default(''),
+  shape: z.string().default(''),
+});
+export type JaLinkProps = z.infer<typeof JaLinkPropsSchema>;
+
+/** `<ja-pagina>`: shell mínimo de una página especializada (barra con marca, vistas, compartir y tema; la vista en el slot; el pie). */
 export const JaPaginaPropsSchema = z.object({ activa: z.enum(['portafolio', 'blog']).default('blog') });
 export type JaPaginaProps = z.infer<typeof JaPaginaPropsSchema>;
 

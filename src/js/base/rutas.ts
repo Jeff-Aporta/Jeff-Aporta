@@ -35,6 +35,25 @@ export function estadoDe(ruta: RutaSpa): Estado {
   return ruta.vista === 'portafolio' && ruta.seccion !== 'inicio' ? { sec: ruta.seccion } : {};
 }
 
+/**
+ * Ruta → estado completo para un enlace `?s=` a la página SPA (`<ja-link state>`): la sección del
+ * portafolio, `{ v: 'blog' }` o `{ v: 'post', p }`. Dentro de la SPA el router lo reconoce y lo reescribe a
+ * la URL limpia; desde una página especializada lleva al SPA.
+ */
+export function estadoSpa(ruta: RutaSpa): Estado {
+  if (ruta.vista === 'blog') return { v: 'blog' };
+  if (ruta.vista === 'post') return { v: 'post', p: ruta.slug };
+  return estadoDe(ruta);
+}
+
+/** URL canónica y pública de una ruta, para compartir: `base` es la URL publicada del sitio (con `/` final). */
+export function urlCompartir(ruta: RutaSpa, base: string): string {
+  const url = new URL(rutaRelativa(ruta), base);
+  const estado = estadoDe(ruta);
+  if (Object.keys(estado).length) url.searchParams.set('s', b64urlEncode(JSON.stringify(estado)));
+  return url.href;
+}
+
 /** Ruta → pathname relativo a la raíz del sitio: `''`, `'blog/'` o `'blog/<slug>/'`. */
 export function rutaRelativa(ruta: RutaSpa): string {
   if (ruta.vista === 'blog') return 'blog/';

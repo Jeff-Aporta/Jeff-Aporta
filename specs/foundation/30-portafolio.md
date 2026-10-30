@@ -28,7 +28,7 @@ Fuera: backend, base de datos, formularios con envío.
 | W-SIT-04 | Ninguna ruta de la app es absoluta a la raíz del dominio (el sitio vive en `/Jeff-Aporta/`). |
 | W-SIT-05 | Todo lo que las páginas piden de `dist/cdn/` lleva el `?v=` de su hash vigente: la caché del navegador nunca sirve un arranque viejo. |
 | W-SIT-06 | `index.html` lleva, dentro de `<ja-app>`, un resumen estático del contenido (nombre, trayectoria, proyectos, habilidades, educación, blog y contacto) que un rastreador lee sin ejecutar JS. |
-| W-SIT-07 | Cada publicación tiene su HTML estático con URL limpia (`blog/<slug>/index.html`) y sus datos mínimos (`blog/<slug>/post.json`, válido contra `PublicacionSchema`); existen `blog/index.html` e `index.json`. Cada página trae título, descripción, canonical a su URL limpia, Open Graph/Twitter con la portada, JSON-LD `BlogPosting` (`Blog` en la lista) y, dentro del tag del componente, el texto del post legible sin JS. El sitemap lista las URL limpias y ninguna `?s=` del blog; `robots.txt` permite `blog/`. |
+| W-SIT-07 | Cada publicación tiene su HTML estático con URL limpia (`blog/<slug>/index.html`) y sus datos mínimos (`blog/<slug>/post.json`, válido contra `PublicacionSchema`); existen `blog/index.html` e `index.json`. Cada página trae `lang`, título, descripción, canonical a su URL limpia, `robots` index/follow, `theme-color`, íconos y manifest como `index.html`, `og:type=article`, `og:locale`, Open Graph/Twitter (`summary_large_image`) con la portada, `article:published_time` (`article:modified_time` si hay dato), `article:author`, `article:tag` por etiqueta, y un JSON-LD con el `Person` del sitio (única fuente), el `Blog` y el `BlogPosting` (`headline`, `description`, `datePublished`, `dateModified`, `image`, `keywords`, `inLanguage`, `author`/`publisher` → `#persona`, `mainEntityOfPage` = URL limpia, `isPartOf` → `#blog`); la lista trae `Blog` e `ItemList`. Dentro del tag del componente va el texto del post legible sin JS. El sitemap lista las URL limpias y ninguna `?s=` del blog; `robots.txt` permite `blog/`. |
 | W-POR-01 | La portada muestra el nombre y cuatro cifras calculadas. |
 | W-POR-02 | Están todas las secciones de la navegación, en orden. |
 | W-POR-03 | La trayectoria alterna lados y se filtra por experiencia o formación. |
@@ -36,12 +36,18 @@ Fuera: backend, base de datos, formularios con envío.
 | W-BLG-01 | Cada publicación cumple `PublicacionSchema`, con slug único y portada existente. |
 | W-BLG-02 | El post «Luz y sombra en 2D» trae una demo interactiva por cada paso (0 a 8). |
 | W-BLG-03 | Cada paso de cada guía tiene su narración en audio publicada. |
-| W-BLG-04 | `blog/<slug>/` abierta directo arranca sin errores de consola, monta `<ja-pagina>` y `<ja-post>` con ese slug (datos desde `post.json`); «Compartir» (componentes del kit `iswc-share-button` e `iswc-copy-button`) entrega la URL limpia pública y el regreso lleva a `blog/`. |
-| W-BLG-05 | `<ja-post>` con `datos` por prop pinta la guía sin red: índice de pasos, tarjeta del paso y progreso. |
+| W-BLG-04 | `blog/<slug>/` abierta directo arranca sin errores de consola, monta `<ja-pagina>` y `<ja-post>` con ese slug (datos desde `post.json`, todos los pasos en un flujo); el «Compartir» de la barra (`iswc-share-button` del kit) lleva la URL canónica limpia, junto al tema. |
+| W-BLG-05 | `<ja-post>` con `datos` por prop pinta la guía sin red: todos los pasos, índice con anclas, botón de audio por paso y créditos en el último. |
 | W-BLG-06 | Un enlace viejo `?s=` de una publicación sigue abriéndola y la URL se reescribe a la limpia sin crear historial. |
+| W-BLG-07 | Los `<ja-link>` de la página especializada (marca, Yo, Blog, «Todas las publicaciones») resuelven al SPA de la raíz (`data-spa-base`); «Todas las publicaciones» carga el SPA mostrando `<ja-blog>`. |
+| W-ENL-01 | `<ja-link>`: `href` literal gana; `state` se serializa en `<base>?<param>=<b64url(JSON)>`; un estado vacío deja la base sin query. |
+| W-ENL-02 | `<ja-link>`: `base` relativa se resuelve contra el documento, `<html data-spa-base>` es la base por defecto y `param` es configurable. |
+| W-ENL-03 | `<ja-link>`: `merge` combina con el estado actual; `current` compara base y estado normalizado; `target="_blank"` fuerza `rel="noopener"`. |
 | W-SPA-01 | Las rutas van y vuelven: portafolio con sección en `?s=`, `blog/` y `blog/<slug>/` limpias; los `?s=` viejos del blog se reconocen; assets y `view/` no son rutas. |
-| W-SPA-02 | La pestaña Blog lleva a la lista (`blog/`), una tarjeta abre la publicación (`blog/<slug>/`) sin recargar la página, atrás vuelve a la lista y Yo regresa a la raíz, sin errores. |
+| W-SPA-02 | La pestaña Blog lleva a la lista (`blog/`), una tarjeta (`<ja-link>`) abre la publicación (`blog/<slug>/`) sin recargar, con todos los pasos en un solo flujo y sin paginación; el botón de audio de un paso alterna play/pausa y pausa a los demás; atrás vuelve a la lista y Yo regresa a la raíz, sin errores. |
 | W-SPA-03 | Un enlace directo a una sección (`?s=` con `{ sec }`) aterriza en ella y la conserva. |
+| W-SPA-04 | `estadoSpa(ruta)` alimenta a `<ja-link>` con el estado `?s=` de cada vista (y vuelve a la ruta); `urlCompartir(ruta, base)` da la URL canónica pública (raíz, `?s=` de la sección, `blog/`, `blog/<slug>/`). |
+| W-SPA-05 | «Compartir» está en la barra junto al tema (`iswc-share-button`, `aria-label` «Compartir esta página»); sin Web Share copia al portapapeles la URL limpia de la vista actual y avisa con el toast. |
 | W-LUZ-01 | La intersección rayo-segmento acierta y descarta paralelos, choques detrás del rayo y fuera del segmento. |
 | W-LUZ-02 | El polígono de visión queda dentro de la escena y ordenado por ángulo. |
 
@@ -53,7 +59,7 @@ Fuera: backend, base de datos, formularios con envío.
 
 ## 5. Pruebas
 
-`tests/contenido/`, `tests/sitio/`, `tests/blog/` (sin navegador) y `tests/e2e/00.portafolio.test.ts`, `tests/e2e/01.blog.test.ts` (Stagehand).
+`tests/contenido/`, `tests/sitio/`, `tests/blog/`, `tests/enlaces/` (sin navegador) y `tests/e2e/00.portafolio.test.ts`, `tests/e2e/01.blog.test.ts` (Stagehand).
 
 ## 6. Riesgos
 

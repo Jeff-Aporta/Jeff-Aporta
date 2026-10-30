@@ -177,6 +177,8 @@ export const PublicacionSchema = z.object({
   subtitulo: z.string().min(1),
   resumen: z.string().min(1),
   fecha: FechaSchema,
+  /** Última revisión del texto (opcional): `dateModified` y `article:modified_time` en su página. */
+  actualizado: FechaSchema.optional(),
   etiquetas: z.array(z.string().min(1)).min(1),
   portada: ImagenSchema,
   creditos: z.string().optional(),

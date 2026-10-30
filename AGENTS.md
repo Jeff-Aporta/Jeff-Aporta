@@ -94,7 +94,8 @@ ja-app/
 - **Una página por publicación**: `deno task build` (`scripts/build/build-blog.ts`) escribe `blog/index.html`,
   `blog/index.json` y, por post, `blog/<slug>/post.json` (datos mínimos) y `blog/<slug>/index.html` (shell mínimo
   `<ja-pagina>` + `<ja-post slug>`, `<head>` SEO, JSON-LD y resumen estático dentro del tag). `<ja-post>` carga el JSON
-  por slug o recibe `datos`; «Compartir» usa `iswc-share-button` e `iswc-copy-button` con la URL limpia. Se versiona
-  junto con `dist/cdn/`: es lo que sirve GitHub Pages.
+  por slug o recibe `datos` y pinta todos los pasos en una sola página (audio discreto por tarjeta). «Compartir» va en
+  la barra (`iswc-share-button` con `urlCompartir`). Enlaces internos con `<ja-link>` (candidato a `iswc-link`). Se
+  versiona junto con `dist/cdn/`: es lo que sirve GitHub Pages.
 - **Primer post**: «Luz y sombra en 2D», reinterpretación en español de *Sight & Light* de Nicky Case (assets de fondo y
   frente con crédito). Geometría en `view/blog/utils/luz.ts`; demo por paso en `<ja-luz-demo>`.

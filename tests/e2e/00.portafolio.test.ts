@@ -8,7 +8,9 @@
 //   W-POR-03   la trayectoria es un grafo de ramas: «Hoy» arriba, sin filtros, hitos de inicio y fin
 //   W-POR-04   cada fila de empresa (inicio, fin, periodo, cambio) tiene «Ver detalle», que abre su ficha completa en un modal
 //   W-POR-05   cada cifra de la portada abre su lista completa; los enlaces externos abren en otra pestaña
-//   W-SPA-02   la pestaña Blog lleva a la lista (blog/), una tarjeta abre la guía (blog/<slug>/) sin recargar, «siguiente» avanza de paso y Yo regresa
+//   W-SPA-02   la pestaña Blog lleva a la lista (blog/), una tarjeta (<ja-link>) abre la guía (blog/<slug>/) sin recargar con TODOS los pasos
+//              en un solo flujo, el botón de audio de un paso alterna play/pausa, atrás vuelve y Yo regresa
+//   W-SPA-05   «Compartir» está en la barra junto al tema y, sin Web Share, copia la URL limpia de la vista actual
 //   W-SPA-03   un enlace directo a una sección (?s= con { sec: 'habilidades' }) aterriza en ella y la conserva
 import { definirPruebas } from '@iswc/testing/pruebas.ts';
 import { abrir, esperar } from '../../scripts/gate/e2e/harness.ts';
@@ -140,35 +142,52 @@ export default definirPruebas([
       await esperar(s.page, () => !!document.querySelector('ja-app')?.shadowRoot?.querySelector('ja-blog')?.shadowRoot?.querySelector('ja-seccion'));
       eq('lista', await vista(), 'ja-blog');
       eq('URL limpia de la lista', await ruta(), '/blog/');
+      // La tarjeta es un <ja-link>: su <a> interno lleva ?s= y el router lo navega sin recargar.
+      await esperar(s.page, () => !!document.querySelector('ja-app')?.shadowRoot?.querySelector('ja-blog')?.shadowRoot?.querySelector('ja-post-tarjeta')?.shadowRoot?.querySelector('ja-link')?.shadowRoot?.querySelector('a'));
       await s.page.evaluate(() => {
         const blog = document.querySelector('ja-app')!.shadowRoot!.querySelector('ja-blog')!.shadowRoot!;
-        (blog.querySelector('ja-post-tarjeta')!.shadowRoot!.querySelector('a') as HTMLAnchorElement).click();
+        (blog.querySelector('ja-post-tarjeta')!.shadowRoot!.querySelector('ja-link')!.shadowRoot!.querySelector('a') as HTMLAnchorElement).click();
       }, undefined);
       await esperar(s.page, () => !!document.querySelector('ja-app')?.shadowRoot?.querySelector('ja-post')?.shadowRoot?.querySelector('h1'));
       eq('publicación', await vista(), 'ja-post');
       eq('URL limpia de la publicación', await ruta(), '/blog/luz-y-sombra-2d/');
       eq('sin recarga', await s.page.evaluate(() => (globalThis as { __sinRecarga?: number }).__sinRecarga, undefined), 1);
       expect('título de la pestaña', (await s.page.evaluate(() => document.title, undefined)).startsWith('Luz y sombra en 2D'));
-      const guia = () => s.page.evaluate(() => {
+      await esperar(s.page, () => (document.querySelector('ja-app')?.shadowRoot?.querySelector('ja-post')?.shadowRoot?.querySelectorAll('ja-paso').length ?? 0) >= 10);
+      const guia = await s.page.evaluate(() => {
         const post = document.querySelector('ja-app')!.shadowRoot!.querySelector('ja-post')!.shadowRoot!;
+        const pasos = [...post.querySelectorAll('ja-paso')];
         return {
-          pasos: post.querySelectorAll('.paso').length,
-          actual: Number((post.querySelector('.paso[data-actual]') as HTMLElement | null)?.dataset.i ?? -1),
-          tarjeta: post.querySelector('ja-paso')?.shadowRoot?.querySelector('h2')?.textContent ?? '',
-          demo: !!post.querySelector('ja-luz-demo'),
+          pasos: pasos.length,
+          indice: post.querySelectorAll('.indice a').length,
+          titulos: pasos.map((p) => p.shadowRoot?.querySelector('h2')?.textContent ?? '').filter(Boolean).length,
+          demos: pasos.filter((p) => p.shadowRoot?.querySelector('ja-luz-demo')).length,
+          paginacion: !!post.querySelector('.siguiente, .anterior, [data-actual]'),
+          audios: pasos.filter((p) => p.shadowRoot?.querySelector('.audio')).length,
         };
       }, undefined);
-      const antes = await guia();
-      expect('índice de pasos', antes.pasos >= 10, String(antes.pasos));
-      eq('empieza en el primer paso', antes.actual, 0);
-      expect('tarjeta y demo', antes.tarjeta.length > 0 && antes.demo);
-      await s.page.evaluate(() => {
-        const post = document.querySelector('ja-app')!.shadowRoot!.querySelector('ja-post')!.shadowRoot!;
-        (post.querySelector('.siguiente')!.shadowRoot!.querySelector('button') as HTMLButtonElement).click();
+      expect('todos los pasos en el DOM, en un solo flujo', guia.pasos >= 10 && guia.titulos === guia.pasos, JSON.stringify(guia));
+      eq('índice compacto con un ancla por paso', guia.indice, guia.pasos);
+      expect('las demos van dentro de su paso', guia.demos >= 9, String(guia.demos));
+      expect('sin paginación', !guia.paginacion);
+      eq('un botón de audio por paso', guia.audios, guia.pasos);
+      // Audio: play() se simula (sin gesto real el navegador lo rechazaría); el estado se refleja en el botón.
+      const audio = await s.page.evaluate(() => {
+        HTMLMediaElement.prototype.play = () => Promise.resolve();
+        const pasos = [...document.querySelector('ja-app')!.shadowRoot!.querySelector('ja-post')!.shadowRoot!.querySelectorAll('ja-paso')];
+        const boton = (i: number) => pasos[i]!.shadowRoot!.querySelector('.audio') as HTMLElement;
+        const antes = boton(0).getAttribute('aria-label');
+        boton(0).click();
+        const sonando = boton(0).getAttribute('aria-label');
+        boton(1).click();
+        const exclusivo = [pasos[0]!.hasAttribute('data-sonando'), pasos[1]!.hasAttribute('data-sonando')];
+        boton(1).click();
+        return { antes, sonando, exclusivo, pausado: boton(1).getAttribute('aria-label') };
       }, undefined);
-      const despues = await guia();
-      eq('siguiente avanza', despues.actual, 1);
-      expect('cambia la tarjeta', despues.tarjeta !== antes.tarjeta, despues.tarjeta);
+      eq('reposo', audio.antes, 'Reproducir la narración del paso 1');
+      eq('al pulsar pasa a pausar', audio.sonando, 'Pausar la narración del paso 1');
+      eq('reproducir otro paso detiene el anterior', audio.exclusivo, [false, true]);
+      eq('volver a pulsar pausa', audio.pausado, 'Reproducir la narración del paso 2');
       await s.page.evaluate(() => history.back(), undefined);
       await esperar(s.page, () => !!document.querySelector('ja-app')?.shadowRoot?.querySelector('ja-blog'));
       eq('atrás vuelve a la lista', await vista(), 'ja-blog');
@@ -181,6 +200,32 @@ export default definirPruebas([
       eq('regresa al portafolio', await vista(), 'ja-portafolio');
       eq('la portada vuelve a la raíz', await ruta(), '/');
       expect('sin errores de consola', s.errores().length === 0, s.errores().join(' | '));
+    },
+  },
+  {
+    nombre: 'portafolio W-SPA-05 Compartir en la barra copia la URL limpia de la vista',
+    categoria: 'what',
+    async correr({ eq, expect }) {
+      const r = await s.page.evaluate(async () => {
+        const app = document.querySelector('ja-app')!.shadowRoot!;
+        const acciones = app.querySelector('.acciones')!;
+        const compartir = acciones.querySelector('iswc-share-button') as HTMLElement;
+        // Sin Web Share (escritorio): el kit copia al portapapeles; se captura lo copiado.
+        delete (navigator as { share?: unknown }).share;
+        let copiado = '';
+        Object.defineProperty(navigator, 'clipboard', { value: { writeText: (t: string) => { copiado = t; return Promise.resolve(); } }, configurable: true });
+        let how = '';
+        compartir.addEventListener('iswc-share', (ev) => { how = (ev as CustomEvent<{ how: string }>).detail.how; });
+        (compartir.shadowRoot!.querySelector('iswc-button')!.shadowRoot!.querySelector('button, a') as HTMLElement).click();
+        await new Promise((r) => setTimeout(r, 500));
+        return { juntoAlTema: !!acciones.querySelector('iswc-theme-toggle') && acciones.children.length === 2, etiqueta: compartir.getAttribute('aria-label'), url: compartir.getAttribute('url'), copiado, how, dentroDelPost: !!app.querySelector('ja-post')?.shadowRoot?.querySelector('iswc-share-button') };
+      }, undefined);
+      expect('el botón está en la barra junto al tema', r.juntoAlTema);
+      eq('aria-label', r.etiqueta, 'Compartir esta página');
+      eq('URL limpia del portafolio', r.url, 'https://jeff-aporta.github.io/Jeff-Aporta/');
+      eq('copiado al portapapeles', r.copiado, 'https://jeff-aporta.github.io/Jeff-Aporta/');
+      eq('el kit informa que copió', r.how, 'copied');
+      expect('ya no hay Compartir dentro del post', !r.dentroDelPost);
     },
   },
   {

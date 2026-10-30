@@ -20,34 +20,15 @@ import { join } from 'node:path';
 import { contenido } from '../../src/js/contenido/index.ts';
 import { mesesCalendario, rangoEmpleo } from '../../src/js/contenido/derivados.ts';
 import { generarBlog } from './build-blog.ts';
-import { abs, blogLd, enlace, esc, lista, urlBlog, urlPost } from './seo.ts';
+import { abs, blogLd, enlace, esc, lista, persona, urlBlog, urlPost } from './seo.ts';
 
 const ROOT = join(import.meta.dirname!, '..', '..');
 const { sitio, perfil, experiencia, educacion, habilidades, proyectos, blog } = contenido;
 
-const actual = experiencia.find((e) => e.periodos.some((p) => p.hasta === null));
 const jsonLd = {
   '@context': 'https://schema.org',
   '@graph': [
-    {
-      '@type': 'Person',
-      '@id': `${sitio.url}#persona`,
-      name: perfil.nombre,
-      alternateName: perfil.nombreCorto,
-      jobTitle: perfil.titular,
-      description: perfil.propuesta,
-      image: abs(perfil.foto.src),
-      url: sitio.url,
-      email: `mailto:${perfil.contacto.email}`,
-      telephone: perfil.contacto.telefono,
-      address: { '@type': 'PostalAddress', addressCountry: 'CO' },
-      sameAs: [perfil.contacto.github, perfil.contacto.youtube],
-      logo: abs(perfil.logo),
-      nationality: { '@type': 'Country', name: 'Colombia' },
-      knowsAbout: [...new Set(habilidades.flatMap((g) => g.items))],
-      alumniOf: educacion.map((s) => ({ '@type': 'EducationalOrganization', name: s.institucion })),
-      ...(actual ? { worksFor: { '@type': 'Organization', name: actual.empresa } } : {}),
-    },
+    persona(),
     { '@type': 'WebSite', '@id': `${sitio.url}#sitio`, url: sitio.url, name: sitio.titulo, inLanguage: sitio.idioma, author: { '@id': `${sitio.url}#persona` } },
     { '@type': 'ProfilePage', url: sitio.url, name: sitio.titulo, mainEntity: { '@id': `${sitio.url}#persona` }, dateModified: new Date().toISOString().slice(0, 10) },
     blogLd(blog),

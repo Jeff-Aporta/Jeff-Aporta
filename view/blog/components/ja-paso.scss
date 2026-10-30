@@ -1,121 +1,86 @@
 @use "tokens" as t;
 @use "mixins" as m;
 
-/* ja-paso — hoja de papel con dos hojas debajo (paper craft), esquina doblada (origami), sello de
-   número recortado y la narración como cita. */
+/* ja-paso — tarjeta discreta y neutra (superficie del kit), todas iguales: número, título, botón de
+   audio pequeño arriba a la derecha, narración como texto normal, bloques y demo. */
 :host {
   @include m.host-bloque;
-  animation: entrar 0.45s cubic-bezier(0.22, 1, 0.36, 1) both;
-
-  @media (prefers-reduced-motion: reduce) { animation: none; }
-}
-
-@keyframes entrar {
-  from { opacity: 0; transform: translateY(14px) rotate(-0.6deg); }
+  scroll-margin-top: 6rem;
 }
 
 .tarjeta {
+  @include m.superficie;
   position: relative;
   display: grid;
-  gap: t.esp(5);
-  padding: t.esp(8) t.esp(8) t.esp(8);
-  border-radius: t.radio(xl);
-  background: var(--iswc-bg-elev);
-  box-shadow:
-    0 1px 0 color-mix(in srgb, var(--iswc-text) 8%, transparent),
-    0 0.55rem 0 -0.2rem color-mix(in srgb, var(--iswc-color-brand) 14%, var(--iswc-bg-elev)),
-    0 1.05rem 0 -0.45rem color-mix(in srgb, #ffcf4a 38%, var(--iswc-bg-elev)),
-    0 1.6rem 2.4rem -1.2rem color-mix(in srgb, var(--iswc-color-brand) 40%, transparent);
+  gap: t.esp(4);
+  padding: t.esp(6) t.esp(6) t.esp(6);
 
-  @include m.movil { padding: t.esp(6) t.esp(5) t.esp(8); }
-}
-
-/* esquina doblada arriba a la derecha: el triángulo de la hoja y su revés */
-.pliegue {
-  position: absolute;
-  top: 0;
-  right: 0;
-  width: 2.6rem;
-  height: 2.6rem;
-  border-top-right-radius: t.radio(xl);
-  background: linear-gradient(225deg, var(--iswc-bg) 0 50%, color-mix(in srgb, var(--iswc-color-brand) 22%, var(--iswc-bg-elev)) 50% 100%);
-  box-shadow: -0.2rem 0.2rem 0.4rem -0.15rem color-mix(in srgb, var(--iswc-text) 20%, transparent);
-  border-bottom-left-radius: 0.5rem;
+  @include m.movil { padding: t.esp(5) t.esp(4); }
 }
 
 .cabecera {
   display: grid;
-  grid-template-columns: auto minmax(0, 1fr) auto;
-  gap: t.esp(4);
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: t.esp(1) t.esp(3);
+  align-items: start;
+}
+
+.numero {
+  @include m.rotulo(0.6);
+  grid-column: 1;
+  margin: 0;
+}
+
+h2 {
+  @include m.titulo(clamp(1.25rem, 1.05rem + 0.7vw, 1.6rem));
+  display: flex;
+  grid-column: 1;
+  gap: t.esp(2);
   align-items: center;
-  padding-right: t.esp(6);
+  min-width: 0;
 }
 
-/* sello de papel recortado (borde dentado) con el número */
-.sello {
-  display: grid;
-  width: 3.4rem;
-  height: 3.4rem;
-  place-items: center;
-  background: var(--iswc-color-brand);
-  color: var(--iswc-on-brand, #fff);
-  font-family: t.$titulos;
-  font-size: 1.15rem;
-  font-weight: 800;
-  clip-path: polygon(50% 0, 61% 9%, 75% 6%, 80% 20%, 94% 25%, 91% 39%, 100% 50%, 91% 61%, 94% 75%, 80% 80%, 75% 94%, 61% 91%, 50% 100%, 39% 91%, 25% 94%, 20% 80%, 6% 75%, 9% 61%, 0 50%, 9% 39%, 6% 25%, 20% 20%, 25% 6%, 39% 9%);
-  transform: rotate(-8deg);
-}
-
-.textos { min-width: 0; }
-
-.cejilla {
-  @include m.rotulo(0.65);
-  margin: 0 0 t.esp(1);
-}
-
-h2 { @include m.titulo(clamp(1.35rem, 1.1rem + 0.9vw, 1.9rem)); }
-
-/* ícono en volumen de plastilina */
 .icono {
-  display: grid;
-  width: 3rem;
-  height: 3rem;
-  place-items: center;
-  border-radius: 38% 62% 55% 45% / 50% 40% 60% 50%;
-  background: radial-gradient(circle at 30% 25%, #fff8 0 15%, transparent 45%), #ffcf4a;
-  color: #3b2a00;
-  font-size: 1.5rem;
-  box-shadow: inset 0 -0.2rem 0 #0002, 0 0.25rem 0 #c99300;
-
-  @include m.movil { display: none; }
+  flex: none;
+  color: var(--iswc-text-dim);
+  font-size: 1.2em;
 }
+
+/* play/pausa: ghost circular, en la esquina superior derecha, con las dos filas de la cabecera */
+.audio {
+  grid-column: 2;
+  grid-row: 1 / span 2;
+  align-self: start;
+  color: var(--iswc-text-soft);
+  font-size: 1.1rem;
+}
+
+:host([data-sonando]) .audio { color: var(--iswc-color-brand); }
 
 .narracion {
-  display: grid;
-  grid-template-columns: auto minmax(0, 1fr);
-  gap: t.esp(3);
   margin: 0;
-  padding: t.esp(4) t.esp(5);
-  border-radius: t.radio(lg);
-  background:
-    repeating-linear-gradient(0deg, transparent 0 1.6rem, color-mix(in srgb, var(--iswc-color-brand) 9%, transparent) 1.6rem calc(1.6rem + 1px)),
-    color-mix(in srgb, var(--iswc-color-brand) 5%, var(--iswc-bg-elev));
-  color: var(--iswc-text-soft);
+  color: var(--iswc-text);
   font-size: 1.02rem;
-  line-height: 1.6rem;
-
-  iswc-icon {
-    margin-top: 0.2rem;
-    color: var(--iswc-color-brand);
-    font-size: 1.2rem;
-  }
-
-  p { margin: 0; }
+  line-height: 1.7;
 }
 
 .bloques {
   display: grid;
-  gap: t.esp(5);
+  gap: t.esp(4);
+}
+
+.demo {
+  display: grid;
+  gap: t.esp(2);
+  margin: 0;
+
+  ja-luz-demo { display: block; }
+
+  figcaption {
+    color: var(--iswc-text-dim);
+    font-size: 0.85rem;
+    text-align: center;
+  }
 }
 
 .creditos { display: block; }
