@@ -66,6 +66,12 @@ export function duracion(meses: number): string {
   return [ta, tm].filter(Boolean).join(' y ') || '1 mes';
 }
 
+/** Años con un decimal y coma («8,8 años», «1 año»): para las barras, donde solo se habla en años. */
+export function anios(meses: number): string {
+  const t = (meses / 12).toFixed(1).replace(/\.0$/, '').replace('.', ',');
+  return `${t} ${t === '1' ? 'año' : 'años'}`;
+}
+
 /** «Sep 2025»; `null` es «Actualidad». */
 export function fechaCorta(f: Fecha | null): string {
   if (f === null) return 'Actualidad';

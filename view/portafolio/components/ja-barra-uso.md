@@ -1,11 +1,11 @@
 ---
 name: ja-barra-uso
-description: Fila de uso acumulado de una tecnología: nombre, iswc-progress-bar y duración acumulada.
+description: Fila de uso acumulado de una tecnología: nombre, iswc-progress-bar y años acumulados con un decimal.
 ---
 
 # `<ja-barra-uso>`
 
-Fila de uso acumulado de una tecnología: nombre, iswc-progress-bar y duración acumulada. El contenido sale de `src/js/contenido/` (validado con Zod); el componente solo pinta.
+Fila de uso acumulado de una tecnología: nombre, iswc-progress-bar y años acumulados con un decimal. El contenido sale de `src/js/contenido/` (validado con Zod); el componente solo pinta.
 
 ## Anatomía
 

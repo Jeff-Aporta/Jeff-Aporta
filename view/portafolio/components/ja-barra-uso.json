@@ -11,7 +11,7 @@
     {
       "id": "intro",
       "title": "&lt;ja-barra-uso&gt;",
-      "lede": "Fila de uso acumulado de una tecnología: nombre, iswc-progress-bar y duración acumulada.",
+      "lede": "Fila de uso acumulado de una tecnología: nombre, iswc-progress-bar y años acumulados con un decimal.",
       "blocks": [
         {
           "kind": "demo",
