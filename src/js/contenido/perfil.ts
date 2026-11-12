@@ -6,7 +6,7 @@ export const perfil = {
   nombre: 'Jeffrey Alexander Agudelo Espitia',
   nombreCorto: 'Jeffrey Agudelo',
   iniciales: 'JA',
-  titular: 'Desarrollador Full Stack · Estudiante de Ingeniería de Sistemas',
+  titular: 'Ingeniero de Sistemas · Desarrollador Full Stack · IA aplicada',
   roles: ['Full Stack', 'Arquitectura frontend', 'APIs y backend', 'IA aplicada', 'Liderazgo técnico'],
   ubicacion: 'Colombia',
   bandera: 'circle-flags:co',
@@ -27,7 +27,7 @@ export const perfil = {
   video: { youtubeId: '32WdPbuVcdg', titulo: 'Presentación profesional de Jeffrey Agudelo', canal: 'https://www.youtube.com/@JeffAporta' },
   cv: 'assets/docs/jeffrey-agudelo-cv.pdf',
   /** Tarjeta de la hoja de vida: ícono hecho con capturas reales del PDF (`assets/img/cv/`) y su fecha. */
-  cvTarjeta: { icono: 'assets/img/cv/cv-icono-256.webp', actualizado: 'octubre de 2026', paginas: 1 },
+  cvTarjeta: { icono: 'assets/img/cv/cv-icono-256.webp', actualizado: 'noviembre de 2026', paginas: 1 },
   contacto: {
     email: 'jeffrey.alexander.agudelo.espitia@gmail.com',
     telefono: '+57 310 725 7814',

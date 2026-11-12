@@ -1,6 +1,6 @@
 # Jeffrey Agudelo
 
-**Desarrollador Full Stack** · Estudiante de Ingeniería de Sistemas · Colombia
+**Ingeniero de Sistemas** · **Desarrollador Full Stack** · IA aplicada · Colombia
 
 Construyo productos web de punta a punta: interfaces con Web Components, React y TypeScript, APIs con
 Node.js, Python y .NET, y despliegue continuo. Hoy enfocado en IA aplicada con LLM y MCP.

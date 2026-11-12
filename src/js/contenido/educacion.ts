@@ -7,7 +7,7 @@ export const educacion = [
     titulo: 'Ingeniería de Sistemas',
     nivel: 'Profesional',
     lugar: 'Virtual',
-    cursando: 'En curso · 7.º de 9 semestres (2026-2)',
+    anio: 2026,
     sitio: 'https://www.uniremington.edu.co/',
     certificado: 'https://drive.google.com/file/d/1QF2mp4d5iuDZZZOcyLA_t-5RLyh9OV8X/view',
     icono: 'mdi:school-outline',
