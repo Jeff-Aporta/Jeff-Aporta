@@ -1,4 +1,4 @@
-import{crearComponente as o,define as e,html as a,pieza as n}from"../../base/componente.js?v=sz3ptl";import{contenido as c}from"../../contenido/index.js?v=1rdoq5";import"./ja-marca.js?v=uy7ov9";const s=o(import.meta.url,"ja-pie",{},i=>{const{perfil:t}=c;i.append(a`
+import{crearComponente as o,define as e,html as a,pieza as n}from"../../base/componente.js?v=sz3ptl";import{contenido as c}from"../../contenido/index.js?v=vdvhmg";import"./ja-marca.js?v=yvgw4k";const s=o(import.meta.url,"ja-pie",{},i=>{const{perfil:t}=c;i.append(a`
     <footer class="pie" part="pie">
       <div class="interior">
         ${n("ja-marca",{subtitulo:`${t.titular} \xB7 ${t.ubicacion}`},{class:"firma"})}
