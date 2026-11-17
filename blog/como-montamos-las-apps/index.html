@@ -1,0 +1,196 @@
+<!doctype html>
+<html lang="es" data-theme="light" data-palette="jeff" data-spa-base="../../">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<!-- Página especializada: la escribe `deno task build` (scripts/build/build-blog.ts) desde src/js/contenido/blog/ (no editar a mano). -->
+<title>Cómo montamos las apps · Jeffrey Agudelo</title>
+<meta name="description" content="El recorrido de principio a fin para montar una app con mi stack: front vanilla con web components en GitHub Pages, API en Deno con DER sobre Cloudflare Workers, datos en SQLite en un VPS propio por un túnel privado, y agentes de IA que solo hacen lo que se les permite. El ejemplo es CoContable, un software contable para Colombia.">
+<meta name="author" content="Jeffrey Alexander Agudelo Espitia">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta name="theme-color" content="#2563eb">
+<meta name="color-scheme" content="light dark">
+<link rel="canonical" href="https://jeff-aporta.github.io/Jeff-Aporta/blog/como-montamos-las-apps/">
+<meta property="og:type" content="article">
+<meta property="og:locale" content="es_CO">
+<meta property="og:site_name" content="Jeffrey Agudelo">
+<meta property="og:title" content="Cómo montamos las apps · Jeffrey Agudelo">
+<meta property="og:description" content="El recorrido de principio a fin para montar una app con mi stack: front vanilla con web components en GitHub Pages, API en Deno con DER sobre Cloudflare Workers, datos en SQLite en un VPS propio por un túnel privado, y agentes de IA que solo hacen lo que se les permite. El ejemplo es CoContable, un software contable para Colombia.">
+<meta property="og:url" content="https://jeff-aporta.github.io/Jeff-Aporta/blog/como-montamos-las-apps/">
+<meta property="og:image" content="https://jeff-aporta.github.io/Jeff-Aporta/assets/blog/como-montamos-las-apps/portada.svg">
+<meta property="og:image:alt" content="CoContable: un coco contador, la app de ejemplo del stack">
+<meta property="article:published_time" content="2026-11-17">
+<meta property="article:author" content="Jeffrey Alexander Agudelo Espitia">
+<meta property="article:section" content="Blog">
+<meta property="article:tag" content="Arquitectura">
+<meta property="article:tag" content="Web Components">
+<meta property="article:tag" content="Deno">
+<meta property="article:tag" content="Cloudflare Workers">
+<meta property="article:tag" content="SQLite">
+<meta property="article:tag" content="Zero Trust">
+<meta property="article:tag" content="Agentes de IA">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Cómo montamos las apps · Jeffrey Agudelo">
+<meta name="twitter:description" content="El recorrido de principio a fin para montar una app con mi stack: front vanilla con web components en GitHub Pages, API en Deno con DER sobre Cloudflare Workers, datos en SQLite en un VPS propio por un túnel privado, y agentes de IA que solo hacen lo que se les permite. El ejemplo es CoContable, un software contable para Colombia.">
+<meta name="twitter:image" content="https://jeff-aporta.github.io/Jeff-Aporta/assets/blog/como-montamos-las-apps/portada.svg">
+<meta name="twitter:image:alt" content="CoContable: un coco contador, la app de ejemplo del stack">
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Person","@id":"https://jeff-aporta.github.io/Jeff-Aporta/#persona","name":"Jeffrey Alexander Agudelo Espitia","alternateName":"Jeffrey Agudelo","jobTitle":"Ingeniero de Sistemas · Desarrollador Full Stack · IA aplicada","description":"Construyo productos web de punta a punta: interfaces impecables, APIs robustas y procesos de entrega que escalan con el negocio.","image":"https://jeff-aporta.github.io/Jeff-Aporta/assets/img/perfil/jeffrey-agudelo.jpg","url":"https://jeff-aporta.github.io/Jeff-Aporta/","email":"mailto:jeffrey.alexander.agudelo.espitia@gmail.com","telephone":"+57 310 725 7814","address":{"@type":"PostalAddress","addressCountry":"CO"},"sameAs":["https://github.com/Jeff-Aporta","https://www.youtube.com/@JeffAporta"],"logo":"https://jeff-aporta.github.io/Jeff-Aporta/assets/img/logo/jeffrey-agudelo-logo-256.png","nationality":{"@type":"Country","name":"Colombia"},"knowsAbout":["Web Components","JavaScript","TypeScript","React","Next.js","Svelte","SvelteKit","Astro","Shoelace","Material-UI","Tailwind CSS","SCSS","esbuild","UI/UX","Angular","Node.js","Deno","Hono","NestJS","Express","FastAPI","Java JEE","PHP","GraphQL","WebSockets","OpenAPI","JWT","Prisma","TypeORM","Zod","Python",".NET","Odoo","ERP","APIs de LLM","Integración de IA","RAG","Embeddings","pgvector","LangChain","Model Context Protocol","Agentes conversacionales","Voz en tiempo real","Texto a voz","Workers AI","Prompt engineering","TensorFlow","Scikit-learn","Machine Learning","Ciencia de datos","PostgreSQL","Neon","SQL Server","MySQL","MariaDB","SQLite","Firebird","MongoDB","Firebase","SQL","Ingeniería de datos","Cloudflare Workers","Durable Objects","Cloudflare R2","Azure Functions","AWS Lambda","Vercel","GitHub Pages","jsDelivr","Docker","Kubernetes","GitHub Actions","GitLab CI","VPS Linux","Nginx","Azure","AWS","CI/CD","Automatización","Canvas 2D","p5.js","GLSL","SVG","Remotion","FFmpeg","Geometría computacional","React Native","Kotlin","Android","C#","WPF","Java","Scrum","Kanban","Gestión de proyectos","Code review","Mentoría","Capacitación","Documentación técnica","Pruebas e2e","Testing / QA","Agile"],"alumniOf":[{"@type":"EducationalOrganization","name":"Corporación Universitaria Remington"},{"@type":"EducationalOrganization","name":"Servicio Nacional de Aprendizaje"}]},{"@type":"Blog","@id":"https://jeff-aporta.github.io/Jeff-Aporta/#blog","url":"https://jeff-aporta.github.io/Jeff-Aporta/blog/","name":"Blog de Jeffrey Agudelo"},{"@type":"BlogPosting","@id":"https://jeff-aporta.github.io/Jeff-Aporta/blog/como-montamos-las-apps/#post","mainEntityOfPage":"https://jeff-aporta.github.io/Jeff-Aporta/blog/como-montamos-las-apps/","headline":"Cómo montamos las apps","alternativeHeadline":"El stack completo, de la base de datos al botón: web components sin framework, un Worker que decide y un VPS que guarda.","description":"El recorrido de principio a fin para montar una app con mi stack: front vanilla con web components en GitHub Pages, API en Deno con DER sobre Cloudflare Workers, datos en SQLite en un VPS propio por un túnel privado, y agentes de IA que solo hacen lo que se les permite. El ejemplo es CoContable, un software contable para Colombia.","url":"https://jeff-aporta.github.io/Jeff-Aporta/blog/como-montamos-las-apps/","datePublished":"2026-11-17","dateModified":"2026-11-17","image":"https://jeff-aporta.github.io/Jeff-Aporta/assets/blog/como-montamos-las-apps/portada.svg","keywords":"Arquitectura, Web Components, Deno, Cloudflare Workers, SQLite, Zero Trust, Agentes de IA","inLanguage":"es-CO","isPartOf":{"@id":"https://jeff-aporta.github.io/Jeff-Aporta/#blog"},"author":{"@id":"https://jeff-aporta.github.io/Jeff-Aporta/#persona"},"publisher":{"@id":"https://jeff-aporta.github.io/Jeff-Aporta/#persona"}}]}</script>
+<meta name="google-site-verification" content="GpoghZlKIsd4HjpFh18Y4kIS3hkKnfJwI0xFE6-cNf4">
+<link rel="icon" href="../../favicon.ico?v=2" sizes="any">
+<link rel="icon" href="../../assets/img/favicon-32.png?v=2" type="image/png" sizes="32x32">
+<link rel="icon" href="../../assets/img/favicon-64.png?v=2" type="image/png" sizes="64x64">
+<link rel="apple-touch-icon" href="../../assets/img/icono-180.png?v=2" sizes="180x180">
+<link rel="manifest" href="../../site.webmanifest">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap">
+<!-- Tema antes del primer pintado: ?s= (theme/palette) > localStorage del kit > light / jeff. Script plano. -->
+<script src="../../dist/cdn/boot.js?v=ozmmse"></script>
+<link rel="stylesheet" href="../../dist/cdn/styles/app.css?v=rukr0f">
+<!-- 1) Loader del kit por CDN pineado (el mismo SHA que index.html). 2) Registrador de la app. -->
+<script type="module" src="https://cdn.jsdelivr.net/gh/Jeff-Aporta/is-webcomponents@a1df39adb9e421de874dd624901b72daa9e25e5c/dist/cdn/core/loader.min.js"></script>
+<script type="module" src="../../dist/cdn/jaLoader.min.js?v=fye80y"></script>
+<!-- 3) Arranque: estilos del kit, tags del kit, transversales (sin el shell de la SPA) y la vista del blog. -->
+<script type="module">
+  const L = globalThis.iswcLoader;
+  const listo = () => document.documentElement.setAttribute('data-app-ready', '');
+  const watchdog = setTimeout(() => { console.warn('[ja] el arranque excedió 6 s; se revela la página'); listo(); }, 6000);
+  try {
+    if (!L) throw new Error('falta iswcLoader');
+    await L.loadPageStyles(['iswc-palettes-default']);
+    const { KIT_TAGS, tagsArranque, tagsVista } = await import('../../dist/cdn/js/kit-tags.js?v=nidgz9');
+    await L.load(...KIT_TAGS, ...tagsArranque().filter((t) => t !== 'ja-app'), ...tagsVista('blog'));
+    await customElements.whenDefined('ja-pagina');
+  } catch (e) {
+    console.warn('[ja] arranque', e);
+  } finally {
+    clearTimeout(watchdog);
+    listo();
+  }
+</script>
+</head>
+<body>
+  <noscript>Esta página necesita JavaScript para la guía interactiva; el texto completo está abajo. Portafolio: <a href="../../">inicio</a>.</noscript>
+  <iswc-toast placement="bottom-end"></iswc-toast>
+  <ja-pagina activa="blog">
+    <ja-post slug="como-montamos-las-apps">
+<!-- resumen estático del post para rastreadores sin JS (el componente lo reemplaza al pintar) -->
+<article>
+<h1>Cómo montamos las apps</h1>
+<p>El stack completo, de la base de datos al botón: web components sin framework, un Worker que decide y un VPS que guarda.</p>
+<p>Jeffrey Agudelo · <time datetime="2026-11-17">2026-11-17</time> · Arquitectura, Web Components, Deno, Cloudflare Workers, SQLite, Zero Trust, Agentes de IA</p>
+<img src="https://jeff-aporta.github.io/Jeff-Aporta/assets/blog/como-montamos-las-apps/portada.svg" alt="CoContable: un coco contador, la app de ejemplo del stack" width="1200" height="630">
+<p>El recorrido de principio a fin para montar una app con mi stack: front vanilla con web components en GitHub Pages, API en Deno con DER sobre Cloudflare Workers, datos en SQLite en un VPS propio por un túnel privado, y agentes de IA que solo hacen lo que se les permite. El ejemplo es CoContable, un software contable para Colombia.</p>
+<h2>1. El mapa</h2>
+<p>Antes de escribir una línea, este es el mapa. El navegador carga la app desde GitHub Pages. La app le habla a un Worker de Cloudflare, que es quien decide. Y el Worker guarda los datos en un servidor propio, por una red privada.</p>
+<p>Todas las apps que monto tienen las mismas tres piezas, y cada una hace **una sola cosa**:
+
+- **El front muestra.** Web components sin framework, publicados como archivos estáticos.
+- **El Worker decide.** Sesión, permisos y reglas del negocio.
+- **El VPS guarda.** Archivos SQLite detrás de un túnel privado.
+
+Lo que cambia entre una app y otra es el modelo de datos y las pantallas. El esqueleto es siempre este.</p>
+<pre><code title="Las tres piezas">&lt;!-- Navegador ──▶ GitHub Pages        front-cocontable   (repo público)  --&gt;
+&lt;!--     └──────▶ Cloudflare Worker   api-cocontable     (repo privado)  --&gt;
+&lt;!--                  └─ red privada + firma ─▶ VPS propio ─▶ SQLite      --&gt;</code></pre>
+<h2>2. El modelo va primero</h2>
+<p>Lo primero no es la pantalla: es el modelo de datos. Lo defino una sola vez, en un archivo, y de ahí salen las tablas, la validación y las rutas del API.</p>
+<p>Uso **DER**, una librería propia: un esquema en JSON se convierte en la tabla, en el validador y en el CRUD por REST. Se consume por CDN, fijada a un commit; no hay `npm install`.
+
+Cada entidad es de una de dos clases:
+
+- **Catálogo** (terceros, productos, plan de cuentas): se administra con el CRUD que DER publica solo.
+- **Libro** (comprobantes, facturas, kardex, cartera): **solo lo escribe un flujo**, porque cada alta mueve varias tablas a la vez y todo asiento tiene que cuadrar.</p>
+<pre><code title="Una entidad">export const CuentaEntity = defineEntity({
+  schema: defineSchema({
+    columns: {
+      codigo: { type: &quot;string&quot;, pk: true, length: 20 },
+      nombre: { type: &quot;string&quot;, length: 160, nullable: false },
+      naturaleza: { type: &quot;string&quot;, length: 1, enum: [&quot;D&quot;, &quot;C&quot;] },
+      auxiliar: { type: &quot;bool&quot;, default: true },
+    },
+  }),
+  singular: &quot;cuenta&quot;,
+  plural: &quot;cuentas&quot;,
+  table: &quot;cuentas&quot;,
+});</code></pre>
+<p><strong>El diagrama sale del código.</strong> El documento del modelo entidad-relación no se escribe a mano: un script recorre las entidades y lo genera. Así nunca queda viejo.</p>
+<h2>3. El Worker decide, el VPS guarda</h2>
+<p>El API corre en un Worker de Cloudflare, pero los datos no viven en Cloudflare. Viven en SQLite, en un servidor mío. La razón es simple: contabilidad necesita transacciones de verdad y muchas escrituras.</p>
+<p>La base de Cloudflare, D1, limita las filas que se escriben y no tiene transacciones interactivas. Una factura toca el documento, sus renglones, el inventario, la cartera y el asiento contable: **o entra todo o no entra nada**.
+
+Por eso le agregué a DER un motor nuevo: el mismo código de siempre, pero cada consulta viaja **firmada** del Worker a un proceso pequeño del VPS, que es el único que toca los archivos.</p>
+<pre><code title="Los dos extremos">// En el Worker (sin disco)
+const db = sqliteHttpDatabase({
+  endpoint: &quot;http://127.0.0.1:8098/sql&quot;,
+  db: &quot;central&quot;,
+  secreto: env.DB_SECRETO,
+  fetch: (url, init) =&gt; env.VPS.fetch(url, init), // red privada
+});
+
+// En el VPS (junto a los archivos)
+const host = sqliteHttpHost({ dir: &quot;/var/lib/cocontable/db&quot;, secreto });
+Deno.serve({ hostname: &quot;127.0.0.1&quot;, port: 8098 }, host.fetch);</code></pre>
+<p><strong>Cada consulta es un viaje.</strong> Un Worker gratuito admite 50 subpeticiones por invocación. Los flujos cargan los catálogos en bloque e insertan en lote; una prueba falla si una venta pasa de 45 viajes.</p>
+<h2>4. Zero Trust: la red</h2>
+<p>El servidor no abre ningún puerto para esto. El Worker llega a él por un túnel con nombre y un servicio privado de Cloudflare. Desde internet no hay nada que atacar.</p>
+<p>Tres capas, de afuera hacia adentro:
+
+1. **Workers VPC**: el Worker se enlaza a un túnel de Cloudflare. No hay dominio ni dirección pública.
+2. **Solo `127.0.0.1`**: el proceso del VPS no escucha en la red.
+3. **Firma HMAC**: cada petición lleva una firma que vence a los 60 segundos. Sin el secreto compartido, no se ejecuta nada.
+
+Los secretos viven en el Worker, en una carpeta protegida del VPS y en un archivo fuera de todo repositorio. Nunca en el código.</p>
+<h2>5. Zero Trust: los agentes de IA</h2>
+<p>Un agente de inteligencia artificial no es un usuario. Es una credencial con una lista cerrada de lo que puede hacer. Si no está en la lista, la respuesta es no.</p>
+<p>Cada agente se crea para **una** empresa, con:
+
+- la lista de **herramientas** que puede usar (consultar un informe, cotizar, registrar una compra…),
+- un **tope de monto** por operación y una **fecha de vencimiento**,
+- y, si se quiere, **aprobación humana**: la acción queda pendiente y no se ejecuta hasta que una persona la aprueba.
+
+Todo lo que el agente intenta —permitido, negado o pendiente— queda en una bitácora con sus argumentos. El token se muestra una sola vez; en la base solo vive su huella.</p>
+<pre><code title="Lo que envía el agente">{
+  &quot;herramienta&quot;: &quot;ventas.cotizar&quot;,
+  &quot;argumentos&quot;: {
+    &quot;fecha&quot;: &quot;2026-11-17&quot;,
+    &quot;tercero&quot;: &quot;900123456&quot;,
+    &quot;renglones&quot;: [{ &quot;producto&quot;: &quot;COCO-001&quot;, &quot;cantidad&quot;: 24 }]
+  }
+}</code></pre>
+<h2>6. El front, sin framework</h2>
+<p>La interfaz no usa React ni ningún framework. Son web components de mi kit, cargados por CDN. Y casi todo se declara: un menú y una lista de catálogos.</p>
+<p>La app se crea con un comando y nace con registro de componentes, estilos, build y pruebas. Encima, dos archivos mandan:
+
+- **`menu.ts`**: cada entrada del panel abre una pantalla.
+- **`catalogos.ts`**: columnas de la tabla y campos de la ficha, por pestañas.
+
+Agregar el catálogo de bodegas son diez líneas, sin escribir un componente. Las pantallas propias quedan para lo que tiene reglas: la factura, el comprobante, los informes.</p>
+<pre><code title="Una pantalla nueva es una línea">cat('bodegas', 'Bodegas', 'mdi:warehouse', 'Inventario'),
+{ id: 'pos', titulo: 'Punto de venta', icono: 'mdi:cash-register',
+  grupo: 'Ventas', tag: 'coco-factura', props: { clase: 'POS' } },</code></pre>
+<p><strong>Quién calcula.</strong> El total que ves mientras digitas una factura es una guía. El valor definitivo, el inventario y el asiento los calcula el API al finalizar.</p>
+<h2>7. Publicar</h2>
+<p>Publicar es hacer push. El front queda en GitHub Pages. El API pasa sus pruebas y se despliega solo. Y el servidor se actualiza con un comando.</p>
+<p>- **Front** (repo público): push a `main` y GitHub Pages lo sirve.
+- **API** (repo privado): un workflow corre las pruebas, empaqueta el Worker, lo publica y hace una prueba de humo.
+- **VPS**: `git pull` y un script de instalación idempotente. Tiene su propia llave para hacer commit y push cuando hay que arreglar algo urgente, y una **bitácora** donde queda escrito qué se arregló y por qué.
+
+Si cambia el modelo, el orden es siempre: primero el VPS, luego el Worker, luego el front.</p>
+<h2>8. Que cualquiera pueda continuar</h2>
+<p>La última pieza no es código. Es que otra persona, o un agente, pueda abrir el proyecto y saber qué hacer. Por eso todo queda escrito, y lo que se puede se genera del código.</p>
+<p>Cada repo trae lo mismo:
+
+- **`AGENTS.md`**: qué es, dónde está cada cosa y las reglas que no se rompen.
+- **Una skill** con recetas: «agregar una entidad», «agregar un informe», paso a paso.
+- **Documentación navegable**: arquitectura, modelo y rutas generados del código, operación y una **guía de auditoría** que dice cómo se hace cada acción y cómo comprobar que quedó bien.
+- **Un handoff vivo**: qué se pidió, qué está hecho, qué falta y las trampas ya pagadas.
+
+El resultado está en vivo: [CoContable](https://jeff-aporta.github.io/front-cocontable/). Sin cuenta puedes recorrer la empresa de muestra.</p>
+<p><strong>Créditos.</strong> La versión para agentes de esta guía es la skill stack-apps, en la carpeta skills de mi repositorio. La app de ejemplo está en vivo en jeff-aporta.github.io/front-cocontable.</p>
+</article>
+    </ja-post>
+  </ja-pagina>
+</body>
+</html>

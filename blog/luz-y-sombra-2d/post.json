@@ -15,6 +15,7 @@
     "src": "assets/blog/luz-y-sombra/portada.png",
     "alt": "Escena 2D iluminada por dos luces que proyectan sombras"
   },
+  "voz": true,
   "creditos": "Esta guía reinterpreta en español «Sight & Light» de Nicky Case (ncase.me/sight-and-light), de quien tomé la idea, la escena y las imágenes de fondo y frente. El texto, la narración, el código y los componentes son propios y están hechos con web components sobre el kit iswc.",
   "pasos": [
     {
