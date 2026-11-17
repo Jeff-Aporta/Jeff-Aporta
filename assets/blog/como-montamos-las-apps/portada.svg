@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 256" role="img" aria-label="CoContable">
+  <title>CoContable</title>
+  <g>
+    <ellipse cx="128" cy="236" rx="62" ry="9" fill="#0B2E4F" opacity=".12"/>
+    <path d="M126 70 C112 38 84 30 58 40 C78 44 96 54 108 72 Z" fill="#2F7D3A"/>
+    <path d="M130 70 C140 34 170 22 202 30 C180 38 160 52 146 74 Z" fill="#3E9B47"/>
+    <path d="M128 72 C126 54 128 42 134 32" fill="none" stroke="#2F7D3A" stroke-width="6" stroke-linecap="round"/>
+    <path d="M128 66 C178 66 206 110 206 156 C206 202 172 230 128 230 C84 230 50 202 50 156 C50 110 78 66 128 66 Z" fill="#8CC63F" stroke="#2E5E1E" stroke-width="6"/>
+    <path d="M84 104 C72 124 68 150 74 176" fill="none" stroke="#C8E59A" stroke-width="10" stroke-linecap="round"/>
+    <circle cx="102" cy="134" r="22" fill="#FFFFFF" stroke="#0B2E4F" stroke-width="8"/>
+    <circle cx="154" cy="134" r="22" fill="#FFFFFF" stroke="#0B2E4F" stroke-width="8"/>
+    <path d="M124 132 Q128 126 132 132" fill="none" stroke="#0B2E4F" stroke-width="7" stroke-linecap="round"/>
+    <path d="M80 130 L64 124 M176 130 L192 124" stroke="#0B2E4F" stroke-width="7" stroke-linecap="round"/>
+    <circle cx="104" cy="137" r="9" fill="#0B2E4F"/>
+    <circle cx="152" cy="137" r="9" fill="#0B2E4F"/>
+    <circle cx="107" cy="133" r="3.2" fill="#FFFFFF"/>
+    <circle cx="155" cy="133" r="3.2" fill="#FFFFFF"/>
+    <path d="M104 170 Q128 190 152 170" fill="none" stroke="#0B2E4F" stroke-width="7" stroke-linecap="round"/>
+    <path d="M120 194 L136 194 L132 202 L140 226 L128 232 L116 226 L124 202 Z" fill="#0B2E4F"/>
+    <path d="M120 194 L136 194 L132 202 L124 202 Z" fill="#12A4A6"/>
+  </g>
+  <text x="236" y="160" font-family="'Plus Jakarta Sans', 'Segoe UI', Arial, sans-serif" font-size="96" font-weight="800" letter-spacing="-2"><tspan fill="#12A4A6">Co</tspan><tspan fill="#0B2E4F">Contable</tspan></text>
+  <text x="240" y="204" font-family="'Plus Jakarta Sans', 'Segoe UI', Arial, sans-serif" font-size="25" font-weight="600" fill="#5B6B7C" letter-spacing="4">CONTABILIDAD ABIERTA · COLOMBIA</text>
+</svg>

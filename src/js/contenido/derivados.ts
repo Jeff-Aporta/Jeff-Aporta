@@ -89,8 +89,9 @@ export function fechaLarga(f: Fecha): string {
   return `${f.length > 7 ? `${p.d} de ` : ''}${MESES_LARGOS[p.m - 1]} de ${p.a}`;
 }
 
-/** Ruta del audio narrado de un paso: `assets/blog/<slug>/voz/<NN>.mp3`. */
+/** Ruta del audio narrado de un paso: `assets/blog/<slug>/voz/<NN>.mp3` (vacía si la publicación no lleva voz). */
 export function audioPaso(pub: Publicacion, i: number): string {
+  if (pub.voz === false) return '';
   return `assets/blog/${pub.slug}/voz/${String(i).padStart(2, '0')}.mp3`;
 }
 

@@ -181,6 +181,8 @@ export const PublicacionSchema = z.object({
   actualizado: FechaSchema.optional(),
   etiquetas: z.array(z.string().min(1)).min(1),
   portada: ImagenSchema,
+  /** `false` = publicación sin audio narrado (no se ofrece el botón de escuchar). Por defecto lleva voz. */
+  voz: z.boolean().default(true),
   creditos: z.string().optional(),
   pasos: z.array(PasoGuiaSchema).min(1),
 });

@@ -820,7 +820,7 @@
     "https://raw.githubusercontent.com/Jeff-Aporta/is-webcomponents/a1df39adb9e421de874dd624901b72daa9e25e5c/src/vendor-distributions/shared/schemas.ts": "46453882350e955eb7ca649c95c84056eb91d9ccd502f6a7406235d75ec9c2a3",
     "https://raw.githubusercontent.com/Jeff-Aporta/is-webcomponents/a1df39adb9e421de874dd624901b72daa9e25e5c/src/vendor-distributions/shared/testing/pruebas.ts": "ce137eed6c654c7c5368b93deb5e80fc2e8a0fe0e7ea38c9728615e2504a9475",
     "https://raw.githubusercontent.com/Jeff-Aporta/is-webcomponents/a1df39adb9e421de874dd624901b72daa9e25e5c/src/vendor-distributions/shared/testing/test-cooldown.ts": "2799c22044e6c6ba7add22174758dc6cf42f5e6bdc8cb7d2955ffd5b9ad69029",
-    "https://raw.githubusercontent.com/Jeff-Aporta/is-webcomponents/main/dist/cdn/vendor-distributions/client/tools/download-iconify.mjs": "3b835e930dbc9b0b3463d970335eccd347a5a6687f21ef90958f9ea4c3f189d7"
+    "https://raw.githubusercontent.com/Jeff-Aporta/is-webcomponents/main/dist/cdn/vendor-distributions/client/tools/download-iconify.mjs": "6b5492c65fc2610113e4bbf08c1e5a44e62e0c6866c8cdd33aa36c42d7870fa1"
   },
   "workspace": {
     "dependencies": [

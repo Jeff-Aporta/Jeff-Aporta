@@ -70,7 +70,7 @@ function articulo(root: ShadowRoot, p: Publicacion, host: HTMLElement): void {
         </nav>
       </header>
       <div class="pasos" part="pasos">
-        ${p.pasos.map((paso, i) => pieza('ja-paso', { paso, indice: i, total, creditos: p.creditos ?? '', audio: rutaSitio(audioPaso(p, i)) }, { id: `paso-${i + 1}` }))}
+        ${p.pasos.map((paso, i) => pieza('ja-paso', { paso, indice: i, total, creditos: p.creditos ?? '', audio: audioPaso(p, i) ? rutaSitio(audioPaso(p, i)) : '' }, { id: `paso-${i + 1}` }))}
       </div>
     </article>
   `);
