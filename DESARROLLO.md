@@ -30,11 +30,12 @@ sitemap, manifest), las páginas del blog (`blog/`) y las cifras. La hoja de vid
 
 - El `.docx` manda; el `.pdf` sale de él. En el VPS se exporta con `soffice --headless --convert-to pdf` (si no hay Word a mano): el resultado es el mismo maquetado, con las fuentes incrustadas.
 - El documento ocupa **dos hojas** (decisión del autor, 19-nov-2026: no debe quedar apretado en una sola). Por eso el espaciado es amplio: `space_after` de 5-6 pt en el texto, 13 pt antes de cada título de sección, y `line_spacing` 1,15.
-- **La foto de Jeff** (`assets/img/perfil/jeffrey-agudelo.jpg`) va **flotante arriba a la derecha**, no en línea: en línea añade un párrafo entero y descoloca la portada. Flotante con ajuste de texto a los dos lados, anclada al primer párrafo (el del nombre), de unos 2 cm de ancho.
+- **La foto de Jeff** (`assets/img/perfil/jeffrey-agudelo.jpg`) va **flotante arriba a la derecha**, no en línea: en línea añade un párrafo entero y descoloca la portada. Flotante con ajuste de texto a los dos lados, anclada al primer párrafo (el del nombre), de unos 2,4 cm de ancho (pedido del autor, 19-nov-2026: un 20 % más grande que los 2 cm iniciales).
+- Los **cuatro párrafos del encabezado** (nombre, cargo, contacto y enlaces) van **alineados a la izquierda** (no centrados), para que la foto a la derecha no se coma el texto.
 - En Educación, la Ingeniería de Sistemas dice **«Proceso de titulación»** (no «Título completado»): es un enlace al certificado de UniRemington y se edita en el `w:hyperlink`, no como texto suelto.
 - La foto del CV no es el avatar: el avatar del sitio es `assets/img/avatar/jeffrey.svg`.
 - Los márgenes son de 1,5 cm a los lados y 1,4 cm arriba y abajo; los títulos de sección llevan 13 pt antes y 6 pt después, y las viñetas 4 pt.
-- La sección **PROYECTOS** (antes de Educación) lista los productos reales del repo (`proyectos.ts`: Fyxtoken, DrTrack, Army, MagnetLab) con su categoría y sus tecnologías. Es lo que hace que la segunda hoja llegue al 77 %.
+- La sección **PROYECTOS** se quitó por petición del autor (19-nov-2026): ya no está en el CV, aunque el repo siga teniendo los productos (`proyectos.ts`). Sin ella la segunda hoja queda a la mitad.
 - La tarjeta del CV del sitio dice cuántas páginas ocupa: `perfil.ts` → `cvTarjeta.paginas` (2 desde el 19-nov-2026). Si cambia el `.docx`, se actualiza ese número y se corre `deno task build`.
 - Cómo se edita el `.docx` en el VPS: con `python-docx` se cambian márgenes y `paragraph_format` (espaciado, interlineado) y se clonan párrafos existentes para no perder el formato (los clones se insertan con `addprevious`/`addnext` **del ancla correcta**: clonar la plantilla de título equivocada mete la sección donde no es).
 - En el VPS, el token de `gh` es de una GitHub App **sin permiso de escritura** sobre este repo (403 al hacer push): el push lo hace el PC, que sí tiene credenciales.
