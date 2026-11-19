@@ -173,3 +173,21 @@ enlaces del resumen estático para rastreadores son `<a>` planos a propósito.
   Conclusión: con ese token **no se puede empujar nada** desde el VPS; hace falta un token personal
   (`gho_…` con scope `repo`) o que lo haga el PC. Sin clave SSH de GitHub en el VPS (`git ls-remote
   git@github.com:…` → «Permission denied (publickey)»), así que no hay vía alternativa.
+
+## CV: fuera las rayas largas (19-nov-2026, 15:22 UTC)
+
+- Petición del autor (Telegram, tema general, msg 1954, 15:18): «Me refiero en la cv este carácter "—"».
+  Señalaba la raya larga (em dash, U+2014) del perfil profesional.
+- Cambio: en el `.docx` del CV, el perfil profesional pasa de
+  «…del servidor al front —APIs, bases de datos reales, infraestructura en la nube y agentes con LLMs,
+  RAG y MCP—, y también desarrollo de aplicativos móviles…» a la misma frase con paréntesis:
+  «…del servidor al front (APIs, bases de datos reales, infraestructura en la nube y agentes con LLMs,
+  RAG y MCP), y también desarrollo de aplicativos móviles…».
+- No se tocó nada más: ni el nombre, ni el titular, ni el grid de datos, ni la foto, ni los anchos, ni
+  los rangos de fechas (esos llevan guion corto, «–», y se quedan).
+- Script: `/opt/datos/perfil-cv/cv-raya-larga.py` (roba la raya por paréntesis, run a run, sin rehacer el
+  .docx entero).
+- Prueba: `.docx` sha256 `b49616cbefa7cc4e4212858ffb1daedaad252c9f2ec8a26ec44da60dd70e034d` ·
+  `.pdf` sha256 `e8f997b76f0e3cea31c217b55893d97d2194b54c0609aa65a52020dc7e662693` (2 páginas, regenerado
+  con `soffice` desde ese `.docx` y verificado mirando la portada renderizada; `grep` sin em dash).
+- El `push` lo sigue haciendo el PC (token del VPS de solo lectura).
