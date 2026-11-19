@@ -164,3 +164,12 @@ enlaces del resumen estático para rastreadores son `<a>` planos a propósito.
   guía (capas, leyes del stack, órdenes de fundación), no el guion publicado. Si el autor también la
   quiere fuera, se borra con un `git rm`.
 - Como siempre, el `push` lo hace el PC (el token de `gh` del VPS es de solo lectura).
+- **Diagnóstico del token del VPS (19-nov-2026, 15:2x UTC)**: el token de `/root/.config/gh/hosts.yml`
+  (`ghu_…`) **no es un token personal**: es un token de instalación/integración. Por eso la API responde
+  «Resource not accessible by integration» (403) en `collaborators/Jeff-Aporta/permission`, en
+  `branches/main/protection` y en `PATCH /git/refs/heads/main`, y `git push` responde
+  «Permission to Jeff-Aporta/Jeff-Aporta.git denied to Jeff-Aporta». `GET /repos/.../Jeff-Aporta/Jeff-Aporta`
+  dice `permissions.push: true`, pero **esa respuesta miente** (no es el permiso efectivo del token).
+  Conclusión: con ese token **no se puede empujar nada** desde el VPS; hace falta un token personal
+  (`gho_…` con scope `repo`) o que lo haga el PC. Sin clave SSH de GitHub en el VPS (`git ls-remote
+  git@github.com:…` → «Permission denied (publickey)»), así que no hay vía alternativa.
