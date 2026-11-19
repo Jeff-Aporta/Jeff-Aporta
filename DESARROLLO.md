@@ -120,7 +120,10 @@ enlaces del resumen estático para rastreadores son `<a>` planos a propósito.
   «Desarrollador Full Stack (web y móvil) | Ingeniero de IA aplicada (LLMs, RAG y MCP)», y el grid de
   datos de dos columnas con «Experiencia / Más de 8 años».
 - El texto del CV usa «aplicativos» en vez de «apps» (petición del autor): «desarrollo de
-  aplicativos móviles», «aplicativos de punta a punta», «Aplicativos auto-mantenibles».
+  aplicativos móviles», «aplicativos de punta a punta», «Aplicativos auto-mantenibles». En la línea de
+  habilidades, «Aplicativos auto-mantenibles: aplicativos auto-mantenibles y auto-escalables por medio
+  de VPS» (al cambiar «aplicaciones» por «aplicativos» se había quedado «: auto-mantenibles y
+  auto-escalables», sin el sustantivo; corregido el 19-nov-2026).
 - Los scripts de los cambios están en `/opt/datos/perfil-cv/` (`cv-titular-simple.py`,
   `cv-aplicativos.py`) y las notas en `/opt/datos/perfil-cv/NOTAS.md`.
 - **El push sigue pendiente y por eso el sitio no lo enseña** (19-nov-2026, 15:15 UTC): el autor volvió a
