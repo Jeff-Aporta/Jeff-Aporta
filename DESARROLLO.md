@@ -142,3 +142,25 @@ enlaces del resumen estático para rastreadores son `<a>` planos a propósito.
   `cv/cv-patches-db24b22.tgz` (sha256 se anota en el encargo del canal y en el buzon).
 - Ojo al regenerar el `.pdf`: el `sha256` del PDF **cambia en cada conversión** con `soffice` (lleva metadatos
   de fecha), así que la prueba es «regenerado desde ese `.docx` y con 2 páginas», no «el mismo hash».
+
+## Blog: fuera la guía «Cómo montamos las apps» (19-nov-2026, 15:18 UTC)
+
+- Petición del autor (Telegram, tema general, 15:14): «Elimina este guion — es horrible, se nota demasiado
+  ia». Se eliminó del sitio la publicación del blog **`como-montamos-las-apps`** («Cómo montamos las
+  apps», la guía narrada): es el único guion del sitio y era el que estaba leyendo.
+- Qué se borró (con `git rm`, queda en el historial): `src/js/contenido/blog/como-montamos-las-apps.ts`,
+  `blog/como-montamos-las-apps/index.html`, `blog/como-montamos-las-apps/post.json` y
+  `assets/blog/como-montamos-las-apps/portada.svg`. En `src/js/contenido/blog/index.ts` se quitó el
+  import y la entrada de la lista de publicaciones.
+- Se reconstruyó el sitio (`deno run -A src/utils/build.ts` + `deno task build:meta`): el `index.html`
+  raíz, `blog/index.html`, `blog/index.json`, `sitemap.xml` y `dist/` ya no mencionan el slug
+  (verificado con `grep -rl "como-montamos-las-apps"`, sin resultados).
+- Copia archivada (no se borra trabajo) en `/opt/datos/archivados/guia-como-montamos-las-apps-20261119/`:
+  `como-montamos-las-apps.ts` (sha256 `5801fe95ee63fda4128e36d9f1c8149fc1cac3e36b7035bb7167ff0023d41942`),
+  `post.json` (`6cae8b2f7afa58f57e99e1d38c367fc629cce8cb0eceec58d95d1676320c8b75`), `index.html`
+  (`ea21ad9086ce05b6846175bfbf5130b0b07cf09b9965c3c20f6354bbfb29380f`) y `portada.svg`
+  (`574f0a92c6ed7f490b7ea97c7d628732b7826db7c40e484837df303338069368`).
+- **Sigue en el repo** la `skills/stack-apps/SKILL.md`: es la versión técnica para agentes de la misma
+  guía (capas, leyes del stack, órdenes de fundación), no el guion publicado. Si el autor también la
+  quiere fuera, se borra con un `git rm`.
+- Como siempre, el `push` lo hace el PC (el token de `gh` del VPS es de solo lectura).

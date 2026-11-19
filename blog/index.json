@@ -1,28 +1,5 @@
 [
   {
-    "slug": "como-montamos-las-apps",
-    "titulo": "Cómo montamos las apps",
-    "subtitulo": "El stack completo, de la base de datos al botón: web components sin framework, un Worker que decide y un VPS que guarda.",
-    "resumen": "El recorrido de principio a fin para montar una app con mi stack: front vanilla con web components en GitHub Pages, API en Deno con DER sobre Cloudflare Workers, datos en SQLite en un VPS propio por un túnel privado, y agentes de IA que solo hacen lo que se les permite. El ejemplo es CoContable, un software contable para Colombia.",
-    "fecha": "2026-11-17",
-    "etiquetas": [
-      "Arquitectura",
-      "Web Components",
-      "Deno",
-      "Cloudflare Workers",
-      "SQLite",
-      "Zero Trust",
-      "Agentes de IA"
-    ],
-    "portada": {
-      "src": "assets/blog/como-montamos-las-apps/portada.svg",
-      "alt": "CoContable: un coco contador, la app de ejemplo del stack"
-    },
-    "pasos": 8,
-    "url": "https://jeff-aporta.github.io/Jeff-Aporta/blog/como-montamos-las-apps/",
-    "datos": "https://jeff-aporta.github.io/Jeff-Aporta/blog/como-montamos-las-apps/post.json"
-  },
-  {
     "slug": "luz-y-sombra-2d",
     "titulo": "Luz y sombra en 2D",
     "subtitulo": "Una guía narrada para crear visibilidad y sombras dinámicas en tus juegos, paso a paso y con demos que puedes tocar.",
