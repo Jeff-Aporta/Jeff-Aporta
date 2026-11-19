@@ -25,7 +25,7 @@ const JaPagina = crearComponente<JaPaginaProps>(import.meta.url, 'ja-pagina', { 
     <a class="saltar" href="#contenido" data-spa="off">Saltar al contenido</a>
     <header class="barra" part="barra">
       <div class="interior">
-        ${pieza('ja-link', { state: estadoSpa({ vista: 'portafolio', seccion: 'inicio' }) }, { class: 'marca', 'aria-label': 'Ir al inicio' }, pieza('ja-marca', { subtitulo: 'Full Stack Developer' }))}
+        ${pieza('ja-link', { state: estadoSpa({ vista: 'portafolio', seccion: 'inicio' }) }, { class: 'marca', 'aria-label': 'Ir al inicio' }, pieza('ja-marca', { subtitulo: 'Full Stack Developer · 8+ años' }))}
         <nav class="vistas" part="vistas" aria-label="Vistas">
           ${vistas.map((v) => pieza('ja-link', { state: v.state, variant: 'nav', icon: v.icono }, { class: 'vista', 'data-activa': v.id === props.activa, 'aria-current': v.id === props.activa ? 'page' : false }, v.etiqueta))}
         </nav>

@@ -2,7 +2,7 @@ import{avisar as w,crearComponente as A,define as R,html as y,pieza as l}from"..
     <a class="saltar" href="#contenido">Saltar al contenido</a>
     <header class="barra" part="barra">
       <div class="interior">
-        ${l("ja-link",{state:k({vista:"portafolio",seccion:"inicio"})},{class:"marca","aria-label":"Ir al inicio"},l("ja-marca",{subtitulo:"Full Stack Developer"}))}
+        ${l("ja-link",{state:k({vista:"portafolio",seccion:"inicio"})},{class:"marca","aria-label":"Ir al inicio"},l("ja-marca",{subtitulo:"Full Stack Developer \xB7 8+ a\xF1os"}))}
         <iswc-app-nav class="pestanas"></iswc-app-nav>
         <div class="acciones">
           <iswc-share-button class="compartir" aria-label="Compartir esta página" title="Compartir esta página"><iswc-icon icon="mdi:share-variant-outline"></iswc-icon></iswc-share-button>

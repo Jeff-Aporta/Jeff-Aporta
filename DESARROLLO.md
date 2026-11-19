@@ -212,3 +212,26 @@ enlaces del resumen estático para rastreadores son `<a>` planos a propósito.
 - Ojo: el `sha256` del PDF cambia en cada conversión con `soffice`; la prueba es «regenerado desde ese
   `.docx` y con 2 páginas». El `push` lo hace el PC (el token de `gh` del VPS es de integración, no
   puede escribir).
+
+## Header del sitio: años de experiencia (19-nov-2026, 15:25 UTC)
+
+- Petición del autor (Telegram, tema general): «En el header falta poner años de experiencia». El
+  **CV** ya lo lleva desde el 19-nov (fila «Experiencia / Más de 8 años» en el encabezado del `.docx`
+  y del `.pdf`, verificado leyendo el `document.xml` y el texto extraído del PDF). Lo que lacked era
+  el **header del sitio**: la barra fija decía «Full Stack Developer» y el bloque de portada no
+  decía los años.
+- Cambios: `src/js/components/ja/ja-app.ts` y `src/js/components/ja/ja-pagina.ts` → subtítulo de la
+  marca «Full Stack Developer · 8+ años»; `view/portafolio/components/ja-hero.ts` → etiqueta
+  «Más de 8 años de experiencia» junto a la ubicación, en la cabecera de la portada (reutiliza
+  `iswc-tag`, sin CSS nuevo salvo el peso de fuente); `view/portafolio/components/ja-hero.scss` →
+  regla `.experiencia`.
+- `dist/` reconstruido (`deno task build`: 35 hojas de SCSS, 68 módulos, `jaLoader.min.js`) y
+  `deno task check` sin errores. Prueba: `dist/cdn/js/components/ja/ja-app.js` y
+  `dist/cdn/js/components/ja/ja-pagina.js` llevan `Full Stack Developer \xB7 8+ a\xF1os` y
+  `dist/cdn/view/portafolio/components/ja-hero.js` lleva «Más de 8 años de experiencia».
+- **El `push` sigue pendiente y es lo que hace que el autor siga viendo el sitio viejo**: `origin/main`
+  está en `f04fce4` y este repo va 45 commits por delante. El token de `gh` del VPS no escribe
+  (comprobado otra vez hoy: `git push` → 403 «Permission to Jeff-Aporta/Jeff-Aporta.git denied» y la API
+  de blobs → 403 «Resource not accessible by integration»), y las claves SSH del VPS son deploy keys de
+  otros repos (`estudio-videos`, `api-avatar`, `frontend-avatar`, `api-cocontable`): ninguna sirve
+  para `Jeff-Aporta/Jeff-Aporta`. Lo hace el PC (encargo en el buzón y en el canal).

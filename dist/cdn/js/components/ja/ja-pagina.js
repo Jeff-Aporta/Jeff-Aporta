@@ -2,7 +2,7 @@ import{avisar as c,crearComponente as l,define as p,html as d,pieza as i}from"..
     <a class="saltar" href="#contenido" data-spa="off">Saltar al contenido</a>
     <header class="barra" part="barra">
       <div class="interior">
-        ${i("ja-link",{state:t({vista:"portafolio",seccion:"inicio"})},{class:"marca","aria-label":"Ir al inicio"},i("ja-marca",{subtitulo:"Full Stack Developer"}))}
+        ${i("ja-link",{state:t({vista:"portafolio",seccion:"inicio"})},{class:"marca","aria-label":"Ir al inicio"},i("ja-marca",{subtitulo:"Full Stack Developer \xB7 8+ a\xF1os"}))}
         <nav class="vistas" part="vistas" aria-label="Vistas">
           ${n.map(a=>i("ja-link",{state:a.state,variant:"nav",icon:a.icono},{class:"vista","data-activa":a.id===e.activa,"aria-current":a.id===e.activa?"page":!1},a.etiqueta))}
         </nav>

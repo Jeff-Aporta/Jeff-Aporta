@@ -76,7 +76,7 @@ const JaApp = crearComponente<JaAppProps>(import.meta.url, 'ja-app', { seccion: 
     <a class="saltar" href="#contenido">Saltar al contenido</a>
     <header class="barra" part="barra">
       <div class="interior">
-        ${pieza('ja-link', { state: estadoSpa({ vista: 'portafolio', seccion: 'inicio' }) }, { class: 'marca', 'aria-label': 'Ir al inicio' }, pieza('ja-marca', { subtitulo: 'Full Stack Developer' }))}
+        ${pieza('ja-link', { state: estadoSpa({ vista: 'portafolio', seccion: 'inicio' }) }, { class: 'marca', 'aria-label': 'Ir al inicio' }, pieza('ja-marca', { subtitulo: 'Full Stack Developer · 8+ años' }))}
         <iswc-app-nav class="pestanas"></iswc-app-nav>
         <div class="acciones">
           <iswc-share-button class="compartir" aria-label="Compartir esta página" title="Compartir esta página"><iswc-icon icon="mdi:share-variant-outline"></iswc-icon></iswc-share-button>

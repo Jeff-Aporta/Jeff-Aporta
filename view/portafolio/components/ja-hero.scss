@@ -45,6 +45,11 @@
   .bandera { font-size: 1.15em; }
 }
 
+/** Años de experiencia, junto a la ubicación (petición del autor: «en el header faltan los años»). */
+.experiencia {
+  font-weight: 600;
+}
+
 .saludo {
   margin: t.esp(2) 0 0;
   color: var(--iswc-text-soft);

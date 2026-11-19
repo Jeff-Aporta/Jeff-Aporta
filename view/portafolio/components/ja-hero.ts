@@ -77,6 +77,7 @@ const JaHero = crearComponente<SinProps>(import.meta.url, 'ja-hero', {}, (root) 
     <div class="contenedor principal">
       <div class="texto">
         <iswc-tag class="ubicacion" color="brand" variant="soft" pill><iswc-icon slot="start" class="bandera" icon=${perfil.bandera}></iswc-icon>${perfil.ubicacion}</iswc-tag>
+        <iswc-tag class="experiencia" color="accent" variant="soft" pill>Más de 8 años de experiencia</iswc-tag>
         <p class="saludo">Hola, soy</p>
         <h1 class="nombre" part="nombre">${perfil.nombreCorto}</h1>
         <p class="titular">${perfil.titular}</p>
