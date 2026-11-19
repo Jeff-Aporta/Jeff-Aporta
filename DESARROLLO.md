@@ -123,3 +123,11 @@ enlaces del resumen estático para rastreadores son `<a>` planos a propósito.
   aplicativos móviles», «aplicativos de punta a punta», «Aplicativos auto-mantenibles».
 - Los scripts de los cambios están en `/opt/datos/perfil-cv/` (`cv-titular-simple.py`,
   `cv-aplicativos.py`) y las notas en `/opt/datos/perfil-cv/NOTAS.md`.
+- **El push sigue pendiente y por eso el sitio no lo enseña** (19-nov-2026, 15:15 UTC): el autor volvió a
+  pedir «en el header falta poner años de experiencia» porque en `jeff-aporta.github.io` se sigue viendo el
+  CV viejo. El dato «Experiencia / Más de 8 años» sí está en el `.docx` y en el `.pdf` del VPS (verificado
+  mirando la portada renderizada) y se le reenviaron por privado. Lo que falta es el `push`: el token de `gh`
+  del VPS es de **solo lectura** (403 "Permission to Jeff-Aporta/Jeff-Aporta.git denied", comprobado otra vez
+  con `git push --dry-run`), así que lo hace el PC. HEAD en el VPS `5e7e8a1` (38 commits por delante de
+  `origin/main`), encargo en `taller/datos/buzon/para-pc/20261119T151500Z-13.md` y en el canal
+  `estudio:general` (id `8ddf8331-fc40-42a6-b38d-10164c99f2d3`).
