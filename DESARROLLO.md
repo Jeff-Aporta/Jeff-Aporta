@@ -132,6 +132,13 @@ enlaces del resumen estático para rastreadores son `<a>` planos a propósito.
   CV viejo. El dato «Experiencia / Más de 8 años» sí está en el `.docx` y en el `.pdf` del VPS (verificado
   mirando la portada renderizada) y se le reenviaron por privado. Lo que falta es el `push`: el token de `gh`
   del VPS es de **solo lectura** (403 "Permission to Jeff-Aporta/Jeff-Aporta.git denied", comprobado otra vez
-  con `git push --dry-run`), así que lo hace el PC. HEAD en el VPS `5e7e8a1` (38 commits por delante de
-  `origin/main`), encargo en `taller/datos/buzon/para-pc/20261119T151500Z-13.md` y en el canal
-  `estudio:general` (id `8ddf8331-fc40-42a6-b38d-10164c99f2d3`).
+  con `git push`), así que lo hace el PC. HEAD en el VPS `f32b4ec` (42 commits por delante de `origin/main`),
+  encargo en `taller/datos/buzon/para-pc/20261119T151435Z-12.md` y en el canal `estudio:general`
+  (id `8ef58239-e633-46a7-97b8-c8617e0d75ee`).
+- **Archivos finales del CV** (19-nov-2026, 15:14 UTC): `.docx` sha256
+  `b9604abc2dd3c654f79ce0617ad0df58b22dc6db2758518225b75a354052f48e` · `.pdf` sha256
+  `121f636ad271a9e93115d78fc9f55529a1bd88caca162fc173f2aac195f6fd49` (2 páginas, regenerado con `soffice`
+  desde ese mismo `.docx`). En R2 (72 h): `cv/jeffrey-agudelo-cv.docx`, `cv/jeffrey-agudelo-cv.pdf` y
+  `cv/cv-patches-f32b4ec.tgz` (sha256 `e81871b4544a7b0a3741962dfbada024546950c264294ed6195a21132960fb11`).
+- Ojo al regenerar el `.pdf`: el `sha256` del PDF **cambia en cada conversión** con `soffice` (lleva metadatos
+  de fecha), así que la prueba es «regenerado desde ese `.docx` y con 2 páginas», no «el mismo hash».
