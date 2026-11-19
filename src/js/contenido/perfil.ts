@@ -27,7 +27,7 @@ export const perfil = {
   video: { youtubeId: '32WdPbuVcdg', titulo: 'Presentación profesional de Jeffrey Agudelo', canal: 'https://www.youtube.com/@JeffAporta' },
   cv: 'assets/docs/jeffrey-agudelo-cv.pdf',
   /** Tarjeta de la hoja de vida: ícono hecho con capturas reales del PDF (`assets/img/cv/`) y su fecha. */
-  cvTarjeta: { icono: 'assets/img/cv/cv-icono-256.webp', actualizado: 'noviembre de 2026', paginas: 1 },
+  cvTarjeta: { icono: 'assets/img/cv/cv-icono-256.webp', actualizado: 'noviembre de 2026', paginas: 2 },
   contacto: {
     email: 'jeffrey.alexander.agudelo.espitia@gmail.com',
     telefono: '+57 310 725 7814',
