@@ -191,3 +191,24 @@ enlaces del resumen estático para rastreadores son `<a>` planos a propósito.
   `.pdf` sha256 `e8f997b76f0e3cea31c217b55893d97d2194b54c0609aa65a52020dc7e662693` (2 páginas, regenerado
   con `soffice` desde ese `.docx` y verificado mirando la portada renderizada; `grep` sin em dash).
 - El `push` lo sigue haciendo el PC (token del VPS de solo lectura).
+
+## CV: fuera la raya (—) del perfil profesional (19-nov-2026, 15:22 UTC)
+
+- Petición del autor (Telegram, tema general): «En la parte de arriba no me gusta como quedo, el formato
+  debe ser más simple» y, concretando, «Me refiero en la cv este carácter "—"» (en la encuesta del
+  encabezado votó «Otro»). El carácter estaba en el **perfil profesional**, justo debajo del encabezado:
+  «… del servidor al front —APIs, bases de datos reales, infraestructura en la nube y agentes con LLMs,
+  RAG y MCP—, y también desarrollo de aplicativos móviles…».
+- Cambio: las rayas se sustituyen por **paréntesis**, con el mismo contenido y los mismos límites:
+  «… del servidor al front (APIs, bases de datos reales, infraestructura en la nube y agentes con LLMs,
+  RAG y MCP), y también desarrollo de aplicativos móviles…». Script: `/opt/datos/perfil-cv/cv-sin-raya.py`
+  (2 runs cambiados). No hay ninguna otra raya en el `.docx`; los guiones de los rangos de fechas (`–`,
+  guion medio) se dejan como estaban.
+- No se tocó nada más del CV: ni el nombre, ni el titular con `|`, ni la fila «Experiencia / Más de
+  8 años», ni la foto, ni los anchos, ni el texto de «aplicativos».
+- Prueba: `.docx` sha256 `b49616cbefa7cc4e4212858ffb1daedaad252c9f2ec8a26ec44da60dd70e034d` · `.pdf`
+  sha256 `9fe539ea9e17763c993d3a762ddb6074e89207c4c5196f51e783c3b8b70bcf20` (2 páginas, regenerado con
+  `soffice` desde ese mismo `.docx` y verificado mirando la portada renderizada con `pymupdf`).
+- Ojo: el `sha256` del PDF cambia en cada conversión con `soffice`; la prueba es «regenerado desde ese
+  `.docx` y con 2 páginas». El `push` lo hace el PC (el token de `gh` del VPS es de integración, no
+  puede escribir).
