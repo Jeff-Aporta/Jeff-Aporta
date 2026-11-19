@@ -113,3 +113,13 @@ enlaces del resumen estático para rastreadores son `<a>` planos a propósito.
 - Navegación SPA con router propio (`src/js/base/rutas.ts`): `?s=` para la sección del portafolio, URL limpias `blog/` y `blog/<slug>/` para el blog; los enlaces se interceptan dentro de la SPA.
 - Carga perezosa: el arranque trae lo transversal; cada vista llega al abrirse (`tagsVista` en `src/js/kit-tags.ts`).
 - `view/demo/` — galería con playground de cada componente.
+
+## CV (19-nov-2026, tarde)
+
+- El encabezado del CV (`assets/docs/jeffrey-agudelo-cv.docx`) lleva el titular en una sola línea:
+  «Desarrollador Full Stack (web y móvil) | Ingeniero de IA aplicada (LLMs, RAG y MCP)», y el grid de
+  datos de dos columnas con «Experiencia / Más de 8 años».
+- El texto del CV usa «aplicativos» en vez de «apps» (petición del autor): «desarrollo de
+  aplicativos móviles», «aplicativos de punta a punta», «Aplicativos auto-mantenibles».
+- Los scripts de los cambios están en `/opt/datos/perfil-cv/` (`cv-titular-simple.py`,
+  `cv-aplicativos.py`) y las notas en `/opt/datos/perfil-cv/NOTAS.md`.
