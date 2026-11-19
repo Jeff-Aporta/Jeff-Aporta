@@ -25,8 +25,8 @@ export const habilidades = [
     id: 'datos',
     titulo: 'Bases de datos y ORM',
     icono: 'mdi:database-outline',
-    descripcion: 'Modelado entidad-relación, ORM, persistencia relacional, documental y vectorial.',
-    items: ['PostgreSQL', 'Neon', 'SQL Server', 'MySQL', 'MariaDB', 'SQLite', 'Firebird', 'MongoDB', 'Firebase', 'pgvector', 'Prisma', 'TypeORM', 'Drizzle', 'SQL', 'Modelado de datos', 'Ingeniería de datos'],
+    descripcion: 'Modelado entidad-relación, ORM, persistencia relacional, documental y vectorial, con cachés por hash.',
+    items: ['PostgreSQL', 'Neon', 'SQL Server', 'MySQL', 'MariaDB', 'SQLite', 'Firebird', 'MongoDB', 'Firebase', 'pgvector', 'Prisma', 'TypeORM', 'Drizzle', 'SQL', 'Modelado de datos', 'Ingeniería de datos', 'Redis', 'Caché por hash', 'Invalidación por versión', 'ETags'],
   },
   {
     id: 'cloud',

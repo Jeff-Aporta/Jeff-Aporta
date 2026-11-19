@@ -17,6 +17,7 @@ export const perfil = {
     'Ingeniero de IA aplicada y desarrollador full stack con más de 8 años construyendo software para empresas de tecnología, logística, finanzas, comercio y educación.',
     'Especializado en IA en producción: agentes LLM en la nube con Model Context Protocol (MCP) y llamadas a herramientas, RAG con embeddings y pgvector, controladores de prompts, CRM con IA, chatbots y mensajería automática por bot, y voz en tiempo real.',
     'Backend con Node.js, Deno, NestJS y FastAPI (controladores, servicios, patrón cliente-controlador), ORM sobre PostgreSQL y MSSQL, y front con React, Next.js y Svelte. Infraestructura como código: VPS Linux, Docker, CI/CD y serverless en Cloudflare y Azure, con apps auto-mantenibles y autoescalables.',
+    'Cachés por hashes (invalidación por versión del contenido) con Redis y tablas de caché en SQL, ETags y control de concurrencia.',
   ],
   pilares: [
     { icono: 'mdi:brain', titulo: 'IA y agentes', texto: 'Agentes LLM, RAG, MCP y controladores de prompts conectados a los datos del negocio.' },
