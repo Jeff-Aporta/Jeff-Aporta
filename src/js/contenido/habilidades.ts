@@ -32,8 +32,8 @@ export const habilidades = [
     id: 'cloud',
     titulo: 'Cloud, serverless, VPS y DevOps',
     icono: 'mdi:cloud-sync-outline',
-    descripcion: 'Entrega continua, edge, serverless y apps auto-mantenibles y autoescalables en VPS.',
-    items: ['Cloudflare Workers', 'Durable Objects', 'Cloudflare R2', 'Azure Functions', 'AWS Lambda', 'Vercel', 'GitHub Pages', 'Docker', 'Kubernetes', 'GitHub Actions', 'GitLab CI', 'VPS Linux', 'Nginx', 'Azure', 'AWS', 'CI/CD', 'Serverless', 'Apps auto-mantenibles y autoescalables', 'Automatización'],
+    descripcion: 'Entrega continua, edge, serverless y aplicativos auto-mantenibles y autoescalables en VPS.',
+    items: ['Cloudflare Workers', 'Durable Objects', 'Cloudflare R2', 'Azure Functions', 'AWS Lambda', 'Vercel', 'GitHub Pages', 'Docker', 'Kubernetes', 'GitHub Actions', 'GitLab CI', 'VPS Linux', 'Nginx', 'Azure', 'AWS', 'CI/CD', 'Serverless', 'Aplicativos auto-mantenibles y autoescalables', 'Automatización'],
   },
   {
     id: 'arquitectura',

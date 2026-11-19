@@ -24,7 +24,7 @@ export const experiencia = [
       'Evolucioné la Academia interna: nuevos cursos y capacitación del equipo interno y del equipo de contadores.',
       'Amplié el sistema de componentes UI/UX de la migración web, con consistencia visual y accesibilidad.',
       'Construí un RAG corporativo (indexador local y Worker de Cloudflare con pgvector) y un auditor de código con IA que lo consume para revisar mantenibilidad y convenciones.',
-      'Desarrollé las apps de soporte del asistente PatyIA (tiquetes, conversaciones, credenciales de IA y voz en tiempo real) con APIs serverless en Hono y Cloudflare Workers.',
+      'Desarrollé los aplicativos de soporte del asistente PatyIA (tiquetes, conversaciones, credenciales de IA y voz en tiempo real) con APIs serverless en Hono y Cloudflare Workers.',
       'Conecté el asistente con sus datos mediante Azure Functions y MSSQL en Azure.',
       'Diseñé modelos de entidades con ORM sobre PostgreSQL y MSSQL para bases de datos escalables.',
     ],
