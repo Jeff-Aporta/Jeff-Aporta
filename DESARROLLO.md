@@ -26,6 +26,15 @@ Todo el texto y los datos viven en `src/js/contenido/`, separados de la UI y val
 Cambias un archivo, corres `deno task build` y se actualizan la página, los metadatos (`<head>`, JSON-LD,
 sitemap, manifest), las páginas del blog (`blog/`) y las cifras. La hoja de vida está en `assets/docs/`: el `.docx` es la fuente y el `.pdf` se exporta desde él (Word) con el mismo nombre.
 
+### La hoja de vida (`assets/docs/`)
+
+- El `.docx` manda; el `.pdf` sale de él. En el VPS se exporta con `soffice --headless --convert-to pdf` (si no hay Word a mano): el resultado es el mismo maquetado, con las fuentes incrustadas.
+- El documento ocupa **dos hojas** (decisión del autor, 19-nov-2026: no debe quedar apretado en una sola). Por eso el espaciado es amplio: `space_after` de 5-6 pt en el texto, 13 pt antes de cada título de sección, y `line_spacing` 1,15.
+- **La foto de Jeff** (`assets/img/perfil/jeffrey-agudelo.jpg`) va **flotante arriba a la derecha**, no en línea: en línea añade un párrafo entero y descoloca la portada. Flotante con ajuste de texto a los dos lados, anclada al primer párrafo (el del nombre), de unos 2 cm de ancho.
+- En Educación, la Ingeniería de Sistemas dice **«Proceso de titulación»** (no «Título completado»): es un enlace al certificado de UniRemington y se edita en el `w:hyperlink`, no como texto suelto.
+- La foto del CV no es el avatar: el avatar del sitio es `assets/img/avatar/jeffrey.svg`.
+- En el VPS, el token de `gh` es de una GitHub App **sin permiso de escritura** sobre este repo (403 al hacer push): el push lo hace el PC, que sí tiene credenciales.
+
 ## Comandos
 
 ```bash
