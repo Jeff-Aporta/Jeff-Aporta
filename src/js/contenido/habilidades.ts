@@ -5,7 +5,7 @@ export const habilidades = [
     titulo: 'Frontend',
     icono: 'mdi:monitor-dashboard',
     descripcion: 'Interfaces rápidas, accesibles y mantenibles, con sistemas de diseño propios.',
-    items: ['Web Components', 'JavaScript', 'TypeScript', 'React', 'Next.js', 'Svelte', 'SvelteKit', 'Astro', 'Shoelace', 'Material-UI', 'Tailwind CSS', 'SCSS', 'esbuild', 'UI/UX', 'Angular'],
+    items: ['Web Components', 'JavaScript', 'TypeScript', 'React', 'Next.js', 'Angular', 'Vue.js', 'Nuxt', 'Svelte', 'SvelteKit', 'Astro', 'SolidJS', 'Qwik', 'Vite', 'Shoelace', 'Material-UI', 'Tailwind CSS', 'Bootstrap', 'SCSS', 'esbuild', 'UI/UX'],
   },
   {
     id: 'backend',

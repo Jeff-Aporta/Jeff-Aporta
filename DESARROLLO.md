@@ -235,3 +235,16 @@ enlaces del resumen estático para rastreadores son `<a>` planos a propósito.
   de blobs → 403 «Resource not accessible by integration»), y las claves SSH del VPS son deploy keys de
   otros repos (`estudio-videos`, `api-avatar`, `frontend-avatar`, `api-cocontable`): ninguna sirve
   para `Jeff-Aporta/Jeff-Aporta`. Lo hace el PC (encargo en el buzón y en el canal).
+
+## Frameworks populares en el front (20-nov-2026, 00:27 UTC)
+
+- Petición del autor (Telegram): «Pon en el front los frameworks más populares, faltan algunos como
+  Angular, vue y otros populares».
+- `src/js/contenido/habilidades.ts` → la lista de **Frontend** pasa de 15 a 21 entradas: se quedan
+  Angular (ya estaba) y se añaden **Vue.js**, **Nuxt**, **SolidJS**, **Qwik** y **Vite**, más
+  **Bootstrap** en los estilos. Sigue el mismo formato (array `items` de una línea).
+- `dist/` reconstruido con `deno task build` (35 hojas de SCSS, 68 módulos, `jaLoader.min.js`).
+  Prueba: `dist/cdn/js/contenido/habilidades.js` contiene `Vue.js`, `Nuxt`, `SolidJS`, `Qwik` y
+  `Angular`.
+- El **push** lo sigue haciendo el PC: el token de `gh` del VPS es de integración y `git push` responde
+  403. Hasta que haya push, `jeff-aporta.github.io` sigue mostrando la lista vieja.
