@@ -360,13 +360,16 @@ const ESTADO = `
   const cuerpo = document.body;
   const cs = cuerpo ? getComputedStyle(cuerpo) : null;
   const scripts = Array.from(document.scripts || []);
+  const csHtml = getComputedStyle(document.documentElement);
+  const ocultaHtml = csHtml.visibility === "hidden" || csHtml.visibility === "collapse" ||
+    Number(csHtml.opacity) === 0;
   return {
     url: String(location.href),
     listo: document.readyState === "complete",
     revelada: document.documentElement.hasAttribute("data-app-ready"),
     mecanismo: scripts.some((s) => (s.textContent || "").indexOf("data-app-ready") >= 0),
-    oculta: !!cs && (cs.visibility === "hidden" || cs.visibility === "collapse" ||
-      cs.display === "none" || Number(cs.opacity) === 0),
+    oculta: (!!cs && (cs.visibility === "hidden" || cs.visibility === "collapse" ||
+        cs.display === "none" || Number(cs.opacity) === 0)) || ocultaHtml,
   };
 })()
 `;
@@ -572,11 +575,8 @@ async function esperarRevelada(cdp, sessionId, urlEsperada, msMax) {
       if (estado.revelada) {
         return { ms: Date.now() - inicio, motivo: "data-app-ready" };
       }
-      if (!estado.mecanismo) {
-        return { ms: Date.now() - inicio, motivo: "la pagina no usa data-app-ready" };
-      }
-      // Espera a que la app marque el atributo. Si tras 2.5 s la pagina ya se ve y no usa
-      // el mecanismo, no tiene sentido seguir esperando.
+      // Si la pagina ya se ve, no hay nada que esperar (esta no usa el mecanismo de
+      // revelado). Si sigue oculta, la app todavia no ha arrancado: se espera.
       if (!estado.oculta && Date.now() - inicio > 2500) {
         return { ms: Date.now() - inicio, motivo: "visible sin data-app-ready" };
       }
