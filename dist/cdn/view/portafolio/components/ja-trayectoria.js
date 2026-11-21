@@ -1,4 +1,0 @@
-import{crearComponente as p,define as m,html as s,pieza as l}from"../../../js/base/componente.js?v=x8jsml";import{contenido as d}from"../../../js/contenido/index.js?v=55ev4k";import{eventos as f,totalCarriles as g}from"../utils/trayectoria.js?v=fictfs";import"./ja-empleo.js?v=4ebg12";import"./ja-hito.js?v=5cxxg9";const b=p(import.meta.url,"ja-trayectoria",{},e=>{const r=f(),c=g(r);e.append(s`
-    <ol class="grafo" part="grafo" aria-label="Trayectoria laboral">${r.map(a=>s`<li>${l("ja-hito",{evento:a,carriles:c,acciones:!!a.empleoId&&a.tipo!=="sub"})}</li>`)}</ol>
-    <iswc-dialog class="modal" light-dismiss backdrop-variant="basic"><div class="ficha"></div></iswc-dialog>
-  `),e.addEventListener("ja-hito-detalle",a=>{const t=a.detail.id,i=d.experiencia.find(n=>n.id===t),o=e.querySelector("iswc-dialog");o.label=i?`${i.cargo} \xB7 ${i.empresa}`:"",o.querySelector(".ficha").replaceChildren(l("ja-empleo",{id:t,abierto:!0})),o.open=!0})});m("ja-trayectoria",b);

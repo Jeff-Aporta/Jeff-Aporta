@@ -295,22 +295,23 @@ const SONDA = `
 
   const cuerpo = document.body;
   // Los titulos de una app ISWC viven dentro de shadow DOM, y anidado
-  // (ja-app > ja-portafolio > h1), asi que hay que bajarlo en cascada.
-  let h1 = document.querySelector("h1, h2");
-  if (!h1) {
-    const buscar = (raiz) => {
-      const directo = raiz.querySelector ? raiz.querySelector("h1, h2") : null;
-      if (directo) return directo;
-      for (const el of raiz.querySelectorAll ? raiz.querySelectorAll("*") : []) {
-        if (el.shadowRoot) {
-          const h = buscar(el.shadowRoot);
-          if (h) return h;
-        }
-      }
-      return null;
-    };
-    h1 = buscar(document);
+  // (ja-app > ja-blog > ja-seccion > h2). Ademas, el resumen estatico para buscadores
+  // se queda en el DOM principal pero en display:none, y a ese no se le puede pedir
+  // la fuente: se elige el primer titulo VISIBLE.
+  const titulos = [];
+  const recoger = (raiz) => {
+    for (const el of raiz.querySelectorAll ? raiz.querySelectorAll("h1, h2, h3") : []) titulos.push(el);
+    for (const el of raiz.querySelectorAll ? raiz.querySelectorAll("*") : []) {
+      if (el.shadowRoot) recoger(el.shadowRoot);
+    }
+  };
+  try { recoger(document); } catch (e) { /* sin titulos */ }
+  let h1 = null;
+  for (const el of titulos) {
+    const c = getComputedStyle(el);
+    if (c && c.display !== "none" && c.visibility !== "hidden" && c.fontFamily) { h1 = el; break; }
   }
+  if (!h1 && titulos.length) h1 = titulos[0];
   const cs = cuerpo ? getComputedStyle(cuerpo) : null;
   const csH = h1 ? getComputedStyle(h1) : null;
   const raiz = document.documentElement;
@@ -335,6 +336,7 @@ const SONDA = `
     load: Math.round(nav.loadEventEnd || 0),
     fuenteCuerpo: cs ? cs.fontFamily : "",
     fuenteTitulo: csH ? csH.fontFamily : "",
+    textoTitulo: h1 ? (h1.textContent || "").trim().slice(0, 60) : "",
     fuenteInterCargada: (function () {
       try { return document.fonts.check("16px Inter"); } catch (e) { return null; }
     })(),
@@ -752,7 +754,8 @@ function informeMd(resultados, cache, meta) {
         (m.desdeCache || 0) + " desde cache | " + (m.cacheables || 0) + " cacheables");
       L.push("- revelado: " + (rev.motivo || "?") + " en " + (rev.ms ?? "?") + " ms");
       L.push("- fuente del cuerpo: " + (m.fuenteCuerpo || "?"));
-      L.push("- fuente de los titulos: " + (m.fuenteTitulo || "?"));
+      L.push("- fuente de los titulos: " + (m.fuenteTitulo || "?") +
+        (m.textoTitulo ? " (" + m.textoTitulo + ")" : ""));
       L.push("- Inter cargada: " + (m.fuenteInterCargada === null ? "no comprobable" : m.fuenteInterCargada));
       L.push("- data-app-ready: " + m.paginaRevelada + " | body visible: " + m.cuerpoVisible +
         " (visibility=" + (m.visibilidadCuerpo || "?") + ", opacity=" + (m.opacidadCuerpo ?? "?") + ")");

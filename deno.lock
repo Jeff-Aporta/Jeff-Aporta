@@ -16,6 +16,7 @@
     "npm:@types/node@^22.20.5": "22.20.5",
     "npm:esbuild@0.28.1": "0.28.1",
     "npm:jsdom@29.1.1": "29.1.1",
+    "npm:playwright@1.62.1": "1.62.1",
     "npm:sass@^1.105.0": "1.105.1",
     "npm:zod@4.4.3": "4.4.3"
   },
@@ -560,6 +561,11 @@
         "web-streams-polyfill"
       ]
     },
+    "fsevents@2.3.2": {
+      "integrity": "sha512-xiqMQR4xAeHTuB9uWm+fFRcIOgKBMiOBP+eXiyT7jsgVCq1bkVygt00oASowB7EdtpOHaaPgKt812P9ab+DDKA==",
+      "os": ["darwin"],
+      "scripts": true
+    },
     "function-bind@1.1.2": {
       "integrity": "sha512-7XHNxH7qX9xG5mIwxkhumTox/MIRNcOgDrxWsMt2pAr23WHp6MrRlN7FBSFpCpr+oVO0F744iUgR82nJMfG2SA=="
     },
@@ -699,6 +705,20 @@
     "picomatch@4.0.7": {
       "integrity": "sha512-qcJu88Q2IWqJsDD529JKMdwGm/dvInW4HvQnRwiH9JtihJvzGOscDtHE3x1pBKeUOTysQ8kVmLnJ2kJu7yhcGA=="
     },
+    "playwright-core@1.62.1": {
+      "integrity": "sha512-wPYSwEBJY9GHraISXqyqtx0na0LpO3XEX7jNDhntbex7tzUS7kLnZsOlFruFJB4Hi/rhDMjXGqHewDZ68nYZVw==",
+      "bin": true
+    },
+    "playwright@1.62.1": {
+      "integrity": "sha512-0M+L3LAD8/nm554LOla9Ayx0j0tmFZ0FBcoQ7F1VuVHpM/XpiC8RcDzBQB8W5+hA8L22THxELzeF+2WcUzvcLg==",
+      "dependencies": [
+        "playwright-core"
+      ],
+      "optionalDependencies": [
+        "fsevents"
+      ],
+      "bin": true
+    },
     "punycode@2.3.1": {
       "integrity": "sha512-vYt7UD1U9Wg6138shLtLOvdAu+8DsC/ilFtEVHcH+wydcSpNE20AfSOduf6MkRFahL5FY7X1oU7nKVZFtfq8Fg=="
     },
@@ -810,7 +830,17 @@
     }
   },
   "remote": {
+    "https://cdn.jsdelivr.net/gh/Jeff-Aporta/is-webcomponents@8255b7a8f45cf8fbab3007e62e7ccc45867d61cf/dist/cdn/_chunks/chunk-4CXCR25Z.mjs": "6bb002235891760e59ad1add6601b0ec03f8851d05ea0a96f9c3797a45211ca4",
+    "https://cdn.jsdelivr.net/gh/Jeff-Aporta/is-webcomponents@8255b7a8f45cf8fbab3007e62e7ccc45867d61cf/dist/cdn/_chunks/chunk-CMZVHIC2.mjs": "8bce1d3aa493e16931085499d11b51b9169c60048ccac5a3c4ca07fe72356f72",
+    "https://cdn.jsdelivr.net/gh/Jeff-Aporta/is-webcomponents@8255b7a8f45cf8fbab3007e62e7ccc45867d61cf/dist/cdn/layout/spa-state.min.mjs": "d0f14f309f43b14f732700eadc42434cf4d73fbc7667088293a3caab5ebcd7f0",
     "https://cdn.jsdelivr.net/gh/Jeff-Aporta/is-webcomponents@a1df39adb9e421de874dd624901b72daa9e25e5c/dist/cdn/core/spa-state.min.js": "e287e05b781b5728f3fb5352e40318ad420c9afd6ed10b085b24acb370cac132",
+    "https://raw.githubusercontent.com/Jeff-Aporta/is-webcomponents/8255b7a8f45cf8fbab3007e62e7ccc45867d61cf/src/cdn/build/asset-url.schemas.ts": "8e88a5462073b48dd8b6a84f753bb99c4a2f31acf0dc63ce2e8d15499d31c0e4",
+    "https://raw.githubusercontent.com/Jeff-Aporta/is-webcomponents/8255b7a8f45cf8fbab3007e62e7ccc45867d61cf/src/cdn/build/asset-url.ts": "50b39c9705389496798761fd1342a7efb62152840314a06f5c76e07c8f958b04",
+    "https://raw.githubusercontent.com/Jeff-Aporta/is-webcomponents/8255b7a8f45cf8fbab3007e62e7ccc45867d61cf/src/cdn/build/hash.ts": "ffea7c203ff269db85625f409bd64282964867cb935dd15cdd4cd44e19a2b892",
+    "https://raw.githubusercontent.com/Jeff-Aporta/is-webcomponents/8255b7a8f45cf8fbab3007e62e7ccc45867d61cf/src/cdn/build/stamp-hashes.ts": "425e61f5c7c91d20cc9a91ce333fa876f7426da58bd7703fed65070f276a5007",
+    "https://raw.githubusercontent.com/Jeff-Aporta/is-webcomponents/8255b7a8f45cf8fbab3007e62e7ccc45867d61cf/src/vendor-distributions/shared/schemas.ts": "c6b05c51e8eb8de51b754a92a18d8ff481ef02b3294a54ac0cd2a25bccce5f5f",
+    "https://raw.githubusercontent.com/Jeff-Aporta/is-webcomponents/8255b7a8f45cf8fbab3007e62e7ccc45867d61cf/src/vendor-distributions/shared/testing/pruebas.ts": "c8ff60ed7cb846a56b0e0647c66c353d925efb4bea0c7cd40aeeb2b5a543a322",
+    "https://raw.githubusercontent.com/Jeff-Aporta/is-webcomponents/8255b7a8f45cf8fbab3007e62e7ccc45867d61cf/src/vendor-distributions/shared/testing/test-cooldown.ts": "2799c22044e6c6ba7add22174758dc6cf42f5e6bdc8cb7d2955ffd5b9ad69029",
     "https://raw.githubusercontent.com/Jeff-Aporta/is-webcomponents/a1df39adb9e421de874dd624901b72daa9e25e5c/src/cdn/build/asset-url.schemas.ts": "4daf016b1ebccea3dc91cbe1072f67d666ea7c84b23925bcc28e2684c717f87b",
     "https://raw.githubusercontent.com/Jeff-Aporta/is-webcomponents/a1df39adb9e421de874dd624901b72daa9e25e5c/src/cdn/build/asset-url.ts": "db3f436561a6bb0e691ed87da5a9ef0adf92825ceb41f3c90c7fdc4471f87699",
     "https://raw.githubusercontent.com/Jeff-Aporta/is-webcomponents/a1df39adb9e421de874dd624901b72daa9e25e5c/src/cdn/build/hash.ts": "830505749d0a41542d2bee08028ec2657aa73dc8c97180decf2f96dce0b7c666",

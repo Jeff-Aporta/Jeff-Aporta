@@ -1,1 +1,0 @@
-import{crearComponente as a,define as e,html as s,pieza as c}from"../../../js/base/componente.js?v=x8jsml";import{contenido as t}from"../../../js/contenido/index.js?v=55ev4k";import"./ja-estudio.js?v=r9leyb";const n=a(import.meta.url,"ja-educacion",{},o=>{o.append(s`<div class="lista" part="lista">${t.educacion.map(i=>c("ja-estudio",{id:i.id}))}</div>`)});e("ja-educacion",n);
