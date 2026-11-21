@@ -15,7 +15,7 @@
  * normales: dentro de la SPA (`<ja-app>` presente) se interceptan y navegan sin recargar, también desde
  * shadow DOM; en una página especializada (`blog/<slug>/index.html`) cargan la página destino.
  */
-import { b64urlDecode, b64urlEncode } from 'https://cdn.jsdelivr.net/gh/Jeff-Aporta/is-webcomponents@a1df39adb9e421de874dd624901b72daa9e25e5c/dist/cdn/core/spa-state.min.js';
+import { b64urlDecode, b64urlEncode } from 'https://cdn.jsdelivr.net/gh/Jeff-Aporta/is-webcomponents@8255b7a8f45cf8fbab3007e62e7ccc45867d61cf/dist/cdn/layout/spa-state.min.mjs';
 import type { RutaSpa } from '../consts/schemas/componentes.schemas.js';
 
 type Estado = Record<string, unknown>;
