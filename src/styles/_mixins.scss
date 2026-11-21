@@ -10,7 +10,7 @@
 @mixin host-bloque {
   display: block;
   min-width: 0;
-  font-family: var(--iswc-font-sans);
+  font-family: t.$fuente-cuerpo;
 }
 
 /// Texto en una sola línea con elipsis.

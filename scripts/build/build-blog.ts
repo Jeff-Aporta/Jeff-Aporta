@@ -17,10 +17,18 @@ import { join } from 'node:path';
 import { withAssetHash } from '@iswc/build/asset-url.ts';
 import { contenido } from '../../src/js/contenido/index.ts';
 import { ISWC_LOADER_HREF } from '../../src/js/iswc.ts';
+import { baseDelPin } from './build-lote.ts';
+import { bloquePrecarga, conSello } from './precarga.ts';
 import type { Publicacion } from '../../src/js/consts/schemas/contenido.schemas.ts';
 import { abs, blogLd, blogPosting, cabeceraSeo, esc, itemListBlog, persona, resumenBlog, resumenPost, urlBlog, urlPost } from './seo.ts';
 
 const { sitio, perfil, blog } = contenido;
+
+/** Los hashes vigentes de `dist/cdn/` (el build de módulos ya corrió). */
+function hashesDe(root: string): Record<string, string> {
+  const ruta = join(root, 'dist', 'cdn', 'asset-hashes.json');
+  return existsSync(ruta) ? (JSON.parse(readFileSync(ruta, 'utf8')) as { files: Record<string, string> }).files : {};
+}
 
 /** `dist/cdn/<rel>` con su `?v=` vigente (el build de módulos ya corrió). */
 function sellador(root: string): (rel: string) => string {
@@ -30,7 +38,7 @@ function sellador(root: string): (rel: string) => string {
 }
 
 /** Documento completo de una página especializada. `base` = prefijo relativo hasta la raíz (`../` o `../../`). */
-function pagina(o: { base: string; head: string; activa: 'blog'; vista: string; v: (rel: string) => string }): string {
+function pagina(o: { base: string; head: string; activa: 'blog'; vista: string; v: (rel: string) => string; bloque: string }): string {
   const cdn = (rel: string) => `${o.base}dist/cdn/${o.v(rel)}`;
   // data-spa-base: los <ja-link> de la página apuntan al SPA de la raíz (resuelto contra esta URL).
   return `<!doctype html>
@@ -48,31 +56,16 @@ ${sitio.verificacionGoogle ? `<meta name="google-site-verification" content="${e
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap">
+<!-- Las fuentes NO bloquean el arranque: una hoja de un CDN externo retarda todos los scripts que van detrás. -->
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap"></noscript>
 <!-- Tema antes del primer pintado: ?s= (theme/palette) > localStorage del kit > light / jeff. Script plano. -->
 <script src="${cdn('boot.js')}"></script>
 <link rel="stylesheet" href="${cdn('styles/app.css')}">
-<!-- 1) Loader del kit por CDN pineado (el mismo SHA que index.html). 2) Registrador de la app. -->
-<script type="module" src="${ISWC_LOADER_HREF}"></script>
-<script type="module" src="${cdn('jaLoader.min.js')}"></script>
-<!-- 3) Arranque: estilos del kit, tags del kit, transversales (sin el shell de la SPA) y la vista del blog. -->
-<script type="module">
-  const L = globalThis.iswcLoader;
-  const listo = () => document.documentElement.setAttribute('data-app-ready', '');
-  const watchdog = setTimeout(() => { console.warn('[ja] el arranque excedió 6 s; se revela la página'); listo(); }, 6000);
-  try {
-    if (!L) throw new Error('falta iswcLoader');
-    await L.loadPageStyles(['iswc-palettes-default']);
-    const { KIT_TAGS, tagsArranque, tagsVista } = await import('${cdn('js/kit-tags.js')}');
-    await L.load(...KIT_TAGS, ...tagsArranque().filter((t) => t !== 'ja-app'), ...tagsVista('blog'));
-    await customElements.whenDefined('ja-pagina');
-  } catch (e) {
-    console.warn('[ja] arranque', e);
-  } finally {
-    clearTimeout(watchdog);
-    listo();
-  }
-</script>
+<!-- 1) Import map, precarga del cierre, hojas base del kit sin bloquear, loader pineado y registrador. -->
+${o.bloque}
+<!-- 2) Arranque: todo en paralelo (lote del kit, núcleo, shell y vista del blog). El watchdog de 6 s. -->
+<script type="module" src="${cdn('jaArranque.min.js')}"></script>
 </head>
 <body>
   <noscript>Esta página necesita JavaScript para la guía interactiva; el texto completo está abajo. Portafolio: <a href="${o.base}">inicio</a>.</noscript>
@@ -85,7 +78,7 @@ ${o.vista}
 `;
 }
 
-function paginaPost(p: Publicacion, v: (rel: string) => string): string {
+function paginaPost(p: Publicacion, v: (rel: string) => string, bloque: string): string {
   const head = cabeceraSeo({
     titulo: `${p.titulo} · ${perfil.nombreCorto}`,
     descripcion: p.resumen,
@@ -103,10 +96,10 @@ function paginaPost(p: Publicacion, v: (rel: string) => string): string {
     ld: [{ '@context': 'https://schema.org', '@graph': [persona(), { '@type': 'Blog', '@id': `${sitio.url}#blog`, url: urlBlog(), name: `Blog de ${perfil.nombreCorto}` }, blogPosting(p)] }],
   });
   const vista = `    <ja-post slug="${p.slug}">\n<!-- resumen estático del post para rastreadores sin JS (el componente lo reemplaza al pintar) -->\n${resumenPost(p)}\n    </ja-post>`;
-  return pagina({ base: '../../', head, activa: 'blog', vista, v });
+  return pagina({ base: '../../', head, activa: 'blog', vista, v, bloque });
 }
 
-function paginaBlog(v: (rel: string) => string): string {
+function paginaBlog(v: (rel: string) => string, bloque: string): string {
   const head = cabeceraSeo({
     titulo: `Blog · ${perfil.nombreCorto}`,
     descripcion: `Blog de ${perfil.nombreCorto}: guías de programación paso a paso, narradas con su voz y con demos interactivas.`,
@@ -116,12 +109,24 @@ function paginaBlog(v: (rel: string) => string): string {
     ld: [{ '@context': 'https://schema.org', '@graph': [persona(), blogLd(blog), itemListBlog(blog)] }],
   });
   const vista = `    <ja-blog>\n<!-- resumen estático de la lista para rastreadores sin JS -->\n${resumenBlog(blog, '../')}\n    </ja-blog>`;
-  return pagina({ base: '../', head, activa: 'blog', vista, v });
+  return pagina({ base: '../', head, activa: 'blog', vista, v, bloque });
 }
 
 /** Escribe `blog/` completo; devuelve las rutas relativas escritas. */
 export function generarBlog(root: string): string[] {
   const v = sellador(root);
+  const hashes = hashesDe(root);
+  const { cdn, sha } = baseDelPin(ISWC_LOADER_HREF);
+  const loader = 'core/loader.min.js';
+  const bloqueDe = (base: string) =>
+    bloquePrecarga({
+      cdn,
+      sha,
+      loader,
+      hashes,
+      prefijo: `${base}dist/cdn/`,
+      modulos: ['jaLote.min.mjs', 'jaLoteExtra.min.mjs', 'jaNucleo.min.js', 'jaApp.min.js', 'jaBlog.min.js'].map((m) => conSello(m, hashes)),
+    });
   const carpeta = join(root, 'blog');
   mkdirSync(carpeta, { recursive: true });
   const vivos = new Set(blog.map((p) => p.slug));
@@ -132,11 +137,11 @@ export function generarBlog(root: string): string[] {
     writeFileSync(join(carpeta, rel), texto);
     escritos.push(`blog/${rel}`);
   };
-  escribir('index.html', paginaBlog(v));
+  escribir('index.html', paginaBlog(v, bloqueDe('../')));
   escribir('index.json', `${JSON.stringify(blog.map((p) => ({ slug: p.slug, titulo: p.titulo, subtitulo: p.subtitulo, resumen: p.resumen, fecha: p.fecha, etiquetas: p.etiquetas, portada: p.portada, pasos: p.pasos.length, url: urlPost(p), datos: `${abs(`blog/${p.slug}/post.json`)}` })), null, 2)}\n`);
   for (const p of blog) {
     escribir(`${p.slug}/post.json`, `${JSON.stringify(p, null, 2)}\n`);
-    escribir(`${p.slug}/index.html`, paginaPost(p, v));
+    escribir(`${p.slug}/index.html`, paginaPost(p, v, bloqueDe('../../')));
   }
   return escritos;
 }

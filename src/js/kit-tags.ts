@@ -63,6 +63,19 @@ export const KIT_TAGS_VISTA = {
   blog: ['iswc-callout', 'iswc-code', 'iswc-md-render', 'iswc-skeleton'],
 } as const satisfies Record<keyof typeof VIEW_TAGS, readonly `iswc-${string}`[]>;
 
+/**
+ * Tags del kit que van en el LOTE del arranque: uno solo, con todo su cierre (el build lo baja del pin
+ * y lo empaqueta). El registrador lo publica con `registerApp`, así `load()` y `ensure()` lo usan
+ * en vez de pedir cada módulo por separado.
+ */
+export const LOTE_TAGS = [...KIT_TAGS] as const;
+
+/**
+ * Tags del kit que solo usan el blog o la galería: van en un LOTE aparte (se pide al abrir esa vista),
+ * para no engordar el arranque con el renderizador de Markdown.
+ */
+export const LOTE_TAGS_EXTRA = [...KIT_TAGS_VISTA.blog, 'iswc-preview-controls'] as const;
+
 export type AppTag = (typeof APP_TAGS)[number] | (typeof VIEW_TAGS)[keyof typeof VIEW_TAGS][number];
 export type Vista = keyof typeof VIEW_TAGS;
 
@@ -83,6 +96,18 @@ export function mapaRutas(): Record<string, string> {
     mapa[tag] = `${rutaComponente(tag)}${tag}.js`;
   }
   return mapa;
+}
+
+/**
+ * Bundle donde se publica cada tag propio: `shell` (los transversales) o su vista. El registrador lo
+ * usa para apuntar cada tag a su bundle (un solo fichero por vista en vez de uno por componente).
+ */
+export function bundleDe(tag: string): 'shell' | 'portafolio' | 'blog' | null {
+  if ((APP_TAGS as readonly string[]).includes(tag)) return 'shell';
+  for (const [vista, tags] of Object.entries(VIEW_TAGS)) {
+    if ((tags as readonly string[]).includes(tag)) return vista as 'portafolio' | 'blog';
+  }
+  return null;
 }
 
 /** Tags propios que el shell pide al arrancar (los transversales; las vistas llegan con `tagsVista`). */

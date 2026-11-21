@@ -26,8 +26,18 @@ $espacios: (
 /// relleno lateral de cada bloque, no este tope).
 $ancho: 110rem;
 
-/// Fuente de títulos (la cuerpo es `--iswc-font-sans`).
-$titulos: "Plus Jakarta Sans", var(--iswc-font-sans);
+/// La pila de la fuente del cuerpo. La app la escribe en `:root` como `--iswc-font-sans`.
+/// OJO: la fuente NO es una paleta. Si el token se definiera dentro de `[data-palette="…"]`,
+/// al cambiar de paleta el token caería, `font-family` quedaría inválido y la página se
+/// vería en la serif por defecto del navegador (Times New Roman).
+$pila-cuerpo: "Inter", var(--iswc-sans);
+
+/// La fuente del cuerpo, con red de seguridad: si `--iswc-font-sans` faltara, la pila sigue
+/// siendo sans-serif. Nunca debe poder quedar una serif.
+$fuente-cuerpo: var(--iswc-font-sans, #{$pila-cuerpo});
+
+/// Fuente de títulos (la del cuerpo es su último recurso).
+$titulos: "Plus Jakarta Sans", $fuente-cuerpo;
 
 /// Punto de quiebre de tableta y de móvil.
 $tableta: 60rem;

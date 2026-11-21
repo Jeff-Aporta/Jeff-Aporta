@@ -1,11 +1,18 @@
 /* app.scss — SOLO lo que vive en light DOM (la página). Los componentes llevan su .scss hermano. */
+@use "tokens" as t;
+
+/* La FUENTE es de la app, no de la paleta: vive en `:root` para que sobreviva a cualquier cambio
+   de paleta. Antes vivía dentro de `[data-palette="jeff"]` y, al cambiar de paleta, el token caía:
+   `font-family: var(--iswc-font-sans)` quedaba inválido y la página se veía en Times New Roman. */
+:root {
+  --iswc-font-sans: #{t.$pila-cuerpo};
+}
 
 /* Paleta de la marca personal: azul corporativo. El kit deriva de aquí --iswc-color-brand y sus variantes. */
 [data-palette="jeff"] {
   --iswc-brand-h: 221;
   --iswc-brand-s: 83%;
   --iswc-brand-b: 53%;
-  --iswc-font-sans: "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
 }
 
 [data-theme="light"][data-palette="jeff"] {
@@ -52,7 +59,7 @@ body {
   min-height: 100%;
   background: var(--iswc-bg);
   color: var(--iswc-text);
-  font-family: var(--iswc-font-sans);
+  font-family: t.$fuente-cuerpo;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
 }

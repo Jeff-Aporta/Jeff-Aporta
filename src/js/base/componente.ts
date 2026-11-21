@@ -25,6 +25,18 @@ const SOPORTA_HOJAS = (() => {
   }
 })();
 
+/**
+ * CSS EMBEBIDO en el bundle: el build lo registra por tag (tag → texto de la hoja) y así el componente
+ * lo adopta al instante: sin pedir la hoja por red y sin el frame sin estilos que da el `<link>`.
+ * El build deja además la hoja suelta en `dist/cdn/` (respaldo para quien no use el bundle).
+ */
+const CSS_EMBEBIDO = new Map<string, string>();
+
+/** Registra la hoja de un componente (la escribe el build al montar el bundle). */
+export function registrarCss(tag: string, texto: string): void {
+  CSS_EMBEBIDO.set(tag, texto);
+}
+
 /** Raíz `dist/cdn/` cuando el módulo vive dentro de un bundle (`all.min.js`); la fija el barril. */
 let CSS_BASE: string | null = null;
 export function setCssBase(url: string): void {
@@ -58,7 +70,8 @@ function descargarHoja(href: string): Promise<CSSStyleSheet | null> {
 
 /** Empieza a bajar la hoja al importar el módulo (el primer pintado tampoco parpadea). */
 export function precargarCss(moduleUrl: string, nombre: string): void {
-  if (SOPORTA_HOJAS) void descargarHoja(hrefCss(moduleUrl, nombre));
+  if (!SOPORTA_HOJAS || CSS_EMBEBIDO.has(nombre)) return;
+  void descargarHoja(hrefCss(moduleUrl, nombre));
 }
 
 /** Adopta la hoja hermana. Llamar DESPUÉS de rellenar el shadow (el <link> de respaldo es un hijo). */
@@ -78,8 +91,18 @@ export function adoptCss(shadow: ShadowRoot, moduleUrl: string, nombre: string):
     if (!shadow.querySelector('link[rel="stylesheet"]')) enlazar();
     return;
   }
+  const embebida = CSS_EMBEBIDO.get(nombre);
+  if (embebida !== undefined) {
+    // Va dentro del bundle: se adopta de una vez (sin red y sin frame sin estilos).
+    const hoja = new CSSStyleSheet();
+    hoja.replaceSync(embebida);
+    adoptar(hoja);
+    return;
+  }
   const hoja = HOJAS.get(href);
   if (hoja) return adoptar(hoja);
+  // La hoja suelta: se pide y se adopta cuando llega. El `<link>` de respaldo se quita en cuanto la
+  // hoja adoptada está (si no, el navegador la vuelve a pedir: dos peticiones por hoja).
   const link = enlazar();
   void descargarHoja(href).then((h) => {
     if (!h) return;

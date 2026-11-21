@@ -7,23 +7,31 @@
 <meta name="robots" content="noindex">
 <script src="../../../dist/cdn/boot.js?v=ozmmse"></script>
 <link rel="stylesheet" href="../../../dist/cdn/styles/app.css?v=rukr0f">
+<!-- 1) Import map, precarga del cierre, hojas base del kit sin bloquear, loader pineado y registrador.
+     Lo escribe `deno task build` entre las marcas: no editar a mano. -->
+<!-- iswc:precarga:inicio -->
+<script type="importmap">{"imports":{"@jeff-aporta/iswc-base/":"https://cdn.jsdelivr.net/gh/Jeff-Aporta/is-webcomponents@a1df39adb9e421de874dd624901b72daa9e25e5c/dist/cdn/"}}</script>
+<meta name="iswc-precargado" content="a1df39adb9e421de874dd624901b72daa9e25e5c">
+<link rel="modulepreload" href="../../../dist/cdn/jaLote.min.mjs?v=nsgma3">
+<link rel="modulepreload" href="../../../dist/cdn/jaNucleo.min.js?v=rxk9nf">
+<link rel="modulepreload" href="../../../dist/cdn/jaApp.min.js?v=l6a5g7">
+<link rel="modulepreload" href="../../../dist/cdn/jaPortafolio.min.js?v=ww29ss">
+<link rel="preload" as="style" href="https://cdn.jsdelivr.net/gh/Jeff-Aporta/is-webcomponents@a1df39adb9e421de874dd624901b72daa9e25e5c/dist/cdn/is-base.min.css" onload="this.onload=null;this.rel='stylesheet'">
+<link rel="preload" as="style" href="https://cdn.jsdelivr.net/gh/Jeff-Aporta/is-webcomponents@a1df39adb9e421de874dd624901b72daa9e25e5c/dist/cdn/palettes.min.css" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Jeff-Aporta/is-webcomponents@a1df39adb9e421de874dd624901b72daa9e25e5c/dist/cdn/is-base.min.css"></noscript>
+<noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Jeff-Aporta/is-webcomponents@a1df39adb9e421de874dd624901b72daa9e25e5c/dist/cdn/palettes.min.css"></noscript>
 <script type="module" src="https://cdn.jsdelivr.net/gh/Jeff-Aporta/is-webcomponents@a1df39adb9e421de874dd624901b72daa9e25e5c/dist/cdn/core/loader.min.js"></script>
-<script type="module" src="../../../dist/cdn/jaLoader.min.js?v=0nxli9"></script>
+<script type="module" src="../../../dist/cdn/jaLoader.min.js?v=i707c6"></script>
+<!-- iswc:precarga:fin -->
+<!-- 2) Arranque (todo en paralelo) y las props de las piezas aisladas. -->
+<script type="module" src="../../../dist/cdn/jaArranque.min.js?v=82nmxs"></script>
 <script type="module">
-  const L = globalThis.iswcLoader;
-  const listo = () => document.documentElement.setAttribute('data-app-ready', '');
-  const watchdog = setTimeout(listo, 6000);
-  try {
-    await L.loadPageStyles(['iswc-palettes-default']);
-    const { KIT_TAGS, APP_TAGS, tagsVista } = await import('../../../dist/cdn/js/kit-tags.js?v=nidgz9');
-    await L.load(...KIT_TAGS, ...APP_TAGS.filter((t) => t !== 'ja-app'), ...tagsVista('portafolio'));
-    document.querySelector('ja-empleo').props = { id: 'coremsa', abierto: true };
-    document.querySelector('ja-proyecto').props = { id: 'fyxtoken' };
-    document.querySelector('ja-hito').props = { evento: { clave: 'insoft-0-inicio', tipo: 'inicio', fecha: '2025-09-01', carril: 1, pasantes: [2], empleoId: 'insoft', periodo: 0, ultimo: false }, carriles: 3 };
-  } finally {
-    clearTimeout(watchdog);
-    listo();
-  }
+  await customElements.whenDefined('ja-empleo');
+  await customElements.whenDefined('ja-proyecto');
+  await customElements.whenDefined('ja-hito');
+  document.querySelector('ja-empleo').props = { id: 'coremsa', abierto: true };
+  document.querySelector('ja-proyecto').props = { id: 'fyxtoken' };
+  document.querySelector('ja-hito').props = { evento: { clave: 'insoft-0-inicio', tipo: 'inicio', fecha: '2025-09-01', carril: 1, pasantes: [2], empleoId: 'insoft', periodo: 0, ultimo: false }, carriles: 3 };
 </script>
 <style>body { display: grid; gap: 2rem; max-width: 60rem; margin: 0 auto; padding: 2rem; }</style>
 </head>

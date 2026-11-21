@@ -6,9 +6,27 @@
 <title>Jeff Aporta · componentes</title>
 <meta name="robots" content="noindex">
 <script src="../../dist/cdn/boot.js?v=ozmmse"></script>
+<!-- 1) Import map, precarga del cierre, hojas base del kit sin bloquear, loader pineado y registrador.
+     Lo escribe `deno task build` entre las marcas: no editar a mano. -->
+<!-- iswc:precarga:inicio -->
+<script type="importmap">{"imports":{"@jeff-aporta/iswc-base/":"https://cdn.jsdelivr.net/gh/Jeff-Aporta/is-webcomponents@a1df39adb9e421de874dd624901b72daa9e25e5c/dist/cdn/"}}</script>
+<meta name="iswc-precargado" content="a1df39adb9e421de874dd624901b72daa9e25e5c">
+<link rel="modulepreload" href="../../dist/cdn/jaLote.min.mjs?v=nsgma3">
+<link rel="modulepreload" href="../../dist/cdn/jaLoteExtra.min.mjs?v=mp19gk">
+<link rel="modulepreload" href="../../dist/cdn/jaNucleo.min.js?v=rxk9nf">
+<link rel="modulepreload" href="../../dist/cdn/jaApp.min.js?v=l6a5g7">
+<link rel="modulepreload" href="../../dist/cdn/jaPortafolio.min.js?v=ww29ss">
+<link rel="modulepreload" href="../../dist/cdn/jaBlog.min.js?v=sjjn13">
+<link rel="modulepreload" href="../../dist/cdn/jaGaleria.min.js?v=j49tb6">
+<link rel="preload" as="style" href="https://cdn.jsdelivr.net/gh/Jeff-Aporta/is-webcomponents@a1df39adb9e421de874dd624901b72daa9e25e5c/dist/cdn/is-base.min.css" onload="this.onload=null;this.rel='stylesheet'">
+<link rel="preload" as="style" href="https://cdn.jsdelivr.net/gh/Jeff-Aporta/is-webcomponents@a1df39adb9e421de874dd624901b72daa9e25e5c/dist/cdn/palettes.min.css" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Jeff-Aporta/is-webcomponents@a1df39adb9e421de874dd624901b72daa9e25e5c/dist/cdn/is-base.min.css"></noscript>
+<noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Jeff-Aporta/is-webcomponents@a1df39adb9e421de874dd624901b72daa9e25e5c/dist/cdn/palettes.min.css"></noscript>
 <script type="module" src="https://cdn.jsdelivr.net/gh/Jeff-Aporta/is-webcomponents@a1df39adb9e421de874dd624901b72daa9e25e5c/dist/cdn/core/loader.min.js"></script>
-<script type="module" src="../../dist/cdn/jaLoader.min.js?v=0nxli9"></script>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Jeff-Aporta/is-webcomponents@a1df39adb9e421de874dd624901b72daa9e25e5c/dist/cdn/preview/preview-component.min.css">
+<script type="module" src="../../dist/cdn/jaLoader.min.js?v=i707c6"></script>
+<!-- iswc:precarga:fin -->
+<link rel="preload" as="style" href="https://cdn.jsdelivr.net/gh/Jeff-Aporta/is-webcomponents@a1df39adb9e421de874dd624901b72daa9e25e5c/dist/cdn/preview/preview-component.min.css" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Jeff-Aporta/is-webcomponents@a1df39adb9e421de874dd624901b72daa9e25e5c/dist/cdn/preview/preview-component.min.css"></noscript>
 <style>
   html, body { margin: 0; height: 100%; background: var(--iswc-bg); color: var(--iswc-text); font-family: var(--iswc-font-sans); }
   .galeria { display: grid; grid-template-columns: 14rem 1fr; height: 100%; }
@@ -23,6 +41,6 @@
   </div>
   <!-- La galería marca `data-app-ready` al montar; el watchdog revela la página si falla. -->
   <script>setTimeout(function () { document.documentElement.setAttribute('data-app-ready', ''); }, 6000);</script>
-  <script type="module" src="../../dist/cdn/view/demo/components/ja-galeria.js?v=sz7kvx"></script>
+  <script type="module" src="../../dist/cdn/jaGaleria.min.js?v=j49tb6"></script>
 </body>
 </html>

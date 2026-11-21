@@ -29,3 +29,6 @@ tests/e2e/.cobertura/
 assets/docs/*.bak-*
 assets/docs/jeffrey-agudelo-cv-*.docx
 assets/docs/jeffrey-agudelo-cv-*.pdf
+
+# Salida del auditor web (informes y capturas): es generada.
+audit/
