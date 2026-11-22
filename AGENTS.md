@@ -24,7 +24,17 @@ deno task test:all           # build → check → pin → test:health → test:
 deno task pin                # inventario de pines (un SHA, sin refs mutables)
 deno task pin --nuevo=<sha40|ultimo>   # subir el kit (y los alias @iswc/* de deno.json al mismo SHA)
 deno task sync:entregable    # solo si existe el par _entregable: gate en verde → copia
+deno task auditar             # recorrido por las páginas: performance, consola, capturas y cache
+deno task auditar:local       # lo mismo contra http://127.0.0.1:4200/ (con deno task serve)
 ```
+
+`deno task auditar` es el **recorrido automático**: navega por todas las páginas del
+`sitemap.xml` con un Chrome headless (DevTools Protocol, sin dependencias), mide las Core Web
+Vitals reales (LCP, CLS, FCP, TTFB), recoge los errores de consola y las peticiones fallidas,
+comprueba que la página se ha revelado, que la fuente aplicada no es una serif, que no hay imágenes
+rotas ni desbordamiento horizontal, repite la visita con la caché caliente para ver si la caché
+sirve, y deja el informe en `audit/<fecha>/` (informe.md, informe.json y las capturas). Sale con
+código 1 si algo falla: sirve para encadenarlo en un gate o dejarlo programado.
 
 ## Reglas duras
 
