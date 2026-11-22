@@ -222,6 +222,20 @@ function archivoDe(tag: string): string {
   return 'jaBlog.min.js';
 }
 /**
+ * Entrada del registrador: la URL del bundle y su tipo de carga.
+ *
+ * Los bundles de la app son MÓDULOS ES (importan el núcleo: `import ... from "./jaNucleo.min.js"`)
+ * pero se publican con extensión `.js`. El loader del kit infiere el tipo por la extensión
+ * (D2: `.js` → `<script src>` clásico, `.mjs` → `import()`), así que sin este `type` los cargaba
+ * como script clásico y el bundle reventaba con «SyntaxError: Cannot use import statement outside a
+ * module». `type` es el override documentado del kit (`AppComponentEntry.type`), así que el núcleo
+ * se sigue compartiendo: un solo fichero, descargado una vez.
+ */
+function entradaRegistrador(url: string): string {
+  return `{href:new URL(${JSON.stringify(url)},raiz).href,type:"module"}`;
+}
+
+/**
  * El registrador (`jaLoader.min.js`): tag → URL hasheada. Los tags del kit apuntan a su LOTE (un solo
  * fichero con su cierre) y los propios a su bundle. El loader lo usa en `load()`/`ensure()`, así pide
  * un fichero por vista en vez de uno por componente.
@@ -230,11 +244,11 @@ function fuenteRegistrador(hashes: Record<string, string>): string {
   const pares: string[] = [];
   for (const [tags, lote] of [[LOTE_TAGS, 'jaLote.min.mjs'], [LOTE_TAGS_EXTRA, 'jaLoteExtra.min.mjs']] as const) {
     const url = conSello(lote, hashes);
-    for (const tag of tags) pares.push(`${JSON.stringify(tag)}:new URL(${JSON.stringify(url)},raiz).href`);
+    for (const tag of tags) pares.push(`${JSON.stringify(tag)}:${entradaRegistrador(url)}`);
   }
   for (const tag of [...APP_TAGS, ...VIEW_TAGS.portafolio, ...VIEW_TAGS.blog]) {
     const url = conSello(archivoDe(tag), hashes);
-    pares.push(`${JSON.stringify(tag)}:new URL(${JSON.stringify(url)},raiz).href`);
+    pares.push(`${JSON.stringify(tag)}:${entradaRegistrador(url)}`);
   }
   return [
     'const L=globalThis.iswcLoader;',
@@ -266,7 +280,6 @@ function fuenteArranque(hashes: Record<string, string>): string {
     "const enBlog=/\\/blog(\\/|$)/.test(location.pathname);",
     'const imp=(r)=>import(new URL(r,import.meta.url).href);',
     'await Promise.all([',
-    "L.loadPageStyles(['iswc-palettes-default']),",
     `L.load(${tags}),`,
     `imp(${JSON.stringify(lote)}),`,
     `imp(${JSON.stringify(nucleo)}),`,

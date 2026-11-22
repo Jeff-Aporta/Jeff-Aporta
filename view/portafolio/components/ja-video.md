@@ -28,6 +28,7 @@ Video de YouTube con fachada: miniatura y botón; el reproductor (youtube-nocook
 | `youtubeId` | `string` | `""` | Id de 11 caracteres del video. |
 | `titulo` | `string` | `"Video"` | Título accesible y leyenda. |
 | `activo` | `boolean` | `false` | true carga el reproductor. |
+| `miniatura` | `string` | `""` | URL de la miniatura. Vacío = la de YouTube. Se pide al verse, no al arrancar. |
 
 ## Eventos
 

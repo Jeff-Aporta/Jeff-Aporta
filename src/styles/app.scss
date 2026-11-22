@@ -68,9 +68,16 @@ body {
   background: color-mix(in srgb, var(--iswc-color-brand) 22%, transparent);
 }
 
-/* La app se revela cuando el arranque marca `data-app-ready` (o el watchdog de 6 s). */
-html:not([data-app-ready]) body {
-  visibility: hidden;
+/* El RESUMEN estatico (para rastreadores y para quien no tiene JS) vive en el light DOM del
+   shell: hasta que el shell se define no hay quien lo pinte, asi que no se pinta. Si se pintara
+   salia en Times New Roman (la fuente del kit aun no ha llegado) y, al aparecer la app, el hueco
+   se movia: un salto de layout de 1,08. El shell lo esconde de todos modos al definirse (su
+   shadow no tiene slot), asi que esto solo afecta al ratito previo. */
+ja-app:not(:defined) > *,
+ja-pagina:not(:defined) > *,
+ja-blog:not(:defined) > *,
+ja-post:not(:defined) > * {
+  display: none;
 }
 
 @media (prefers-reduced-motion: reduce) {

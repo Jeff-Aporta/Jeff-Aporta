@@ -125,7 +125,7 @@ export const PerfilSchema = z.object({
   propuesta: z.string().min(1),
   resumen: z.array(z.string().min(1)).min(1),
   pilares: z.array(z.object({ icono: IconoSchema, titulo: z.string().min(1), texto: z.string().min(1) })).min(1),
-  video: z.object({ youtubeId: z.string().regex(/^[\w-]{11}$/), titulo: z.string().min(1), canal: z.url() }),
+  video: z.object({ youtubeId: z.string().regex(/^[\w-]{11}$/), titulo: z.string().min(1), canal: z.url(), miniatura: RutaSchema.optional() }),
   cv: RutaSchema,
   cvTarjeta: z.object({ icono: RutaSchema, actualizado: z.string().min(1), paginas: z.number().int().positive() }),
   contacto: ContactoSchema,

@@ -18,7 +18,7 @@ const JaPerfil = crearComponente<SinProps>(import.meta.url, 'ja-perfil', {}, (ro
       <div class="video">
         ${pieza('ja-forma', { tipo: 'puntos', tono: 'acento', tam: 6, animacion: 'derivar' }, { class: 'deco puntos' })}
         ${pieza('ja-forma', { tipo: 'anillo', tono: 'peligro', tam: 3.5, animacion: 'girar', retraso: 4 }, { class: 'deco anillo' })}
-        ${pieza('ja-video', { youtubeId: perfil.video.youtubeId, titulo: perfil.video.titulo })}
+        ${pieza('ja-video', { youtubeId: perfil.video.youtubeId, titulo: perfil.video.titulo, miniatura: perfil.video.miniatura ? rutaSitio(perfil.video.miniatura) : '' })}
       </div>
       <div class="resumen">
         ${perfil.resumen.map((p, i) => html`<p class=${i === 0 ? 'lead' : ''}>${p}</p>`)}

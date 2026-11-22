@@ -48,6 +48,8 @@
     "test:all": "deno run -A scripts/gate/run-test-all.mjs",
     "test:all:halt": "deno run -A scripts/gate/run-test-all.mjs --halt",
     "sync:entregable": "deno run -A scripts/gate/sync-to-entregable.mjs",
+    "auditar": "deno run -A scripts/auditar/auditar-web.mjs",
+    "auditar:local": "deno run -A scripts/auditar/auditar-web.mjs --url=http://127.0.0.1:4200/",
     "build:meta": "deno run -A scripts/build/build-meta.ts"
   },
   "exclude": [

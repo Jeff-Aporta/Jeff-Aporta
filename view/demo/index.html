@@ -5,7 +5,21 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Jeff Aporta · componentes</title>
 <meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<!-- Las fuentes NO bloquean el arranque: una hoja de un CDN externo retarda todos los scripts que van detrás. -->
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"></noscript>
 <script src="../../dist/cdn/boot.js?v=ozmmse"></script>
+<!-- Página AUTÓNOMA: no carga `dist/cdn/styles/app.css`, así que define aquí su propia fuente
+     (y la red de seguridad, para que nunca pueda quedar una serif). -->
+<style>
+  :root { --iswc-font-sans: "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+  html, body { margin: 0; height: 100%; background: var(--iswc-bg); color: var(--iswc-text); font-family: var(--iswc-font-sans, "Inter", ui-sans-serif, system-ui, sans-serif); }
+  .galeria { display: grid; grid-template-columns: 14rem 1fr; height: 100%; }
+  .galeria nav { display: grid; align-content: start; gap: 0.25rem; padding: 0.75rem; border-right: 1px solid var(--iswc-border-soft); overflow: auto; }
+  .galeria nav iswc-button[aria-current="true"] { --iswc-button-bg: var(--iswc-brand-soft); }
+</style>
 <!-- 1) Import map, precarga del cierre, hojas base del kit sin bloquear, loader pineado y registrador.
      Lo escribe `deno task build` entre las marcas: no editar a mano. -->
 <!-- iswc:precarga:inicio -->
@@ -13,26 +27,20 @@
 <meta name="iswc-precargado" content="8255b7a8f45cf8fbab3007e62e7ccc45867d61cf">
 <link rel="modulepreload" href="../../dist/cdn/jaLote.min.mjs?v=01v10m">
 <link rel="modulepreload" href="../../dist/cdn/jaLoteExtra.min.mjs?v=x1e7sg">
-<link rel="modulepreload" href="../../dist/cdn/jaNucleo.min.js?v=dh4ms1">
-<link rel="modulepreload" href="../../dist/cdn/jaApp.min.js?v=xyjt96">
-<link rel="modulepreload" href="../../dist/cdn/jaPortafolio.min.js?v=vks548">
-<link rel="modulepreload" href="../../dist/cdn/jaBlog.min.js?v=8perni">
-<link rel="modulepreload" href="../../dist/cdn/jaGaleria.min.js?v=ri98da">
+<link rel="modulepreload" href="../../dist/cdn/jaNucleo.min.js?v=5ydmz2">
+<link rel="modulepreload" href="../../dist/cdn/jaApp.min.js?v=vxpk2b">
+<link rel="modulepreload" href="../../dist/cdn/jaPortafolio.min.js?v=65tmuj">
+<link rel="modulepreload" href="../../dist/cdn/jaBlog.min.js?v=dy7xfc">
+<link rel="modulepreload" href="../../dist/cdn/jaGaleria.min.js?v=gdxi70">
 <link rel="preload" as="style" href="https://cdn.jsdelivr.net/gh/Jeff-Aporta/is-webcomponents@8255b7a8f45cf8fbab3007e62e7ccc45867d61cf/dist/cdn/is-base.min.css" onload="this.onload=null;this.rel='stylesheet'">
 <link rel="preload" as="style" href="https://cdn.jsdelivr.net/gh/Jeff-Aporta/is-webcomponents@8255b7a8f45cf8fbab3007e62e7ccc45867d61cf/dist/cdn/palettes.min.css" onload="this.onload=null;this.rel='stylesheet'">
 <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Jeff-Aporta/is-webcomponents@8255b7a8f45cf8fbab3007e62e7ccc45867d61cf/dist/cdn/is-base.min.css"></noscript>
 <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Jeff-Aporta/is-webcomponents@8255b7a8f45cf8fbab3007e62e7ccc45867d61cf/dist/cdn/palettes.min.css"></noscript>
 <script type="module" src="https://cdn.jsdelivr.net/gh/Jeff-Aporta/is-webcomponents@8255b7a8f45cf8fbab3007e62e7ccc45867d61cf/dist/cdn/core/loader.min.js"></script>
-<script type="module" src="../../dist/cdn/jaLoader.min.js?v=wz5qqs"></script>
+<script type="module" src="../../dist/cdn/jaLoader.min.js?v=o71gt8"></script>
 <!-- iswc:precarga:fin -->
 <link rel="preload" as="style" href="https://cdn.jsdelivr.net/gh/Jeff-Aporta/is-webcomponents@8255b7a8f45cf8fbab3007e62e7ccc45867d61cf/dist/cdn/preview/preview-component.min.css" onload="this.onload=null;this.rel='stylesheet'">
 <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Jeff-Aporta/is-webcomponents@8255b7a8f45cf8fbab3007e62e7ccc45867d61cf/dist/cdn/preview/preview-component.min.css"></noscript>
-<style>
-  html, body { margin: 0; height: 100%; background: var(--iswc-bg); color: var(--iswc-text); font-family: var(--iswc-font-sans); }
-  .galeria { display: grid; grid-template-columns: 14rem 1fr; height: 100%; }
-  .galeria nav { display: grid; align-content: start; gap: 0.25rem; padding: 0.75rem; border-right: 1px solid var(--iswc-border-soft); overflow: auto; }
-  .galeria nav iswc-button[aria-current="true"] { --iswc-button-bg: var(--iswc-brand-soft); }
-</style>
 </head>
 <body>
   <div class="galeria">
@@ -41,6 +49,6 @@
   </div>
   <!-- La galería marca `data-app-ready` al montar; el watchdog revela la página si falla. -->
   <script>setTimeout(function () { document.documentElement.setAttribute('data-app-ready', ''); }, 6000);</script>
-  <script type="module" src="../../dist/cdn/jaGaleria.min.js?v=ri98da"></script>
+  <script type="module" src="../../dist/cdn/jaGaleria.min.js?v=gdxi70"></script>
 </body>
 </html>

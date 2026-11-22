@@ -19,8 +19,8 @@ if (!L) throw new Error('galería: falta iswcLoader');
 const cdn = new URL('../', L.selfBase).href; // …/dist/cdn/ del kit
 await Promise.all([
   L.load('iswc-preview-controls', 'iswc-callout', ...todosLosTags()),
-  import(new URL('preview/preview-component.min.js', cdn).href),
-  import(new URL('preview/preview-controls.min.js', cdn).href),
+  import(new URL('preview/preview-component.min.mjs', cdn).href),
+  import(new URL('preview/preview-controls.min.mjs', cdn).href),
 ]);
 
 function aplicar(host: Element, c: ControlDemo, valor: unknown): void {

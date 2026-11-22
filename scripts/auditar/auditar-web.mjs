@@ -577,7 +577,10 @@ async function esperarRevelada(cdp, sessionId, urlEsperada, msMax) {
       }
       // Si la pagina ya se ve, no hay nada que esperar (esta no usa el mecanismo de
       // revelado). Si sigue oculta, la app todavia no ha arrancado: se espera.
-      if (!estado.oculta && Date.now() - inicio > 2500) {
+      // OJO: desde que la pagina NO se oculta mientras arranca, "visible" ya no significa
+      // "lista": se da margen al atributo (el arranque lo pone en el `finally` y el watchdog
+      // a los 6 s). 2500 ms era el margen de antes, cuando la pagina si estaba oculta.
+      if (!estado.oculta && Date.now() - inicio > 7000) {
         return { ms: Date.now() - inicio, motivo: "visible sin data-app-ready" };
       }
     }

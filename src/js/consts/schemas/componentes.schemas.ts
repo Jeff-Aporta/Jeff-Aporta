@@ -37,7 +37,7 @@ export const JaSeccionPropsSchema = z.object({
 export type JaSeccionProps = z.infer<typeof JaSeccionPropsSchema>;
 
 /** `<ja-video>`: video de YouTube con fachada ligera (solo carga el reproductor al pulsar). */
-export const JaVideoPropsSchema = z.object({ youtubeId: z.string().default(''), titulo: z.string().default('Video'), activo: z.boolean().default(false) });
+export const JaVideoPropsSchema = z.object({ youtubeId: z.string().default(''), titulo: z.string().default('Video'), activo: z.boolean().default(false), miniatura: z.string().default('') });
 export type JaVideoProps = z.infer<typeof JaVideoPropsSchema>;
 
 /** `<ja-hito>`: una fila del gráfico de ramas (evento + número de carriles del gráfico). */

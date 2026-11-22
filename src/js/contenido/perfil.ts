@@ -25,7 +25,8 @@ export const perfil = {
     { icono: 'mdi:server-network', titulo: 'Infraestructura y VPS', texto: 'Apps auto-mantenibles y autoescalables en VPS Linux, con Docker, CI/CD y monitoreo.' },
     { icono: 'mdi:database-outline', titulo: 'Backend y datos', texto: 'Controladores, ORM y modelos cliente-controlador sobre PostgreSQL, MSSQL y vectores.' },
   ],
-  video: { youtubeId: '32WdPbuVcdg', titulo: 'Presentación profesional de Jeffrey Agudelo', canal: 'https://www.youtube.com/@JeffAporta' },
+  /** La miniatura se sirve desde el propio sitio: la de YouTube es de un tercero lento y pesa 48 KB. */
+  video: { youtubeId: '32WdPbuVcdg', titulo: 'Presentación profesional de Jeffrey Agudelo', canal: 'https://www.youtube.com/@JeffAporta', miniatura: 'assets/img/video/presentacion.jpg' },
   cv: 'assets/docs/jeffrey-agudelo-cv.pdf',
   /** Tarjeta de la hoja de vida: ícono hecho con capturas reales del PDF (`assets/img/cv/`) y su fecha. */
   cvTarjeta: { icono: 'assets/img/cv/cv-icono-256.webp', actualizado: 'noviembre de 2026', paginas: 2 },

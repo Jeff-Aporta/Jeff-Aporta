@@ -19,7 +19,8 @@
           "target": "#demo",
           "props": {
             "youtubeId": "32WdPbuVcdg",
-            "titulo": "Presentación profesional"
+            "titulo": "Presentación profesional",
+            "miniatura": "../../assets/img/video/presentacion.jpg"
           },
           "controls": [
             {
