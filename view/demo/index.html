@@ -5,6 +5,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Jeff Aporta · componentes</title>
 <meta name="robots" content="noindex">
+<meta name="description" content="Galería de componentes del kit iswc-root: cada pieza con su demo, sus propiedades y su código, dentro del portafolio de Jeffrey Agudelo.">
+<link rel="canonical" href="https://jeff-aporta.github.io/Jeff-Aporta/view/demo/">
+<link rel="icon" href="../../favicon.ico?v=2" sizes="any">
+<link rel="icon" href="../../assets/img/favicon-32.png?v=2" type="image/png" sizes="32x32">
+<link rel="icon" href="../../assets/img/favicon-64.png?v=2" type="image/png" sizes="64x64">
+<link rel="apple-touch-icon" href="../../assets/img/icono-180.png?v=2" sizes="180x180">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <!-- Las fuentes NO bloquean el arranque: una hoja de un CDN externo retarda todos los scripts que van detrás. -->
@@ -19,6 +25,12 @@
   .galeria { display: grid; grid-template-columns: 14rem 1fr; height: 100%; }
   .galeria nav { display: grid; align-content: start; gap: 0.25rem; padding: 0.75rem; border-right: 1px solid var(--iswc-border-soft); overflow: auto; }
   .galeria nav iswc-button[aria-current="true"] { --iswc-button-bg: var(--iswc-brand-soft); }
+  /* La hoja del kit no bloquea el arranque: sin reservar el alto, los botones crecen de 20 a 44 px al
+     llegar ella y empujan a los de abajo (un layout shift de 0,07 en la galería). El alto que usa el
+     kit se reserva aquí, que sí está desde el primer pintado. */
+  .galeria nav iswc-button { min-height: 2.75rem; }
+  /* Aviso del panel cuando el preview del kit no llega (la lista sigue viva). */
+  .galeria .aviso { margin: 2rem; color: var(--iswc-text-soft); }
 </style>
 <!-- 1) Import map, precarga del cierre, hojas base del kit sin bloquear, loader pineado y registrador.
      Lo escribe `deno task build` entre las marcas: no editar a mano. -->
@@ -26,18 +38,19 @@
 <script type="importmap">{"imports":{"@jeff-aporta/iswc-base/":"https://cdn.jsdelivr.net/gh/Jeff-Aporta/is-webcomponents@8255b7a8f45cf8fbab3007e62e7ccc45867d61cf/dist/cdn/"}}</script>
 <meta name="iswc-precargado" content="8255b7a8f45cf8fbab3007e62e7ccc45867d61cf">
 <link rel="modulepreload" href="../../dist/cdn/jaLote.min.mjs?v=01v10m">
-<link rel="modulepreload" href="../../dist/cdn/jaLoteExtra.min.mjs?v=x1e7sg">
-<link rel="modulepreload" href="../../dist/cdn/jaNucleo.min.js?v=5ydmz2">
-<link rel="modulepreload" href="../../dist/cdn/jaApp.min.js?v=vxpk2b">
-<link rel="modulepreload" href="../../dist/cdn/jaPortafolio.min.js?v=65tmuj">
-<link rel="modulepreload" href="../../dist/cdn/jaBlog.min.js?v=dy7xfc">
-<link rel="modulepreload" href="../../dist/cdn/jaGaleria.min.js?v=gdxi70">
+<link rel="modulepreload" href="../../dist/cdn/jaLoteExtra.min.mjs?v=iyq1oz">
+<link rel="modulepreload" href="../../dist/cdn/jaLoteGaleria.min.mjs?v=cpfzp1">
+<link rel="modulepreload" href="../../dist/cdn/jaNucleo.min.js?v=uz3khm">
+<link rel="modulepreload" href="../../dist/cdn/jaApp.min.js?v=55sqde">
+<link rel="modulepreload" href="../../dist/cdn/jaPortafolio.min.js?v=hl1xwz">
+<link rel="modulepreload" href="../../dist/cdn/jaBlog.min.js?v=677bl5">
+<link rel="modulepreload" href="../../dist/cdn/jaGaleria.min.js?v=brasor">
 <link rel="preload" as="style" href="https://cdn.jsdelivr.net/gh/Jeff-Aporta/is-webcomponents@8255b7a8f45cf8fbab3007e62e7ccc45867d61cf/dist/cdn/is-base.min.css" onload="this.onload=null;this.rel='stylesheet'">
 <link rel="preload" as="style" href="https://cdn.jsdelivr.net/gh/Jeff-Aporta/is-webcomponents@8255b7a8f45cf8fbab3007e62e7ccc45867d61cf/dist/cdn/palettes.min.css" onload="this.onload=null;this.rel='stylesheet'">
 <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Jeff-Aporta/is-webcomponents@8255b7a8f45cf8fbab3007e62e7ccc45867d61cf/dist/cdn/is-base.min.css"></noscript>
 <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Jeff-Aporta/is-webcomponents@8255b7a8f45cf8fbab3007e62e7ccc45867d61cf/dist/cdn/palettes.min.css"></noscript>
 <script type="module" src="https://cdn.jsdelivr.net/gh/Jeff-Aporta/is-webcomponents@8255b7a8f45cf8fbab3007e62e7ccc45867d61cf/dist/cdn/core/loader.min.js"></script>
-<script type="module" src="../../dist/cdn/jaLoader.min.js?v=o71gt8"></script>
+<script type="module" src="../../dist/cdn/jaLoader.min.js?v=omxdbr"></script>
 <!-- iswc:precarga:fin -->
 <link rel="preload" as="style" href="https://cdn.jsdelivr.net/gh/Jeff-Aporta/is-webcomponents@8255b7a8f45cf8fbab3007e62e7ccc45867d61cf/dist/cdn/preview/preview-component.min.css" onload="this.onload=null;this.rel='stylesheet'">
 <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Jeff-Aporta/is-webcomponents@8255b7a8f45cf8fbab3007e62e7ccc45867d61cf/dist/cdn/preview/preview-component.min.css"></noscript>
@@ -47,8 +60,9 @@
     <nav id="nav" aria-label="Componentes"></nav>
     <iswc-preview-component id="preview"></iswc-preview-component>
   </div>
-  <!-- La galería marca `data-app-ready` al montar; el watchdog revela la página si falla. -->
+  <!-- La galería marca `data-app-ready` en cuanto está pintado el LISTADO (no espera al kit);
+       el watchdog revela la página si ni siquiera eso llega. -->
   <script>setTimeout(function () { document.documentElement.setAttribute('data-app-ready', ''); }, 6000);</script>
-  <script type="module" src="../../dist/cdn/jaGaleria.min.js?v=gdxi70"></script>
+  <script type="module" src="../../dist/cdn/jaGaleria.min.js?v=brasor"></script>
 </body>
 </html>
