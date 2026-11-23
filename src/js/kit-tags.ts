@@ -74,7 +74,14 @@ export const LOTE_TAGS = [...KIT_TAGS] as const;
  * Tags del kit que solo usan el blog o la galería: van en un LOTE aparte (se pide al abrir esa vista),
  * para no engordar el arranque con el renderizador de Markdown.
  */
-export const LOTE_TAGS_EXTRA = [...KIT_TAGS_VISTA.blog, 'iswc-preview-controls'] as const;
+export const LOTE_TAGS_EXTRA = [...KIT_TAGS_VISTA.blog] as const;
+
+/**
+ * Tags del kit que solo usa la GALERÍA: el shell del preview (`iswc-preview-component`) y sus
+ * controles. Van en su propio LOTE (se pide al abrir la galería): el arranque y el blog no los
+ * necesitan, y la galería no depende así de un `import()` al CDN en caliente para pintar su lista.
+ */
+export const LOTE_TAGS_GALERIA = ['iswc-preview-component', 'iswc-preview-controls'] as const;
 
 export type AppTag = (typeof APP_TAGS)[number] | (typeof VIEW_TAGS)[keyof typeof VIEW_TAGS][number];
 export type Vista = keyof typeof VIEW_TAGS;

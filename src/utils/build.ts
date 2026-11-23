@@ -27,7 +27,7 @@ import esbuild, { type Plugin } from 'esbuild';
 import { hashPorRuta } from '@iswc/build/hash.ts';
 import { withAssetHash } from '@iswc/build/asset-url.ts';
 import { hashesJson, stampDirectory } from '@iswc/build/stamp-hashes.ts';
-import { APP_TAGS, KIT_TAGS, LOTE_TAGS, LOTE_TAGS_EXTRA, PREFIJO, VIEW_TAGS, bundleDe, rutaComponente } from '../js/kit-tags.ts';
+import { APP_TAGS, KIT_TAGS, LOTE_TAGS, LOTE_TAGS_EXTRA, LOTE_TAGS_GALERIA, PREFIJO, VIEW_TAGS, bundleDe, rutaComponente } from '../js/kit-tags.ts';
 import { ISWC_LOADER_HREF } from '../js/iswc.ts';
 import { construirLote, infoDelPin, pluginPin, type InfoPin } from '../../scripts/build/build-lote.ts';
 import { MARCA_FIN, MARCA_INICIO, bloquePrecarga, conSello } from '../../scripts/build/precarga.ts';
@@ -166,6 +166,7 @@ async function compilarLotes(pin: InfoPin): Promise<{ nombre: string; tags: numb
   for (const lote of [
     { nombre: 'jaLote.min.mjs', tags: [...LOTE_TAGS] },
     { nombre: 'jaLoteExtra.min.mjs', tags: [...LOTE_TAGS_EXTRA] },
+    { nombre: 'jaLoteGaleria.min.mjs', tags: [...LOTE_TAGS_GALERIA] },
   ]) {
     const r = await construirLote({
       cdn: pin.cdn,
@@ -242,7 +243,7 @@ function entradaRegistrador(url: string): string {
  */
 function fuenteRegistrador(hashes: Record<string, string>): string {
   const pares: string[] = [];
-  for (const [tags, lote] of [[LOTE_TAGS, 'jaLote.min.mjs'], [LOTE_TAGS_EXTRA, 'jaLoteExtra.min.mjs']] as const) {
+  for (const [tags, lote] of [[LOTE_TAGS, 'jaLote.min.mjs'], [LOTE_TAGS_EXTRA, 'jaLoteExtra.min.mjs'], [LOTE_TAGS_GALERIA, 'jaLoteGaleria.min.mjs']] as const) {
     const url = conSello(lote, hashes);
     for (const tag of tags) pares.push(`${JSON.stringify(tag)}:${entradaRegistrador(url)}`);
   }
@@ -302,7 +303,7 @@ function modulosDe(pagina: string): string[] {
   const nucleo = ['jaNucleo.min.js', 'jaApp.min.js'];
   if (rel.startsWith('blog/')) return ['jaLote.min.mjs', 'jaLoteExtra.min.mjs', ...nucleo, 'jaBlog.min.js'];
   if (rel.startsWith('view/demo/')) {
-    return ['jaLote.min.mjs', 'jaLoteExtra.min.mjs', ...nucleo, 'jaPortafolio.min.js', 'jaBlog.min.js', 'jaGaleria.min.js'];
+    return ['jaLote.min.mjs', 'jaLoteExtra.min.mjs', 'jaLoteGaleria.min.mjs', ...nucleo, 'jaPortafolio.min.js', 'jaBlog.min.js', 'jaGaleria.min.js'];
   }
   return ['jaLote.min.mjs', ...nucleo, 'jaPortafolio.min.js'];
 }
