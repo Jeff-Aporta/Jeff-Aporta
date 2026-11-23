@@ -27,8 +27,6 @@ tests/e2e/.cobertura/
 # Copias de trabajo de la hoja de vida (backups y duplicados con fecha). Lo que se publica es
 # assets/docs/jeffrey-agudelo-cv.docx y assets/docs/jeffrey-agudelo-cv.pdf.
 assets/docs/*.bak-*
-assets/docs/jeffrey-agudelo-cv-*.docx
-assets/docs/jeffrey-agudelo-cv-*.pdf
 
 # Salida del auditor web (informes y capturas): es generada.
 audit/
