@@ -71,7 +71,12 @@ function titulo(ruta: RutaSpa): string {
 
 const JaApp = crearComponente<JaAppProps>(import.meta.url, 'ja-app', { seccion: 'inicio' }, (root, _props, host) => {
   // Base SPA de todos los <ja-link> del documento: la raíz del sitio (la URL limpia de un post no lo es).
-  document.documentElement.dataset.spaBase ||= raizSitio();
+  // ¿Esta instancia es el shell de la PÁGINA o una vista previa? En la galería (`/view/demo/`) el
+  // preview del kit instancia un `<ja-app>` de verdad, dentro de su propio árbol: si ese caso se
+  // tratara como el shell, cambiaría el título de la página, reescribiría la URL (el scroll-spy
+  // hace `replaceState` a "/") e interceptaría los clics. Solo el `<ja-app>` del documento manda.
+  const enLaPagina = host.parentElement === document.body;
+  if (enLaPagina) document.documentElement.dataset.spaBase ||= raizSitio();
   root.append(html`
     <a class="saltar" href="#contenido">Saltar al contenido</a>
     <header class="barra" part="barra">
@@ -119,15 +124,15 @@ const JaApp = crearComponente<JaAppProps>(import.meta.url, 'ja-app', { seccion: 
       (host as HTMLElement & { vistaLista?: Promise<unknown> }).vistaLista = cargarVista(ruta.vista === 'portafolio' ? 'portafolio' : 'blog');
       vista.replaceChildren(ruta.vista === 'portafolio' ? pieza('ja-portafolio', {}) : ruta.vista === 'blog' ? pieza('ja-blog', {}) : pieza('ja-post', { slug: ruta.slug }));
     }
-    document.title = titulo(ruta);
+    if (enLaPagina) document.title = titulo(ruta);
     compartir.setAttribute('url', urlCompartir(ruta, contenido.sitio.url));
-    compartir.setAttribute('share-title', document.title);
+    compartir.setAttribute('share-title', titulo(ruta));
     marcar(ruta, ruta.vista === 'portafolio' ? ruta.seccion : 'inicio');
     if (ruta.vista === 'portafolio' && ruta.seccion !== 'inicio') {
       // Tras montar el portafolio (su definición se carga aparte), la sección pedida se lleva a la vista.
       pendiente = ruta.seccion;
       customElements.whenDefined('ja-portafolio').then(() => requestAnimationFrame(() => requestAnimationFrame(() => (vista.querySelector('ja-portafolio') as Portafolio | null)?.irA?.(ruta.seccion, !cambioVista))));
-    } else if (cambioVista || (ruta.vista === 'portafolio' && actual?.vista === 'portafolio')) {
+    } else if (enLaPagina && (cambioVista || (ruta.vista === 'portafolio' && actual?.vista === 'portafolio'))) {
       scrollTo({ top: 0, behavior: cambioVista ? 'auto' : 'smooth' });
     }
     actual = ruta;
@@ -151,15 +156,15 @@ const JaApp = crearComponente<JaAppProps>(import.meta.url, 'ja-app', { seccion: 
     actual = { vista: 'portafolio', seccion: id };
     compartir.setAttribute('url', urlCompartir(actual, contenido.sitio.url));
     silencio = true;
-    navegar(actual, 'replace');
+    if (enLaPagina) navegar(actual, 'replace');
     silencio = false;
   });
-  if (!ESCUCHANDO.has(host)) {
+  if (enLaPagina && !ESCUCHANDO.has(host)) {
     ESCUCHANDO.add(host);
     alCambiarRuta(() => host.isConnected && (host as HTMLElement & { recargarRuta?(): void }).recargarRuta?.());
   }
   (host as HTMLElement & { recargarRuta?(): void }).recargarRuta = () => silencio || mostrar();
-  iniciarParalaje();
+  if (enLaPagina) iniciarParalaje();
   mostrar();
 });
 
