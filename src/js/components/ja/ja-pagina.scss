@@ -88,7 +88,13 @@
   &::part(button):hover { color: var(--iswc-text); background: color-mix(in srgb, var(--iswc-color-brand) 10%, transparent); }
 }
 
-.contenido { display: block; }
+.contenido {
+  display: block;
+
+  /* Como en `ja-app`: el pie no debe pintar arriba mientras la vista (el post o la lista) no llega.
+     Una pantalla reservada lo deja debajo del pliegue y el salto desaparece. */
+  min-height: 100dvh;
+}
 
 @include m.movil {
   .barra { --margen: #{t.esp(4)}; padding: t.esp(2) var(--margen); }

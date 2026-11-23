@@ -166,6 +166,13 @@
 
 .vista {
   display: block;
+
+  /* El pie vive DESPUÉS de la vista, en el shadow del shell. Mientras la vista no ha llegado (el
+     `<ja-portafolio>` todavía no está definido), el main está vacío y el pie se queda pegado a la
+     barra, ARRIBA de todo. Cuando la vista se monta, el pie baja al final de la página y ese salto
+     de 12.000 px es un layout shift de 0,23 (el CLS de la portada). Reservando una pantalla, el pie
+     queda debajo del pliegue hasta que hay contenido: no salta nunca. */
+  min-height: 100dvh;
 }
 
 @include m.movil {
