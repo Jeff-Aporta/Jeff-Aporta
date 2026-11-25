@@ -26,7 +26,40 @@ Todo el texto y los datos viven en `src/js/contenido/`, separados de la UI y val
 Cambias un archivo, corres `deno task build` y se actualizan la página, los metadatos (`<head>`, JSON-LD,
 sitemap, manifest), las páginas del blog (`blog/`) y las cifras. La hoja de vida está en `assets/docs/`: el `.docx` es la fuente y el `.pdf` se exporta desde él (Word) con el mismo nombre.
 
-### La hoja de vida (`assets/docs/`)
+### La hoja de vida: el PDF sale del HTML (25-nov-2026)
+
+**Desde el 25-nov-2026 el PDF del CV se genera desde HTML, no desde el `.docx`.** El motivo es
+práctico: el `.docx` lo generó `python-docx` en el VPS y **Word de este PC lo rechaza** ("The file
+appears to be corrupted"; LibreOffice sí lo abre, pero no está instalado aquí). Por eso el flujo nuevo:
+
+- **Fuente de verdad:** `D:/Dev/Tools/postulaciones/li-auto/cv/cv-fuente.html` (HTML + CSS con
+  `@page` tamaño Letter, la foto en `cv/cv-foto.jpg`).
+- **Generar el PDF:** `cd D:/Dev/Tools/postulaciones/li-auto && deno run -A --no-lock --no-check generar-cv.ts [salida.pdf]`
+  (Chromium headless vía Playwright; `printBackground` y `preferCSSPageSize` para que respete el `@page`).
+- **Metadatos:** después de generar, `python cv/ajustar-metadatos.py <pdf>`. Sin esto el PDF queda con
+  `Creator: HeadlessChrome`, que se ve poco profesional en las propiedades del archivo.
+- **El `.docx` se mantiene actualizado en contenido** (mismo texto y mismas líneas) pero **ya no es la
+  fuente del PDF que se entrega**. Si algún día se vuelve a usar, hay que abrirlo en LibreOffice.
+
+Cambios de esta revisión (pedidos del autor, 25-nov-2026):
+
+- En **Educación**, Ingeniería de Sistemas pasa de «Proceso de titulación» a **«Certificado»** (se
+  conserva el hipervínculo al certificado de UniRemington dentro del `.docx`).
+- Las **experiencias van separadas por una línea horizontal** (borde superior fino `#C9D0DA`), para que
+  cada bloque se lea como una unidad. En el PDF eso es `.exp + .exp { border-top: ... }`; en el `.docx`,
+  un `w:top` en `w:pBdr` sobre cada párrafo de cabecera de experiencia (con `w:space="9"` y
+  `w:before="260"`). **Ojo con el orden de `w:pPr`**: `w:pBdr` va **antes** de `w:spacing`; si se
+  añade al final, Word marca el archivo como corrupto (el esquema OOXML exige ese orden).
+- Se corrigieron además dos saltos feos que ya venían de antes: el subtítulo partido en dos líneas y la
+  fecha de «Ferremateriales Antioquia» que se cruzaba con la línea siguiente (ahora las filas compactas
+  usan flexbox, no `float`).
+
+El PDF vigente es **`assets/docs/jeffrey-agudelo-cv.pdf`** (2 páginas, 93 KB) y el mismo archivo se copia a
+`C:/Users/jeffr/Documents/jeffrey-agudelo-cv-20261125.pdf` y a
+`D:/Dev/Tools/postulaciones/li-auto/cv/jeffrey-agudelo-cv-20261125.pdf`, que es el que sube el bot
+(`RESUME` en `scripts/li-comun.ts`).
+
+### La hoja de vida (`assets/docs/`) — notas históricas del flujo con `.docx`
 
 - El `.docx` manda; el `.pdf` sale de él. En el VPS se exporta con `soffice --headless --convert-to pdf` (si no hay Word a mano): el resultado es el mismo maquetado, con las fuentes incrustadas.
 - El documento ocupa **dos hojas** (decisión del autor, 19-nov-2026: no debe quedar apretado en una sola). Por eso el espaciado es amplio: `space_after` de 5-6 pt en el texto, 13 pt antes de cada título de sección, y `line_spacing` 1,15.
